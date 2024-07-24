@@ -61,7 +61,7 @@ pkgs["aspell"] = {
 
 pkgs["astyle"] = {
 	url	= "https://sourceforge.net/projects/astyle/files/",
-	regex	= "astyle-([%.%d]+)-x64.zip",
+	regex	= "astyle-(%d%.[%.%d]+)-x64.zip",
 };
 
 pkgs["at-spi2-core"] = {
@@ -97,7 +97,7 @@ pkgs["autoconf-archive"] = {
 
 pkgs["automake"] = {
 	url	= "https://ftp.gnu.org/gnu/automake",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	regex	= "(%d+[%.%d]+).tar.gz",
 };
 
 pkgs["axel"] = {
@@ -1375,7 +1375,7 @@ pkgs["libverto"] = {
 
 pkgs["libvorbis"] = {
 	url	= "http://downloads.xiph.org/releases/vorbis/",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	regex	= "libvorbis-(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["libvpx"] = {
@@ -1448,11 +1448,6 @@ pkgs["llvm"] = {
 	regex	= "llvmorg-([.%d]+).tar.gz",
 };
 
-pkgs["lmerge"] = {
-	url	= "https://github.com/ziyao233/lmerge/tags",
-	regex	= "v([.%d]+).tar.gz",
-};
-
 pkgs["lua51"] = {
 	url	= "https://www.lua.org/ftp/",
 	regex	= "lua-(5.1[.%d]+).tar.gz",
@@ -1477,6 +1472,11 @@ pkgs["lua51-luv"] = {
 pkgs["lua54"] = {
 	url	= "https://www.lua.org/ftp/",
 	regex	= "lua-(5.4[.%d]+).tar.gz",
+};
+
+pkgs["lua54-lmerge"] = {
+	url	= "https://github.com/ziyao233/lmerge/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["luarocks54"] = {
@@ -1788,8 +1788,8 @@ pkgs["p11-kit"] = {
 };
 
 pkgs["pacman"] = {
-	url	= "https://sources.archlinux.org/other/pacman/",
-	regex	= "(%d+%.[%.%d]+).tar.xz",
+	url	= "https://gitlab.archlinux.org/pacman/pacman/-/tags",
+	regex	= "v(%d+%.[%.%d]+).tar.gz",
 };
 
 pkgs["pam"] = {
@@ -1978,7 +1978,7 @@ pkgs["perl-test-fatal"] = {
 };
 
 pkgs["perl-test-most"] = {
-	url	= "https://cpan.metacpan.org/authors/id/O/OV/OVID/ ",
+	url	= "https://cpan.metacpan.org/authors/id/O/OV/OVID/",
 	regex	= "Test-Most-(%d+%.%d+).tar.gz",
 };
 
@@ -2520,8 +2520,8 @@ pkgs["signify"] = {
 };
 
 pkgs["sing-box"] = {
-	url	= "https://github.com/SagerNet/sing-box/tags",
-	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+	url	= "https://github.com/SagerNet/sing-box",
+	regex	= "v(%d+%.%d+%.%d+)",
 };
 
 pkgs["skalibs"] = {
