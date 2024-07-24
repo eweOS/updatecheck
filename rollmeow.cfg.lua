@@ -21,19 +21,11 @@ evalDownstream(pkg)
 	return downStreamVers[pkg];
 end
 
-local function
-fetchUpstream(url)
-	local ver = io.popen("curl --connect-timeout 5 -Ls " .. url):read("a");
-	if ver == "" then
-		error("failed to fetch");
-	end
-	return ver;
-end
-
 return
 {
 	evalDownstream	= evalDownstream,
-	fetchUpstream	= fetchUpstream,
 	cachePath	= "/tmp/rollmeow.cache.lua",
 	packages	= pkgs,
+	-- uncomment for faster fetching
+	-- connections	= 16,
 };
