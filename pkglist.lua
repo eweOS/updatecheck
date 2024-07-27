@@ -49,9 +49,19 @@ pkgs["appstream"] = {
 	regex	= "AppStream-([.%d]+).tar.xz",
 };
 
+pkgs["appstream-glib"] = {
+	url	= "https://people.freedesktop.org/~hughsient/appstream-glib/releases/",
+	regex	= "appstream-glib-(%d+%.%d+%.%d+).tar.xz",
+};
+
 pkgs["avrdude"] = {
 	url	= "https://github.com/avrdudes/avrdude/tags",
 	regex	= "v(%d+%.%d+).tar.gz",
+};
+
+pkgs["asciidoc"] = {
+	url	= "https://github.com/asciidoc-py/asciidoc-py/tags",
+	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["aspell"] = {
@@ -120,6 +130,11 @@ pkgs["bash-completion"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
+pkgs["basu"] = {
+	url	= "https://git.sr.ht/~emersion/basu/refs",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["benchmark"] = {
 	url	= "https://github.com/google/benchmark/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -133,6 +148,11 @@ pkgs["bird"] = {
 pkgs["bison"] = {
 	url	= "http://ftp.gnu.org/gnu/bison",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["blueprint-compiler"] = {
+	url	= "https://gitlab.gnome.org/jwestman/blueprint-compiler/-/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["boost"] = {
@@ -155,6 +175,11 @@ pkgs["btop"] = {
 	regex	= "v([.%d]+).tar.gz",
 };
 
+pkgs["btrfs-progs"] = {
+	url	= "https://mirrors.edge.kernel.org/pub/linux/kernel/people/kdave/btrfs-progs/",
+	regex	= "btrfs-progs-v(%d+%.[%.%d]+).tar.gz",
+};
+
 pkgs["bubblewrap"] = {
 	url	= "https://github.com/containers/bubblewrap/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -167,9 +192,7 @@ pkgs["busybox"] = {
 
 pkgs["c-ares"] = {
 	url	= "https://github.com/c-ares/c-ares/tags",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
-	-- FIXME
-	-- eval_upstream = version.replace("_", ".").replace("-","")
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["caddy"] = {
@@ -227,6 +250,11 @@ pkgs["cmake"] = {
 	regex	= "v([.%d]+).tar.gz",
 };
 
+pkgs["cmark"] = {
+	url	= "https://github.com/commonmark/cmark/tags",
+	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["cmatrix"] = {
 	url	= "https://github.com/abishekvashok/cmatrix/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -235,6 +263,11 @@ pkgs["cmatrix"] = {
 pkgs["cmocka"] = {
 	url	= "https://git.cryptomilk.org/projects/cmocka.git/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["composefs"] = {
+	url	= "https://github.com/containers/composefs/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["connman"] = {
@@ -297,6 +330,11 @@ pkgs["dash"] = {
 	regex	= "dash-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["dav1d"] = {
+	url	= "https://downloads.videolan.org/pub/videolan/dav1d",
+	regex	= "(%d+%.%d+%.%d+)/",
+};
+
 pkgs["dconf"] = {
 	url	= "https://gitlab.gnome.org/GNOME/dconf/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -335,6 +373,11 @@ pkgs["dmidecode"] = {
 pkgs["doctest"] = {
 	url	= "https://github.com/onqtam/doctest/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["dosfstools"] = {
+	url	= "https://github.com/dosfstools/dosfstools/tags",
+	regex	= "v(%d+%.[%.%d]+).tar.gz",
 };
 
 pkgs["dropbear"] = {
@@ -425,6 +468,11 @@ pkgs["fcgiwrap"] = {
 
 pkgs["fcitx5"] = {
 	url	= "https://github.com/fcitx/fcitx5/tags",
+	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+}
+
+pkgs["fcitx5-anthy"] = {
+	url	= "https://github.com/fcitx/fcitx5-anthy/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
@@ -609,6 +657,11 @@ pkgs["glade"] = {
 	postMatch = replacer('_', '.'),
 };
 
+pkgs["glfw"] = {
+	url	= "https://github.com/glfw/glfw/tags",
+	regex	= "/(%d+%.[%.%d]+).tar.gz",
+};
+
 pkgs["glib"] = {
 	url	= "https://gitlab.gnome.org/GNOME/glib/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -652,6 +705,11 @@ pkgs["go"] = {
 pkgs["gobject-introspection"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gobject-introspection/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["googletest"] = {
+	url	= "https://github.com/google/googletest/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["gperf"] = {
@@ -699,9 +757,19 @@ pkgs["grim"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["groff"] = {
+	url	= "https://ftp.gnu.org/gnu/groff/",
+	regex	= "groff-(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["gsettings-desktop-schemas"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas/-/tags",
 	regex	= "(%d+%.%d+).tar.gz",
+};
+
+pkgs["gsm"] = {
+	url	= "https://www.quut.com/gsm/",
+	regex	= "gsm-(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["gtk-layer-shell"] = {
