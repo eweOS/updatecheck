@@ -2470,6 +2470,11 @@ pkgs["python-wheel"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-yaml"] = {
+	url	= "https://github.com/yaml/pyyaml/tags",
+	regex	= "/(%d+%.[%d%.]+).tar.gz",
+};
+
 pkgs["qemu-common"] = {
 	url	= "https://download.qemu.org/",
 	regex	= "qemu-(%d+%.%d+%.%d+).tar.xz",
@@ -2515,6 +2520,11 @@ pkgs["re2c"] = {
 pkgs["readline"] = {
 	url	= "https://ftp.gnu.org/gnu/readline/",
 	regex	= "readline-(%d+%.%d+).tar.gz",
+};
+
+pkgs["rollmeow"] = {
+	url	= "https://github.com/eweOS/rollmeow/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["rsync"] = {
@@ -2610,6 +2620,12 @@ pkgs["slibtool"] = {
 pkgs["slurp"] = {
 	url	= "https://github.com/emersion/slurp/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["smartmontools"] = {
+	url	= "https://www.smartmontools.org/wiki/Download",
+	regex	= "RELEASE_(%d+_%d+)/",
+	postMatch = replacer('_', '.'),
 };
 
 pkgs["socat"] = {
@@ -2722,6 +2738,11 @@ pkgs["symlinks"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["systemc"] = {
+	url	= "https://github.com/accellera-official/systemc/tags",
+	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["tcl"] = {
 	url	= "https://sourceforge.net/projects/tcl/files/Tcl/",
 	regex	= "/(%d+%.[%.%d]+)/",
@@ -2734,6 +2755,11 @@ pkgs["tclap"] = {
 
 pkgs["telegram-desktop"] = {
 	url	= "https://github.com/telegramdesktop/tdesktop/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["tetris"] = {
+	url	= "https://github.com/eNV25/tetris/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
@@ -2778,6 +2804,11 @@ pkgs["ttf-unifont"] = {
 	regex	= "unifont-(%d+%.%d+%.%d+)/",
 };
 
+pkgs["tty2socket"] = {
+	url	= "https://github.com/eweOS/tty2socket/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["turnstile"] = {
 	url	= "https://github.com/chimera-linux/turnstile/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -2798,9 +2829,26 @@ pkgs["utmps"] = {
 	regex	= "utmps-(%d+%.%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["vala"] = {
+	url	= "https://gitlab.gnome.org/GNOME/vala/-/tags",
+	regex	= "vala-(%d+%.%d+%.%d+).tar.gz",
+	-- releases with even minor version is stable
+	filter	= function(vs) return vs[2] % 2 == 0; end,
+};
+
+pkgs["valgrind"] = {
+	url	= "https://sourceware.org/pub/valgrind/",
+	regex	= "valgrind-(%d+%.%d+%.%d+).tar.bz2",
+};
+
 pkgs["vapoursynth"] = {
 	url	= "https://github.com/vapoursynth/vapoursynth/tags",
 	regex	= "(R%d+).tar.gz",
+};
+
+pkgs["verilator"] = {
+	url	= "https://github.com/verilator/verilator/tags",
+	regex	= "v(%d+%.%d+).tar.gz",
 };
 
 pkgs["vim"] = {
@@ -2808,8 +2856,25 @@ pkgs["vim"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["virglrenderer"] = {
+	url	= "https://gitlab.freedesktop.org/virgl/virglrenderer/-/tags",
+	regex	= "virglrenderer-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["vte-common"] = {
+	url	= "https://gitlab.gnome.org/GNOME/vte/-/tags",
+	regex	= "vte-(%d+%.%d+%.%d+).tar.gz",
+	-- releases with even minor version are stable
+	filter	= function(s) return s[2] % 2 == 0; end,
+};
+
 pkgs["vulkan-headers"] = {
 	url	= "https://github.com/KhronosGroup/Vulkan-Headers/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["vulkan-icd-loader"] = {
+	url	= "https://github.com/KhronosGroup/Vulkan-Loader/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
