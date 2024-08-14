@@ -4,6 +4,10 @@ function replacer(a, b)
 	end
 end
 
+function gnomeStable(v)
+	return v[2] % 2 == 0;
+end
+
 pkgs["abseil-cpp"] = {
 	url	= "https://github.com/abseil/abseil-cpp/tags",
 	regex	= "(%d%d%d%d%d%d%d%d%.%d).tar.gz",
@@ -19,6 +23,7 @@ pkgs["adwaita-icon-theme"] = {
 	regex	= "(%d+%.%d+).tar.gz",
 };
 
+
 pkgs["alsa-lib"] = {
 	url	= "https://www.alsa-project.org/files/pub/lib/",
 	regex	= "alsa-lib-(%d+%.%d+%.%d+).tar.bz2",
@@ -27,6 +32,11 @@ pkgs["alsa-lib"] = {
 pkgs["alsa-utils"] = {
 	url	= "https://www.alsa-project.org/wiki/Main_Page",
 	regex	= "alsa-utils-(%d+%.%d+%.%d+).tar.bz2",
+};
+
+pkgs["aml"] = {
+	url	= "https://github.com/any1/aml/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["arch-install-scripts"] = {
@@ -52,6 +62,11 @@ pkgs["appstream"] = {
 pkgs["appstream-glib"] = {
 	url	= "https://people.freedesktop.org/~hughsient/appstream-glib/releases/",
 	regex	= "appstream-glib-(%d+%.%d+%.%d+).tar.xz",
+};
+
+pkgs["aquamarine"] = {
+	url	= "https://github.com/hyprwm/aquamarine/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["avrdude"] = {
@@ -82,7 +97,13 @@ pkgs["at-spi2-core"] = {
 
 pkgs["atkmm"] = {
 	url	= "https://gitlab.gnome.org/GNOME/atkmm/-/tags",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	regex	= "atkmm-(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
+};
+
+pkgs["atkmm-gtk3"] = {
+	url	= "https://gitlab.gnome.org/GNOME/atkmm/-/tags",
+	regex	= "(2.28.%d+).tar.gz",
 };
 
 pkgs["atool"] = {
@@ -566,6 +587,14 @@ pkgs["foot"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
+pkgs["freeimage"] = {
+	url	= "https://freeimage.sourceforge.io/download.html",
+	regex	= "FreeImage(%d%d%d%d).zip",
+	postMatch = function(s) return s:sub(1, 1) .. "." ..
+				       s:sub(2, 3) .. "." ..
+				       s:sub(4, 4); end,
+};
+
 pkgs["freetype2"] = {
 	url	= "https://download.savannah.gnu.org/releases/freetype/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -672,6 +701,11 @@ pkgs["glibmm"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["glibmm-gtk3"] = {
+	url	= "https://gitlab.gnome.org/GNOME/glibmm/-/tags",
+	regex	= "(2.66.%d+).tar.gz",
+};
+
 pkgs["glm"] = {
 	url	= "https://github.com/g-truc/glm/tags",
 	regex	= "([.%w]+).tar.gz",
@@ -710,6 +744,11 @@ pkgs["gobject-introspection"] = {
 pkgs["googletest"] = {
 	url	= "https://github.com/google/googletest/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["gparted"] = {
+	url	= "https://gparted.org/download.php",
+	regex	= "gparted-live-(%d+%.%d+%.%d+)-",
 };
 
 pkgs["gperf"] = {
@@ -807,9 +846,10 @@ pkgs["gtklock"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
-pkgs["gtksourceview"] = {
+pkgs["gtksourceview5"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gtksourceview/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 pkgs["harfbuzz"] = {
@@ -887,6 +927,11 @@ pkgs["hyprpicker"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["hyprutils"] = {
+	url	= "https://github.com/hyprwm/hyprutils/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["hyprwayland-scanner"] = {
 	url	= "https://github.com/hyprwm/hyprwayland-scanner/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -906,6 +951,11 @@ pkgs["ifupdown-ng"] = {
 pkgs["imath"] = {
 	url	= "https://github.com/AcademySoftwareFoundation/Imath/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["inotify-tools"] = {
+	url	= "https://github.com/inotify-tools/inotify-tools/tags",
+	regex	= "/(%d+.%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["intltool"] = {
@@ -1114,6 +1164,11 @@ pkgs["libedit"] = {
 	postMatch = replacer('-', '_'),
 };
 
+pkgs["libei"] = {
+	url	= "https://gitlab.freedesktop.org/libinput/libei/-/tags",
+	regex	= "libei-(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["libelf"] = {
 	url	= "https://sourceware.org/elfutils/ftp/",
 	regex	= "([.%d]+)/",
@@ -1220,6 +1275,11 @@ pkgs["libksba"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.bz2",
 };
 
+pkgs["libliftoff"] = {
+	url	= "https://gitlab.freedesktop.org/emersion/libliftoff/-/tags",
+	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["libltdl"] = {
 	url	= "https://ftp.gnu.org/gnu/libtool/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -1235,6 +1295,11 @@ pkgs["libmd"] = {
 	regex	= "libmd-(%d+%.%d+%.%d+).tar.xz",
 };
 
+pkgs["libmnl"] = {
+	url	= "https://www.netfilter.org/projects/libmnl/files/",
+	regex	= "libmnl-(%d+%.%d+%.%d+).tar.bz2",
+};
+
 pkgs["libmicrohttpd"] = {
 	url	= "https://ftp.gnu.org/gnu/libmicrohttpd/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -1243,6 +1308,21 @@ pkgs["libmicrohttpd"] = {
 pkgs["libmpack"] = {
 	url	= "https://github.com/libmpack/libmpack/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["libnfnetlink"] = {
+	url	= "https://www.netfilter.org/projects/libnfnetlink/files/",
+	regex	= "libnfnetlink-(%d+%.%d+%.%d+).tar.bz2",
+};
+
+pkgs["libnfs"] = {
+	url	= "https://github.com/sahlberg/libnfs/tags",
+	regex	= "libnfs-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["libnftnl"] = {
+	url	= "https://netfilter.org/projects/libnftnl/files/",
+	regex	= "libnftnl-(%d+%.%d+%.%d+).tar.xz",
 };
 
 pkgs["libnghttp2"] = {
