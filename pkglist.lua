@@ -11,6 +11,11 @@ end
 local vPrefixedTarGz = "v(%d+[%.%d]+).tar.gz";
 local tarGz = "/(%d+[%.%d]+).tar.gz";
 
+pkgs["a52dec"] = {
+	url	= "https://git.adelielinux.org/community/a52dec/-/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["abseil-cpp"] = {
 	url	= "https://github.com/abseil/abseil-cpp/tags",
 	regex	= "(%d%d%d%d%d%d%d%d%.%d).tar.gz",
@@ -21,11 +26,15 @@ pkgs["acl"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["ada-url"] = {
+	url	= "https://github.com/ada-url/ada/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["adwaita-icon-theme"] = {
 	url	= "https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/tags",
 	regex	= "(%d+%.%d+).tar.gz",
 };
-
 
 pkgs["alsa-lib"] = {
 	url	= "https://www.alsa-project.org/files/pub/lib/",
@@ -40,6 +49,16 @@ pkgs["alsa-utils"] = {
 pkgs["aml"] = {
 	url	= "https://github.com/any1/aml/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["android-tools"] = {
+	url	= "https://github.com/nmeum/android-tools/tags",
+	regex	= tarGz,
+};
+
+pkgs["assimp"] = {
+	url	= "https://github.com/assimp/assimp/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["arch-install-scripts"] = {
@@ -179,9 +198,19 @@ pkgs["blueprint-compiler"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["bluez"] = {
+	url	= "https://www.kernel.org/pub/linux/bluetooth/",
+	regex	= "bluez-(%d+%.%d+).tar.xz",
+};
+
 pkgs["boost"] = {
 	url	= "https://boostorg.jfrog.io/artifactory/main/release/",
 	regex	= "(%d+%.%d+%.%d+)/",
+};
+
+pkgs["botan"] = {
+	url	= "https://botan.randombit.net/releases/",
+	regex	= "Botan-(%d+%.%d+%.%d+).tar.xz",
 };
 
 pkgs["bottom"] = {
@@ -219,6 +248,11 @@ pkgs["c-ares"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["cabextract"] = {
+	url	= "https://github.com/kyz/libmspack/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["caddy"] = {
 	url	= "https://github.com/caddyserver/caddy/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -244,6 +278,16 @@ pkgs["capstone"] = {
 	regex	= "/(%d+%.%d%.%d+).tar.gz",
 };
 
+pkgs["cargo-c"] = {
+	url	= "https://github.com/lu-zero/cargo-c/tags",
+	regex	= vPrefixedTarGz,
+};
+
+pkgs["catdoc"] = {
+	url	= "http://ftp.wagner.pp.ru/pub/catdoc/",
+	regex	= "catdoc-(%d+%.[%.%d]+).tar.gz",
+};
+
 pkgs["catnest"] = {
 	url	= "https://github.com/eweOS/catnest/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -267,6 +311,11 @@ pkgs["check"] = {
 pkgs["chrpath"] = {
 	url	= "http://ftp.debian.org/debian/pool/main/c/chrpath/",
 	regex	= "chrpath_([.%d]+).orig.tar.gz",
+};
+
+pkgs["cjson"] = {
+	url	= "https://github.com/DaveGamble/cJSON/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["cmake"] = {
@@ -334,6 +383,11 @@ pkgs["curl"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["cxxopts"] = {
+	url	= "https://github.com/jarro2783/cxxopts/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["cyrus-sasl"] = {
 	url	= "https://github.com/cyrusimap/cyrus-sasl/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -399,6 +453,11 @@ pkgs["doctest"] = {
 	regex	= "v([.%d]+).tar.gz",
 };
 
+pkgs["dos2unix"] = {
+	url	= "https://waterlan.home.xs4all.nl/dos2unix.html",
+	regex	= "dos2unix-(%d+%.[%.%d]+).tar.gz",
+};
+
 pkgs["dosfstools"] = {
 	url	= "https://github.com/dosfstools/dosfstools/tags",
 	regex	= "v(%d+%.[%.%d]+).tar.gz",
@@ -432,6 +491,11 @@ pkgs["efibootmgr"] = {
 pkgs["efivar"] = {
 	url	= "https://github.com/rhboot/efivar/tags",
 	regex	= "([.%d]+).tar.gz",
+};
+
+pkgs["ell"] = {
+	url	= "https://git.kernel.org/pub/scm/libs/ell/ell.git/refs/",
+	regex	= "tag/%?h=(%d+%.%d+)",
 };
 
 pkgs["ewe_pkgtool"] = {
@@ -3053,6 +3117,11 @@ pkgs["util-linux"] = {
 	regex	= "v(%d+%.[%.%d]+).tar.gz",
 };
 
+pkgs["utf8cpp"] = {
+	url	= "https://github.com/nemtrif/utfcpp/tags/",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["utmps"] = {
 	url	= "http://skarnet.org/software/utmps/",
 	regex	= "utmps-(%d+%.%d+%.%d+%.%d+).tar.gz",
@@ -3137,9 +3206,19 @@ pkgs["wayland-protocols"] = {
 	regex	= "(%d+%.%d+).tar.gz",
 };
 
+pkgs["waylyrics"] = {
+	url	= "https://github.com/waylyrics/waylyrics/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["wayvnc"] = {
 	url	= "https://github.com/any1/wayvnc/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["wcm"] = {
+	url	= "https://github.com/WayfireWM/wcm/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["wdisplays"] = {
@@ -3157,9 +3236,29 @@ pkgs["wf-config"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["wf-recorder"] = {
+	url	= "https://github.com/ammen99/wf-recorder/tags",
+	regex	= vPrefixedTarGz,
+};
+
+pkgs["wf-shell"] = {
+	url	= "https://github.com/WayfireWM/wf-shell/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["wget"] = {
 	url	= "https://ftp.gnu.org/gnu/wget/",
 	regex	= "wget-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["wine"] = {
+	url	= "https://gitlab.winehq.org/wine/wine/-/tags",
+	regex	= "tags/wine-(%d+%.%d+)",
+};
+
+pkgs["winetricks"] = {
+	url	= "https://github.com/Winetricks/winetricks/tags",
+	regex	= "/(%d%d%d%d%d%d%d%d).tar.gz",
 };
 
 pkgs["wireguard-tools"] = {
@@ -3187,9 +3286,9 @@ pkgs["wlr-randr"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
-pkgs["wlroots"] = {
+pkgs["wlroots0.18"] = {
 	url	= "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	regex	= "(0%.18%.%d+).tar.gz",
 };
 
 pkgs["wmenu"] = {
@@ -3222,6 +3321,11 @@ pkgs["xdg-desktop-portal"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["xdg-desktop-portal-wlr"] = {
+	url	= "https://github.com/emersion/xdg-desktop-portal-wlr/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["xdg-user-dirs"] = {
 	url	= "https://gitlab.freedesktop.org/xdg/xdg-user-dirs/-/tags",
 	regex	= "(%d+%.%d+).tar.gz",
@@ -3230,6 +3334,11 @@ pkgs["xdg-user-dirs"] = {
 pkgs["xdg-utils"] = {
 	url	= "https://gitlab.freedesktop.org/xdg/xdg-utils/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["xdg-utils-cxx"] = {
+	url	= "https://github.com/azubieta/xdg-utils-cxx/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["xkeyboard-config"] = {
@@ -3267,6 +3376,21 @@ pkgs["yasm"] = {
 	regex	= "yasm-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["yelp-tools"] = {
+	url	= "https://gitlab.gnome.org/GNOME/yelp-tools/-/tags",
+	regex	= "yelp-tools-(%d+%.[%.%d+]).tar.gz",
+};
+
+pkgs["yelp-xsl"] = {
+	url	= "https://gitlab.gnome.org/GNOME/yelp-xsl/-/tags",
+	regex	= "yelp-xsl-(%d+%.[%.%d]+).tar.gz",
+};
+
+pkgs["zenity"] = {
+	url	= "https://gitlab.gnome.org/GNOME/zenity/-/tags",
+	regex	= "zenity-(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["zimg"] = {
 	url	= "https://github.com/sekrit-twc/zimg/tags",
 	regex	= "release-(%d+%.%d+%.%d+).tar.gz",
@@ -3281,4 +3405,3 @@ pkgs["zstd"] = {
 	url	= "https://github.com/facebook/zstd/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
-
