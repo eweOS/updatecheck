@@ -498,7 +498,12 @@ pkgs["ell"] = {
 	regex	= "tag/%?h=(%d+%.%d+)",
 };
 
-pkgs["ewe_pkgtool"] = {
+pkgs["enet"] = {
+	url	= "http://enet.bespin.org/Downloads.html",
+	regex	= "enet-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["ewe-pkgtool"] = {
 	url	= "https://github.com/eweOS/ewe-pkgtool/tags",
 	regex	= "v([.%d]+).tar.gz",
 };
@@ -506,6 +511,11 @@ pkgs["ewe_pkgtool"] = {
 pkgs["eww"] = {
 	url	= "https://github.com/elkowar/eww/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["exiv2"] = {
+	url	= "https://github.com/Exiv2/exiv2/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["expat"] = {
@@ -639,6 +649,11 @@ pkgs["fmt"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
+pkgs["fluidsynth"] = {
+	url	= "https://github.com/fluidsynth/fluidsynth/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["fontconfig"] = {
 	url	= "https://gitlab.freedesktop.org/fontconfig/fontconfig/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -654,6 +669,11 @@ pkgs["foot"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
+pkgs["fractal"] = {
+	url	= "https://gitlab.gnome.org/World/fractal/-/tags",
+	regex	= "fractal-([%.%d]+).tar.gz",
+};
+
 pkgs["freeimage"] = {
 	url	= "https://freeimage.sourceforge.io/download.html",
 	regex	= "FreeImage(%d%d%d%d).zip",
@@ -665,6 +685,11 @@ pkgs["freeimage"] = {
 pkgs["freetype2"] = {
 	url	= "https://download.savannah.gnu.org/releases/freetype/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["frei0r-plugins"] = {
+	url	= "https://github.com/dyne/frei0r/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["fribidi"] = {
@@ -700,6 +725,17 @@ pkgs["gc"] = {
 pkgs["gcompat"] = {
 	url	= "https://git.adelielinux.org/adelie/gcompat/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["gcr-3"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gcr/-/tags",
+	regex	= "gcr-(3%.%d+%.%d+).tar.gz",
+	filter	= function(v) return tonumber(v[2]) < 90; end,
+};
+
+pkgs["gcr-4"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gcr/-/tags",
+	regex	= "gcr-(4%.%d+%.%d+).tar.gz",
 };
 
 pkgs["gdbm"] = {
@@ -793,6 +829,11 @@ pkgs["gmp"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["gnome-keyring"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gnome-keyring/-/tags",
+	regex	= "gnome-keyring-(%d+%.%d+).tar.gz",
+};
+
 pkgs["gnupg"] = {
 	url	= "https://gnupg.org/ftp/gcrypt/gnupg",
 	regex	= "gnupg-(%d+%.%d+%.%d+).tar.bz2",
@@ -878,6 +919,11 @@ pkgs["gsm"] = {
 	regex	= "gsm-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["gstreamer"] = {
+	url	= "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/tags",
+	regex	= "gstreamer-(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["gtk-layer-shell"] = {
 	url	= "https://github.com/wmww/gtk-layer-shell/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -944,6 +990,11 @@ pkgs["hicolor-icon-theme"] = {
 	regex	= "hicolor-icon-theme-(%d+%.%d+).tar.xz",
 };
 
+pkgs["hidapi"] = {
+	url	= "https://github.com/libusb/hidapi/tags",
+	regex	= "hidapi-(%d+%.%d+%.%d+).tar.gz",
+};
+
 pkgs["htop"] = {
 	url	= "https://github.com/htop-dev/htop/tags",
 	regex	= "([.%d]+).tar.gz",
@@ -1008,6 +1059,11 @@ pkgs["icu"] = {
 	url	= "https://github.com/unicode-org/icu/releases/latest",
 	regex	= "release-([-%d]+)",
 	postMatch = replacer('-', '.'),
+};
+
+pkgs["idump"] = {
+	url	= "https://github.com/uobikiemukot/idump/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["ifupdown-ng"] = {
@@ -1095,6 +1151,11 @@ pkgs["krb5"] = {
 	regex	= "krb5-(%d+%.[%.%d]+).tar.gz",
 };
 
+pkgs["labwc"] = {
+	url	= "https://github.com/labwc/labwc/tags",
+	regex	= tarGz,
+};
+
 pkgs["lame"] = {
 	url	= "https://sourceforge.net/projects/lame/files/lame/",
 	regex	= "lame-(%d+%.%d+).tar.gz",
@@ -1165,6 +1226,11 @@ pkgs["libbz2"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["libcanberra"] = {
+	url	= "https://0pointer.net/lennart/projects/libcanberra/",
+	regex	= "libcanberra-(%d+%.%d+).tar.xz",
+};
+
 pkgs["libcap"] = {
 	url	= "https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/",
 	regex	= "(%d+%.%d+).tar.gz",
@@ -1173,6 +1239,11 @@ pkgs["libcap"] = {
 pkgs["libclc"] = {
 	url	= "https://github.com/llvm/llvm-project/tags",
 	regex	= "llvmorg-([.%d]+).tar.gz",
+};
+
+pkgs["libcpuid"] = {
+	url	= "https://github.com/anrieff/libcpuid/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["libcrc32c"] = {
