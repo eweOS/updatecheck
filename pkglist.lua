@@ -10,6 +10,10 @@ end
 
 local vPrefixedTarGz = "v(%d+[%.%d]+).tar.gz";
 local tarGz = "/(%d+[%.%d]+).tar.gz";
+local function
+namedTarGz(name)
+	return name .. "-(%d+[%.%d]+).tar.gz";
+end
 
 pkgs["a52dec"] = {
 	url	= "https://git.adelielinux.org/community/a52dec/-/tags",
@@ -426,6 +430,7 @@ pkgs["dconf-editor"] = {
 pkgs["dbus"] = {
 	url	= "https://gitlab.freedesktop.org/dbus/dbus/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 pkgs["desktop-file-utils"] = {
@@ -748,11 +753,6 @@ pkgs["gdk-pixbuf"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
-pkgs["gettext"] = {
-	url	= "https://ftp.gnu.org/gnu/gettext/",
-	regex	= "gettext-(%d+%.%d+%.%d+).tar.gz",
-};
-
 pkgs["gettext-tiny"] = {
 	url	= "https://github.com/sabotage-linux/gettext-tiny/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -797,6 +797,7 @@ pkgs["glfw"] = {
 pkgs["glib"] = {
 	url	= "https://gitlab.gnome.org/GNOME/glib/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 pkgs["glibmm"] = {
@@ -837,6 +838,7 @@ pkgs["gnome-keyring"] = {
 pkgs["gnupg"] = {
 	url	= "https://gnupg.org/ftp/gcrypt/gnupg",
 	regex	= "gnupg-(%d+%.%d+%.%d+).tar.bz2",
+	filter	= gnomeStable,
 };
 
 pkgs["go"] = {
@@ -947,6 +949,7 @@ pkgs["gtkmm3"] = {
 pkgs["gtk4"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gtk/-/tags",
 	regex	= "gtk-(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 pkgs["gtk4-layer-shell"] = {
@@ -1334,8 +1337,8 @@ pkgs["libexif"] = {
 };
 
 pkgs["libffi"] = {
-	url	= "https://sourceware.org/pub/libffi/",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	url	= "https://github.com/libffi/libffi/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["libgcrypt"] = {
@@ -1501,7 +1504,7 @@ pkgs["libpciaccess"] = {
 
 pkgs["libplacebo"] = {
 	url	= "https://code.videolan.org/videolan/libplacebo/-/tags",
-	regex	= "(%d+%.%d+%.%d+).tar.xz",
+	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["libpng"] = {
@@ -1745,7 +1748,7 @@ pkgs["lua51-cjson"] = {
 };
 
 pkgs["lua51-lpeg"] = {
-	url	= "https://www.inf.puc-rio.br/~roberto/lpeg",
+	url	= "http://www.inf.puc-rio.br/~roberto/lpeg",
 	regex	= "lpeg-(%d+%.%d+%.%d+).tar.gz",
 };
 
@@ -1831,11 +1834,6 @@ pkgs["minisign"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
-pkgs["minizip"] = {
-	url	= "https://zlib.net",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
-};
-
 pkgs["mm-common"] = {
 	url	= "https://gitlab.gnome.org/GNOME/mm-common/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -1914,11 +1912,6 @@ pkgs["ncurses"] = {
 pkgs["neatvnc"] = {
 	url	= "https://github.com/any1/neatvnc/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
-};
-
-pkgs["neofetch"] = {
-	url	= "https://github.com/dylanaraps/neofetch/tags",
-	regex	= "([.%d]+).tar.gz",
 };
 
 pkgs["neovim"] = {
@@ -2398,9 +2391,29 @@ pkgs["python"] = {
 	regex	= "(3.12.%d+)/",
 };
 
+pkgs["python-appdirs"] = {
+	url	= "https://github.com/ActiveState/appdirs/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-aiounittest"] = {
+	url	= "https://github.com/kwarunek/aiounittest/tags",
+	regex	= tarGz,
+};
+
 pkgs["python-attrs"] = {
 	url	= "https://github.com/python-attrs/attrs/tags",
 	regex	= "/(%d%d%.%d+%.%d+).tar.gz",
+};
+
+pkgs["python-argcomplete"] = {
+	url	= "https://github.com/kislyuk/argcomplete/tags",
+	regex	= vPrefixedTarGz,
+};
+
+pkgs["python-auditwheel"] = {
+	url	= "https://github.com/pypa/auditwheel/tags",
+	regex	= tarGz,
 };
 
 pkgs["python-autocommand"] = {
@@ -2413,9 +2426,19 @@ pkgs["python-babel"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-beaker"] = {
+	url	= "https://github.com/bbangert/beaker/tags",
+	regex	= tarGz,
+};
+
 pkgs["python-beautifulsoup4"] = {
 	url	= "https://git.launchpad.net/beautifulsoup/tree/CHANGELOG",
 	regex	= "%s(%d+%.%d+%.%d+)%s",
+};
+
+pkgs["python-boolean.py"] = {
+	url	= "https://github.com/bastikr/boolean.py/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["python-build"] = {
@@ -2433,9 +2456,70 @@ pkgs["python-calver"] = {
 	regex	= "/(%d%d%d%d%.%d%d%.%d%d).tar.gz",
 };
 
+pkgs["python-cattrs"] = {
+	url	= "https://github.com/python-attrs/cattrs/tags",
+	regex	= vPrefixedTarGz,
+};
+
+pkgs["python-certifi"] = {
+	url	= "https://github.com/certifi/python-certifi/tags",
+	regex	= "(%d%d%d%d%.%d%d%.%d%d).tar.gz",
+};
+
+pkgs["python-cffi"] = {
+	url	= "https://github.com/python-cffi/cffi/tags",
+	regex	= vPrefixedTarGz,
+};
+
+pkgs["python-chardet"] = {
+	url	= "https://github.com/chardet/chardet/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-charset-normalizer"] = {
+	url	= "https://github.com/Ousret/charset_normalizer/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-dateutil"] = {
+	url	= "https://github.com/dateutil/dateutil/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-dbusmock"] = {
+	url	= "https://github.com/martinpitt/python-dbusmock/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-ddt"] = {
+	url	= "https://github.com/txels/ddt/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-decorator"] = {
+	url	= "https://github.com/micheles/decorator/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-docutils"] = {
+	url	= "https://sourceforge.net/projects/docutils/files/docutils/",
+	regex	= "/(%d+%.[%.%d]+)/"
+};
+
+pkgs["python-dogpile.cache"] = {
+	url	= "https://github.com/sqlalchemy/dogpile.cache/tags",
+	regex	= "rel_(%d+_%d+_%d+).tar.gz",
+	postMatch = replacer('_', '.'),
+};
+
 pkgs["python-editables"] = {
 	url	= "https://github.com/pfmoore/editables/tags",
 	regex	= "/(%d+%.%d+).tar.gz",
+};
+
+pkgs["python-execnet"] = {
+	url	= "https://github.com/pytest-dev/execnet/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["python-fastjsonschema"] = {
@@ -2443,14 +2527,44 @@ pkgs["python-fastjsonschema"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-filelock"] = {
+	url	= "https://github.com/benediktschmitt/py-filelock/tags",
+	regex	= tarGz,
+};
+
 pkgs["python-flit-core"] = {
 	url	= "https://github.com/pypa/flit/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-fonttools"] = {
+	url	= "https://github.com/fonttools/fonttools/tags",
+	regex	= tarGz,
+};
+
 pkgs["python-freezegun"] = {
 	url	= "https://github.com/spulec/freezegun/tags",
-	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+	regex	= tarGz,
+};
+
+pkgs["python-fs"] = {
+	url	= "https://github.com/PyFilesystem/pyfilesystem2/tags",
+	regex	= vPrefixedTarGz,
+};
+
+pkgs["python-gitdb"] = {
+	url	= "https://github.com/gitpython-developers/gitdb/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-gitpython"] = {
+	url	= "https://github.com/gitpython-developers/gitpython/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-gobject"] = {
+	url	= "https://gitlab.gnome.org/GNOME/pygobject/-/tags",
+	regex	= namedTarGz("gobject"),
 };
 
 pkgs["python-hatch-fancy-pypi-readme"] = {
@@ -2473,13 +2587,23 @@ pkgs["python-html5lib"] = {
 	regex	= "/([.%d]+).tar.gz",
 };
 
+pkgs["python-httplib2"] = {
+	url	= "https://github.com/httplib2/httplib2/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["python-hypothesis"] = {
 	url	= "https://github.com/HypothesisWorks/hypothesis/tags",
 	regex	= "hypothesis-python-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-idna"] = {
+	url	= "https://github.com/kjd/idna/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["python-imagesize"] = {
-	url	= "https://github.com/shibukawa/imagesize_py",
+	url	= "https://github.com/shibukawa/imagesize_py/tags",
 	regex	= tarGz,
 };
 
@@ -2564,6 +2688,16 @@ pkgs["python-more-itertools"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-msgpack"] = {
+	url	= "https://github.com/msgpack/msgpack-python/tags",
+	regex	= vPrefixedTarGz,
+};
+
+pkgs["python-numpy"] = {
+	url	= "https://github.com/numpy/numpy/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["python-ordered-set"] = {
 	url	= "https://github.com/rspeer/ordered-set/tags",
 	regex	= "release/(%d+%.%d+%.%d+).tar.gz",
@@ -2644,6 +2778,11 @@ pkgs["python-pyproject-metadata"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-pyparsing"] = {
+	url	= "https://github.com/pyparsing/pyparsing/tags",
+	regex	= tarGz,
+};
+
 pkgs["python-pysocks"] = {
 	url	= "https://github.com/Anorov/PySocks/tags",
 	regex	= tarGz,
@@ -2704,6 +2843,11 @@ pkgs["python-requests"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["python-scripttest"] = {
+	url	= "https://github.com/pypa/scripttest/tags",
+	regex	= tarGz,
+};
+
 pkgs["python-semantic-version"] = {
 	url	= "https://github.com/rbarrois/python-semanticversion/tags",
 	regex	= tarGz,
@@ -2732,6 +2876,11 @@ pkgs["python-six"] = {
 pkgs["python-smartypants"] = {
 	url	= "https://github.com/leohemsted/smartypants.py/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["python-smmap"] = {
+	url	= "https://github.com/gitpython-developers/smmap/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["python-sortedcontainers"] = {
@@ -2774,6 +2923,16 @@ pkgs["python-tomli"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-tomli-w"] = {
+	url	= "https://github.com/hukkin/tomli-w/tags",
+	regex	= tarGz,
+};
+
+pkgs["python-tornado"] = {
+	url	= "https://github.com/tornadoweb/tornado/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["python-tqdm"] = {
 	url	= "https://github.com/tqdm/tqdm/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -2809,6 +2968,11 @@ pkgs["python-u-msgpack"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-ufolib2"] = {
+	url	= "https://github.com/fonttools/ufoLib2/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["python-urllib3"] = {
 	url	= "https://github.com/urllib3/urllib3/tags",
 	regex	= "(1%.%d+%.%d+).tar.gz",
@@ -2834,6 +2998,11 @@ pkgs["python-wheel"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-wrapt"] = {
+	url	= "https://github.com/GrahamDumpleton/wrapt/tags",
+	regex	= tarGz,
+};
+
 pkgs["python-yaml"] = {
 	url	= "https://github.com/yaml/pyyaml/tags",
 	regex	= "/(%d+%.[%d%.]+).tar.gz",
@@ -2855,6 +3024,11 @@ pkgs["qt6-base"] = {
 	postMatch = function(s) return s .. ".0"; end,
 };
 
+pkgs["ragel"] = {
+	url	= "https://github.com/adrian-thurston/ragel/tags",
+	regex	= tarGz,
+};
+
 pkgs["ranger"] = {
 	url	= "https://github.com/ranger/ranger/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -2863,6 +3037,11 @@ pkgs["ranger"] = {
 pkgs["rapidjson"] = {
 	url	= "https://github.com/Tencent/rapidjson/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["rav1e"] = {
+	url	= "https://github.com/xiph/rav1e",
+	regex	= "xiph/rav1e/releases/tag/v(%d+%.[%.%d]+)",
 };
 
 pkgs["rdfind"] = {
@@ -2969,6 +3148,11 @@ pkgs["semver"] = {
 pkgs["shellcheck"] = {
 	url	= "https://github.com/koalaman/shellcheck/tags",
 	regex	= vPrefixedTarGz,
+};
+
+pkgs["sfwbar"] = {
+	url	= "https://github.com/LBCrion/sfwbar/tags",
+	regex	= "v(%d+%.[%.%d]+[_%w]+).tar.gz",
 };
 
 pkgs["signify"] = {
@@ -3117,6 +3301,11 @@ pkgs["swaybg"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["swayidle"] = {
+	url	= "https://github.com/swaywm/swayidle/tags",
+	regex	= tarGz,
+};
+
 pkgs["swayimg"] = {
 	url	= "https://github.com/artemsen/swayimg/tags",
 	regex	= "v(%d+%.%d+).tar.gz",
@@ -3200,6 +3389,12 @@ pkgs["tl-expected"] = {
 pkgs["tllist"] = {
 	url	= "https://codeberg.org/dnkl/tllist/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["tmux"] = {
+	url	= "https://github.com/tmux/tmux/tags",
+	regex	= "(%d+%.%d+[a-z]*).tar.gz",
+	postMatch = function(s) return s:gsub("[a-z]", ".%1"); end,
 };
 
 pkgs["toml11"] = {
