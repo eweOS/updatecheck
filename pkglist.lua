@@ -30,6 +30,18 @@ namedVTar(name)
 	return name .. "-v(%d+[%.%d]+).tar";
 end
 
+local function
+batchPkgs(upstreamName, names)
+	local upstream = pkgs[upstreamName];
+
+	for _, name in pairs(names) do
+		pkgs[name] = {
+				url	= upstream.url,
+				follow	= upstreamName,
+			     };
+	end
+end
+
 pkgs["a52dec"] = {
 	url	= "https://git.adelielinux.org/community/a52dec/-/tags",
 	regex	= vPrefixedTarGz,
@@ -242,6 +254,10 @@ pkgs["bluez"] = {
 	url	= "https://www.kernel.org/pub/linux/bluetooth/",
 	regex	= "bluez-(%d+%.%d+).tar.xz",
 };
+
+batchPkgs("bluez", {
+	"bluez-cups", "bluez-libs", "bluez-mesh", "bluez-obex", "bluez-utils"
+	});
 
 pkgs["boost"] = {
 	url	= "https://boostorg.jfrog.io/artifactory/main/release/",
@@ -1071,6 +1087,14 @@ pkgs["gstreamer"] = {
 	regex	= "gstreamer-(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("gstreamer", {
+	"gst-editing-services", "gst-libav", "gst-plugin-gtk",
+	"gst-plugin-pipewire", "gst-plugin-qml6", "gst-plugin-qsv",
+	"gst-plugin-va", "gst-plugins-bad", "gst-plugins-base",
+	"gst-plugins-good", "gst-python", "gst-rtsp-server",
+	"gstreamer-devel", "gstreamer-vaapi"
+	});
+
 pkgs["gtk-layer-shell"] = {
 	url	= "https://github.com/wmww/gtk-layer-shell/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -1128,6 +1152,10 @@ pkgs["harfbuzz"] = {
 	url	= "https://github.com/harfbuzz/harfbuzz/tags",
 	regex	= "([.%d]+).tar.gz",
 };
+
+batchPkgs("harfbuzz", {
+	"harfbuzz-cairo", "harfbuzz-docs", "harfbuzz-icu", "harfbuzz-utils"
+	});
 
 pkgs["havoc"] = {
 	url	= "https://github.com/ii8/havoc/tags",
@@ -1830,6 +1858,10 @@ pkgs["libportal"] = {
 	regex	= tarGz,
 };
 
+batchPkgs("libportal", {
+	"libportal-docs", "libportal-gtk3", "libportal-gtk4", "libportal-qt6"
+	});
+
 pkgs["libppd"] = {
 	url	= "https://github.com/OpenPrinting/libppd/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
@@ -2129,6 +2161,15 @@ pkgs["linux-firmware"] = {
 	url	= "https://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary",
 	regex	= "linux-firmware-(%d%d%d%d%d%d%d%d).tar.gz",
 };
+
+batchPkgs("linux-firmware", {
+	"linux-firmware-amdgpu", "linux-firmware-atheros",
+	"linux-firmware-bnx2x", "linux-firmware-iwlwifi",
+	"linux-firmware-liquidio", "linux-firmware-marvell",
+	"linux-firmware-mediatek", "linux-firmware-mellanox",
+	"linux-firmware-nfp", "linux-firmware-qcom", "linux-firmware-qlogic",
+	"linux-firmware-whence"
+	});
 
 pkgs["llvm"] = {
 	url	= "https://github.com/llvm/llvm-project/tags",
@@ -3702,6 +3743,34 @@ pkgs["qemu-common"] = {
 	url	= "https://download.qemu.org/",
 	regex	= "qemu-(%d+%.%d+%.%d+).tar.xz",
 };
+
+batchPkgs("qemu-common", {
+	"qemu-audio-alsa", "qemu-audio-pipewire", "qemu-audio-sdl",
+	"qemu-block-curl", "qemu-block-dmg", "qemu-guest-agent",
+	"qemu-hw-display-virtio-gpu", "qemu-hw-display-virtio-gpu-gl",
+	"qemu-hw-display-virtio-gpu-pci", "qemu-hw-display-virtio-gpu-pci-gl",
+	"qemu-hw-display-virtio-vga", "qemu-hw-display-virtio-vga-gl",
+	"qemu-hw-s390x-virtio-gpu-ccw", "qemu-hw-usb-host",
+	"qemu-system-aarch64", "qemu-system-alpha", "qemu-system-arm",
+	"qemu-system-i386", "qemu-system-loongarch64", "qemu-system-m68k",
+	"qemu-system-mips", "qemu-system-mips64", "qemu-system-mips64el",
+	"qemu-system-mipsel", "qemu-system-ppc", "qemu-system-ppc64",
+	"qemu-system-riscv32", "qemu-system-riscv64", "qemu-system-s390x",
+	"qemu-system-sparc", "qemu-system-sparc64", "qemu-system-x86_64",
+	"qemu-tests", "qemu-tools", "qemu-ui-curses", "qemu-ui-egl-headless",
+	"qemu-ui-gtk", "qemu-ui-opengl", "qemu-ui-sdl",
+
+	"qemu-user-static",
+	"qemu-user-static-aarch64", "qemu-user-static-alpha",
+	"qemu-user-static-arm", "qemu-user-static-i386",
+	"qemu-user-static-loongarch64", "qemu-user-static-m68k",
+	"qemu-user-static-mips", "qemu-user-static-mips64",
+	"qemu-user-static-mips64el", "qemu-user-static-mipsel",
+	"qemu-user-static-ppc", "qemu-user-static-ppc64",
+	"qemu-user-static-riscv32", "qemu-user-static-riscv64",
+	"qemu-user-static-s390x", "qemu-user-static-sparc",
+	"qemu-user-static-sparc64", "qemu-user-static-x86_64"
+	});
 
 pkgs["qpdf"] = {
 	url	= "https://github.com/qpdf/qpdf/tags",
