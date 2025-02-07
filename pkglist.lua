@@ -8,6 +8,17 @@ function gnomeStable(v)
 	return v[2] % 2 == 0;
 end
 
+-- Some projects use version number >= 90 for unstable releases
+function ignoreHighVersions(v)
+	for _, n in pairs(v) do
+		if tonumber(n) >= 90 then
+			return false;
+		end
+	end
+
+	return true;
+end
+
 local vPrefixedTarGz = "v(%d+[%.%d]+).tar.gz";
 local tarGz = "/(%d+[%.%d]+).tar.gz";
 local function
@@ -403,6 +414,8 @@ pkgs["cdrdao"] = {
 	regex	= "rel_(%d+_[_%d]+)/",
 	postMatch = replacer('_', '.'),
 };
+
+batchPkgs("cdrdao", "gcdmaster");
 
 pkgs["cfiles"] = {
 	url	= "https://github.com/mananapr/cfiles/tags",
@@ -940,14 +953,24 @@ pkgs["gcr-3"] = {
 	filter	= function(v) return tonumber(v[2]) < 90; end,
 };
 
+batchPkgs("gcr-3", "gcr-3-docs");
+
 pkgs["gcr-4"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gcr/-/tags",
 	regex	= "gcr-(4%.%d+%.%d+).tar.gz",
+	filter	= ignoreHighVersions,
 };
+
+batchPkgs("gcr-4", "gcr-4-docs");
 
 pkgs["gd"] = {
 	url	= "https://github.com/libgd/libgd/tags",
 	regex	= namedTarGz("gd"),
+};
+
+pkgs["gdal"] = {
+	url	= "https://download.osgeo.org/gdal",
+	regex	= "(%d+%.%d+%.%d+)/",
 };
 
 pkgs["gdbm"] = {
@@ -996,6 +1019,8 @@ pkgs["ghostscript"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("ghostscript", { "ghostpcl", "ghostxps" });
+
 pkgs["gi-docgen"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gi-docgen/-/tags",
 	regex	= namedTarGz("gi-docgen"),
@@ -1038,6 +1063,8 @@ pkgs["glib"] = {
 	filter	= gnomeStable,
 };
 
+batchPkgs("glib", { "glib-docs", "glib-static" });
+
 pkgs["glib-networking"] = {
 	url	= "https://gitlab.gnome.org/GNOME/glib-networking/-/tags",
 	regex	= namedTarGz("glib-networking"),
@@ -1062,6 +1089,8 @@ pkgs["glslang"] = {
 	url	= "https://github.com/KhronosGroup/glslang/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("glslang", "glslang-static");
 
 pkgs["glu"] = {
 	url	= "https://gitlab.freedesktop.org/mesa/glu/-/tags",
@@ -1106,10 +1135,14 @@ pkgs["go"] = {
 	regex	= "go([.%d]+).src.tar.gz",
 };
 
+batchPkgs("go", "go-doc");
+
 pkgs["gobject-introspection"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gobject-introspection/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("gobject-introspection", "gobject-introspection-runtime");
 
 pkgs["googletest"] = {
 	url	= "https://github.com/google/googletest/tags",
@@ -1151,6 +1184,8 @@ pkgs["greetd"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
+batchPkgs("greetd", "greetd-agreety");
+
 pkgs["greetd-gtk"] = {
 	url	= "https://git.sr.ht/~kennylevinsen/gtkgreet/refs",
 	regex	= "([.%d]+).tar.gz",
@@ -1181,6 +1216,8 @@ pkgs["gsettings-desktop-schemas"] = {
 	regex	= "(%d+%.%d+).tar.gz",
 };
 
+batchPkgs("gsettings-desktop-schemas", "gsettings-system-schemas");
+
 pkgs["gsm"] = {
 	url	= "https://www.quut.com/gsm/",
 	regex	= "gsm-(%d+%.%d+%.%d+).tar.gz",
@@ -1198,6 +1235,11 @@ batchPkgs("gstreamer", {
 	"gst-plugins-good", "gst-python", "gst-rtsp-server",
 	"gstreamer-devel", "gstreamer-vaapi"
 	});
+
+pkgs["gtk-doc"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gtk-doc/-/tags",
+	regex	= namedTarGz("gtk-doc"),
+};
 
 pkgs["gtk-layer-shell"] = {
 	url	= "https://github.com/wmww/gtk-layer-shell/tags",
@@ -1230,6 +1272,8 @@ pkgs["gtk4"] = {
 	filter	= gnomeStable,
 };
 
+batchPkgs("gtk4", "gtk-update-icon-cache");
+
 pkgs["gtk4-layer-shell"] = {
 	url	= "https://github.com/wmww/gtk4-layer-shell/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -1244,6 +1288,12 @@ pkgs["gtksourceview5"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gtksourceview/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 	filter	= gnomeStable,
+};
+
+pkgs["gvfs"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gvfs/-/tags",
+	regex	= namedTarGz("gvfs"),
+	filter	= gnomeStable
 };
 
 pkgs["happy"] = {
@@ -1291,6 +1341,11 @@ pkgs["hidapi"] = {
 	regex	= "hidapi-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["highway"] = {
+	url	= "https://github.com/google/highway/tags",
+	regex	= tarGz,
+};
+
 pkgs["htop"] = {
 	url	= "https://github.com/htop-dev/htop/tags",
 	regex	= "([.%d]+).tar.gz",
@@ -1326,6 +1381,11 @@ pkgs["hyprcursor"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["hyprgraphics"] = {
+	url	= "https://github.com/hyprwm/hyprgraphics/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["hyprland"] = {
 	url	= "https://github.com/hyprwm/Hyprland/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -1351,6 +1411,11 @@ pkgs["hyprwayland-scanner"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["i2c-tools"] = {
+	url	= "https://mirrors.edge.kernel.org/pub/software/utils/i2c-tools",
+	regex	= namedTarGz("i2c-tools"),
+};
+
 pkgs["icu"] = {
 	url	= "https://github.com/unicode-org/icu/releases/latest",
 	regex	= "release-([-%d]+)",
@@ -1367,6 +1432,12 @@ pkgs["ifupdown-ng"] = {
 	regex	= "ifupdown-ng-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["imagemagick"] = {
+	url	= "https://imagemagick.org/archive/",
+	regex	= "ImageMagick-(%d+%.%d+%.%d+-%d+).tar.gz",
+	postMatch = replacer('-', '.'),
+};
+
 pkgs["imath"] = {
 	url	= "https://github.com/AcademySoftwareFoundation/Imath/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -1380,6 +1451,16 @@ pkgs["iniparser"] = {
 pkgs["inotify-tools"] = {
 	url	= "https://github.com/inotify-tools/inotify-tools/tags",
 	regex	= "/(%d+.%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["intel-gmmlib"] = {
+	url	= "https://github.com/intel/gmmlib/tags",
+	regex	= namedTarGz("intel-gmmlib"),
+};
+
+pkgs["intel-media-driver"] = {
+	url	= "https://github.com/intel/media-driver/tags",
+	regex	= namedTarGz("intel-media"),
 };
 
 pkgs["intltool"] = {
@@ -1417,6 +1498,16 @@ pkgs["jbig2dec"] = {
 	regex	= "/(%d+%.%d+).tar.gz",
 };
 
+pkgs["jdk23-openjdk"] = {
+	url	= "https://github.com/openjdk/jdk23u/tags",
+	regex	= "jdk-(%d+[%.%d]+%+%d+).tar.gz",
+	postMatch = replacer('%+', 'u'),
+};
+
+batchPkgs("jdk23-openjdk", {
+	"jre23-openjdk", "openjdk23-src", "openjdk23-doc"
+});
+
 pkgs["jq"] = {
 	url	= "https://github.com/stedolan/jq/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -1436,6 +1527,8 @@ pkgs["json-glib"] = {
 	url	= "https://gitlab.gnome.org/GNOME/json-glib/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("json-glib", "json-glib-docs");
 
 pkgs["jsoncpp"] = {
 	url	= "https://github.com/open-source-parsers/jsoncpp/tags",
