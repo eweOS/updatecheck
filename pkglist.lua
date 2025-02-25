@@ -42,6 +42,16 @@ namedVTar(name)
 end
 
 local function
+namedTarBz2(name)
+  return name .. "-(%d+[%.%d]+).tar.bz2";
+end
+
+local function
+namedTarXz(name)
+  return name .. "-(%d+[%.%d]+).tar.xz";
+end
+
+local function
 batchPkgs(upstreamName, names)
 	local upstream = pkgs[upstreamName];
 
@@ -200,6 +210,11 @@ pkgs["atool"] = {
 pkgs["attr"] = {
 	url	= "http://download.savannah.gnu.org/releases/attr/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["audex"] = {
+	url	= "https://invent.kde.org/multimedia/audex/-/tags",
+	regex	= namedVTarGz("audex"),
 };
 
 pkgs["autoconf"] = {
@@ -680,6 +695,11 @@ pkgs["ell"] = {
 	regex	= "tag/%?h=(%d+%.%d+)",
 };
 
+pkgs["emacs"] = {
+	url	= "http://ftpmirror.gnu.org/emacs/",
+	regex	= namedTarGz("emacs"),
+};
+
 pkgs["enet"] = {
 	url	= "http://enet.bespin.org/Downloads.html",
 	regex	= "enet-(%d+%.%d+%.%d+).tar.gz",
@@ -714,6 +734,11 @@ pkgs["expat"] = {
 	url	= "https://github.com/libexpat/libexpat/tags",
 	regex	= "R_([_%d]+).tar.gz",
 	postMatch = replacer('_', '.'),
+};
+
+pkgs["expect"] = {
+	url	= "https://sourceforge.net/projects/expect",
+	regex	= "expect(%d+[%.%d]+).tar.gz",
 };
 
 pkgs["extra-cmake-modules"] = {
@@ -1012,6 +1037,11 @@ pkgs["gettext-tiny"] = {
 pkgs["gflags"] = {
 	url	= "https://github.com/schuhschuh/gflags/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["ghc"] = {
+	url	= "https://downloads.haskell.org/~ghc/latest/",
+	regex	= "ghc-(%d+[%.%d]+)-src.tar.gz",
 };
 
 pkgs["ghostscript"] = {
@@ -1540,6 +1570,11 @@ pkgs["jxrlib"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["kbd"] = {
+	url	= "https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git/refs/",
+	regex	= namedTarGz("kbd"),
+};
+
 pkgs["keyutils"] = {
 	url	= "https://people.redhat.com/~dhowells/keyutils/",
 	regex	= "(%d+%.%d+%.%d+).tar.bz2",
@@ -1806,6 +1841,11 @@ pkgs["libffi"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["libflac"] = {
+	url	= "https://ftp.osuosl.org/pub/xiph/releases/flac/",
+	regex	= namedTarXz("flac"),
+};
+
 pkgs["libftdi"] = {
 	url	= "https://www.intra2net.com/en/developer/libftdi/download.php",
 	regex	= "libftdi1-(%d+%.%d+).tar.bz2",
@@ -1844,6 +1884,11 @@ pkgs["libglvnd"] = {
 pkgs["libgpg-error"] = {
 	url	= "https://www.gnupg.org/ftp/gcrypt/libgpg-error",
 	regex	= "(%d+%.%d+).tar.gz",
+};
+
+pkgs["libgpiod"] = {
+	url	= "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/refs",
+	regex	= namedTarGz("libgpiod"),
 };
 
 pkgs["libhandy"] = {
@@ -1904,6 +1949,11 @@ pkgs["libisofs"] = {
 pkgs["libjpeg"] = {
 	url	= "https://github.com/libjpeg-turbo/libjpeg-turbo/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["libjxl"] = {
+	url	= "https://github.com/libjxl/libjxl/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["libksba"] = {
@@ -2928,6 +2978,11 @@ pkgs["papirus-icon-theme"] = {
 };
 
 batchPkgs("papirus-icon-theme", "epapirus-icon-theme");
+
+pkgs["parallel"] = {
+	url	= "https://ftpmirror.gnu.org/parallel/",
+	regex	= namedTarBz2("parallel"),
+};
 
 pkgs["parted"] = {
 	url	= "https://ftp.gnu.org/gnu/parted/",
@@ -4076,6 +4131,11 @@ pkgs["sdl2-image"] = {
 	regex	= "release-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["sdl3"] = {
+	url	 = "https://github.com/libsdl-org/SDL/releases",
+	regex	= namedTarGz("SDL3"),
+};
+
 pkgs["seatd"] = {
 	url	= "https://git.sr.ht/~kennylevinsen/seatd/refs",
 	regex	= "refs/(%d+%.%d+%.%d+)",
@@ -4756,6 +4816,11 @@ pkgs["zsh"] = {
 pkgs["zstd"] = {
 	url	= "https://github.com/facebook/zstd/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["zxing-cpp"] = {
+	url	= "https://github.com/zxing-cpp/zxing-cpp/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["zziplib"] = {
