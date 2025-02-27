@@ -19,7 +19,20 @@ function ignoreHighVersions(v)
 	return true;
 end
 
-local vPrefixedTarGz = "v(%d+[%.%d]+).tar.gz";
+function cAnd(...)
+	local conds = { ... };
+	return function(v)
+		for _, cond in ipairs(conds) do
+			if not cond(v) then
+				return false;
+			end
+		end
+
+		return true;
+	end;
+end
+
+local vPrefixedTarGz = "v(%d+%.[%.%d]+).tar.gz";
 local tarGz = "/(%d+[%.%d]+).tar.gz";
 local function
 namedTarGz(name)
@@ -912,7 +925,7 @@ pkgs["fribidi"] = {
 
 pkgs["fswatch"] = {
 	url	= "https://github.com/emcrisostomo/fswatch/tags",
-	regex	= "([.%d]+).tar.gz",
+	regex	= tarGz,
 };
 
 pkgs["fuse3"] = {
@@ -1039,6 +1052,7 @@ pkgs["git"] = {
 pkgs["gjs"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gjs/-/tags",
 	regex	= namedTarGz("gjs"),
+	filter	= gnomeStable,
 };
 
 pkgs["glad"] = {
@@ -1073,6 +1087,7 @@ pkgs["glib-networking"] = {
 pkgs["glibmm"] = {
 	url	= "https://gitlab.gnome.org/GNOME/glibmm/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 pkgs["glibmm-gtk3"] = {
@@ -1121,7 +1136,7 @@ pkgs["gnome-terminal"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gnome-terminal/-/tags",
 	regex	= namedTarGz("gnome-terminal"),
 	-- 3.9x is a gtk4 preview version
-	filter	= function(v) return tonumber(v[2]) < 90; end,
+	filter	= cAnd(gnomeStable, ignoreHighVersions),
 };
 
 pkgs["gnupg"] = {
@@ -1226,6 +1241,7 @@ pkgs["gsm"] = {
 pkgs["gstreamer"] = {
 	url	= "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/tags",
 	regex	= "gstreamer-(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 batchPkgs("gstreamer", {
@@ -1259,6 +1275,7 @@ pkgs["gtk3"] = {
 pkgs["gtkmm"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gtkmm/-/tags",
 	regex	= namedTarGz("gtkmm"),
+	filter	= gnomeStable,
 };
 
 pkgs["gtkmm3"] = {
@@ -3952,8 +3969,8 @@ pkgs["python-yaml"] = {
 };
 
 pkgs["qemu-common"] = {
-	url	= "https://download.qemu.org/",
-	regex	= "qemu-(%d+%.%d+%.%d+).tar.xz",
+	url	= "https://gitlab.com/qemu-project/qemu/-/tags",
+	regex	= namedVTarGz("qemu"),
 };
 
 batchPkgs("qemu-common", {
@@ -4618,6 +4635,8 @@ pkgs["wlroots0.18"] = {
 	regex	= "(0%.18%.%d+).tar.gz",
 };
 
+batchPkgs("wlroots0.18", "wlroots0.18-devel");
+
 pkgs["wmenu"] = {
 	url	= "https://codeberg.org/adnano/wmenu/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
@@ -4663,6 +4682,11 @@ pkgs["xdg-desktop-portal-gtk"] = {
 	regex	= tarGz,
 };
 
+pkgs["xdg-desktop-portal-lxqt"] = {
+	url	= "https://github.com/lxqt/xdg-desktop-portal-lxqt/tags",
+	regex	= tarGz,
+};
+
 pkgs["xdg-desktop-portal-wlr"] = {
 	url	= "https://github.com/emersion/xdg-desktop-portal-wlr/tags",
 	regex	= vPrefixedTarGz,
@@ -4683,9 +4707,124 @@ pkgs["xdg-utils-cxx"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["xerces-c"] = {
+	url	= "https://xerces.apache.org/xerces-c/download.cgi",
+	regex	= namedTarGz("xerces-c"),
+};
+
+pkgs["xfburn"] = {
+	url	= "https://gitlab.xfce.org/apps/xfburn/-/tags",
+	regex	= namedTarGz("xfburn"),
+};
+
+pkgs["xfce4-appfinder"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-appfinder/-/tags",
+	regex	= namedTarGz("xfce4-appfinder"),
+};
+
+pkgs["xfce4-battery-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-battery-plugin/-/tags",
+	regex	= namedTarGz("xfce4-battery-plugin"),
+};
+
+pkgs["xfce4-clipman-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-clipman-plugin/-/tags",
+	regex	= namedTarGz("xfce4-clipman-plugin"),
+};
+
+pkgs["xfce4-cpugraph-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-cpugraph-plugin/-/tags",
+	regex	= namedTarGz("xfce4-cpugraph-plugin"),
+};
+
 pkgs["xfce4-dev-tools"] = {
 	url	= "https://gitlab.xfce.org/xfce/xfce4-dev-tools/-/tags",
 	regex	= "xfce4-dev-tools-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["xfce4-dict"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-dict/-/tags",
+	regex	= namedTarGz("xfce4-dict"),
+};
+
+pkgs["xfce4-diskperf-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-diskperf-plugin/-/tags",
+	regex	= namedTarGz("xfce4-diskperf-plugin"),
+};
+
+pkgs["xfce4-indicator-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-indicator-plugin/-/tags",
+	regex	= namedTarGz("xfce4-indicator-plugin"),
+};
+
+pkgs["xfce4-notifyd"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-notifyd/-/tags",
+	regex	= namedTarGz("xfce4-notifyd"),
+};
+
+pkgs["xfce4-panel"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-panel/-/tags",
+	regex	= namedTarGz("xfce4-panel"),
+};
+
+pkgs["xfce4-places-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-places-plugin/-/tags",
+	regex	= namedTarGz("xfce4-places-plugin"),
+};
+
+pkgs["xfce4-pulseaudio-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/-/tags",
+	regex	= namedTarGz("xfce4-pulseaudio-plugin"),
+};
+
+pkgs["xfce4-screenshooter"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-screenshooter/-/tags",
+	regex	= namedTarGz("xfce4-screenshooter"),
+};
+
+pkgs["xfce4-session"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-session/-/tags",
+	regex	= namedTarGz("xfce4-session"),
+};
+
+pkgs["xfce4-settings"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-settings/-/tags",
+	regex	= namedTarGz("xfce4-settings"),
+};
+
+pkgs["xfce4-taskmanager"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-taskmanager/-/tags",
+	regex	= namedTarGz("xfce4-taskmanager"),
+};
+
+pkgs["xfce4-terminal"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-terminal/-/tags",
+	regex	= namedTarGz("xfce4-terminal"),
+};
+
+pkgs["xfce4-wavelan-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-wavelan-plugin/-/tags",
+	regex	= namedTarGz("xfce4-wavelan-plugin"),
+};
+
+pkgs["xfce4-whiskermenu-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin/-/tags",
+	regex	= namedVTarGz("xfce4-whiskermenu-plugin"),
+};
+
+pkgs["xfconf"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfconf/-/tags",
+	regex	= namedTarGz("xfconf"),
+};
+
+pkgs["xfdesktop"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfdesktop/-/tags",
+	regex	= namedTarGz("xfdesktop"),
+};
+
+pkgs["xfmpc"] = {
+	url	= "https://gitlab.xfce.org/apps/xfmpc/-/tags",
+	regex	= namedTarGz("xfmpc"),
 };
 
 pkgs["xkeyboard-config"] = {
@@ -4736,6 +4875,12 @@ pkgs["yelp-xsl"] = {
 pkgs["zenity"] = {
 	url	= "https://gitlab.gnome.org/GNOME/zenity/-/tags",
 	regex	= "zenity-(%d+%.%d+%.%d+).tar.gz",
+	filter	= cAnd(gnomeStable, ignoreHighVersions),
+};
+
+pkgs["zita-convolver"] = {
+	url	= "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html",
+	regex	= namedTar("zita-convolver"),
 };
 
 pkgs["zimg"] = {
@@ -4747,6 +4892,8 @@ pkgs["zlib-ng"] = {
 	url	= "https://github.com/zlib-ng/zlib-ng/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("zlib-ng", "zlib-ng-static");
 
 pkgs["zsh"] = {
 	url	= "https://zsh.org/pub/",
@@ -4761,8 +4908,4 @@ pkgs["zstd"] = {
 pkgs["zziplib"] = {
 	url	= "https://github.com/gdraheim/zziplib/tags",
 	regex	= vPrefixedTarGz,
-};
-
-pkgs["empty-one"] = {
-	url	= "https://example.com",
 };
