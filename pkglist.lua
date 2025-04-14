@@ -19,7 +19,20 @@ function ignoreHighVersions(v)
 	return true;
 end
 
-local vPrefixedTarGz = "v(%d+[%.%d]+).tar.gz";
+function cAnd(...)
+	local conds = { ... };
+	return function(v)
+		for _, cond in ipairs(conds) do
+			if not cond(v) then
+				return false;
+			end
+		end
+
+		return true;
+	end;
+end
+
+local vPrefixedTarGz = "v(%d+%.[%.%d]+).tar.gz";
 local tarGz = "/(%d+[%.%d]+).tar.gz";
 local function
 namedTarGz(name)
@@ -102,6 +115,38 @@ pkgs["adw-gtk-theme"] = {
 	url	= "https://github.com/lassekongo83/adw-gtk3/tags",
 	regex	= vPrefixedTarGz,
 };
+
+--[[ KDE Framework ]]
+pkgs["attica"] = {
+	url	= "https://download.kde.org/stable/frameworks/",
+	regex	= "href=\"(%d+%.%d+)/\"",
+	postMatch = function(s) return s .. ".0"; end,
+};
+
+batchPkgs("attica", {
+	"breeze-icons", "karchive", "kauth", "kbookmarks", "kcmutils",
+	"kcodecs", "kcolorscheme", "kcompletion", "kconfig",
+	"kconfigwidgets", "kcoreaddons", "kcrash", "kdbusaddons",
+	"kdeclarative", "kdoctools", "kfilemetadata", "kglobalaccel",
+	"kguiaddons", "kholidays", "ki18n", "kiconthemes", "kidletime",
+	"kio", "kirigami", "kitemmodels", "kitemviews", "kjobwidgets",
+	"knewstuff", "knotifications", "knotifyconfig", "kpackage",
+	"kparts", "kpty", "kquickcharts", "krunner", "kservice",
+	"kstatusnotifieritem", "ksvg", "ktextwidgets", "kwallet",
+	"kwidgetsaddons", "kwindowsystem", "kxmlgui",
+});
+
+--[[ KDE Applications ]]
+
+pkgs["audex"] = {
+	url	= "https://download.kde.org/stable/release-service/",
+	regex	= "href=\"(%d+%.%d+%.%d+)/\"",
+};
+
+batchPkgs("audex", {
+	"kdegraphics-mobipocket", "kdenlive", "konversation", "kweather",
+	"kweathercore",
+});
 
 pkgs["alex"] = {
 	url	= "https://github.com/haskell/alex/tags",
@@ -313,9 +358,8 @@ batchPkgs("bluez", {
 	});
 
 pkgs["boost"] = {
-	url	= "https://www.boost.org/",
-	regex	= "version_(%d+_%d+_%d+).html",
-	postMatch = replacer('_', '.'),
+	url	= "https://github.com/boostorg/boost/tags",
+	regex	= namedTarGz("boost"),
 };
 
 batchPkgs("boost", "boost-libs");
@@ -482,6 +526,11 @@ pkgs["composefs"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["conmon"] = {
+	url	= "https://github.com/containers/conmon/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["connman"] = {
 	url	= "https://mirrors.edge.kernel.org/pub/linux/network/connman/",
 	regex	= "(%d+%.%d+).tar.gz",
@@ -591,6 +640,16 @@ pkgs["debugedit"] = {
 	regex	= "(%d+.%d+)/",
 };
 
+pkgs["dejagnu"] = {
+	url	= "https://ftp.gnu.org/gnu/dejagnu/",
+	regex	= namedTarGz("dejagnu"),
+};
+
+pkgs["djvulibre"] = {
+	url	= "https://djvu.sourceforge.net/",
+	regex	= namedTarGz("djvulibre"),
+};
+
 pkgs["desktop-file-utils"] = {
 	url	= "https://www.freedesktop.org/software/desktop-file-utils/releases/",
 	regex	= "desktop-file-utils-(%d+%.%d+).tar.xz",
@@ -696,9 +755,10 @@ pkgs["ell"] = {
 };
 
 pkgs["emacs"] = {
-	url	= "http://ftpmirror.gnu.org/emacs/",
+	url	= "https://ftp.gnu.org/gnu/emacs/",
 	regex	= namedTarGz("emacs"),
 };
+batchPkgs("emacs", "emacs-nogui");
 
 pkgs["enet"] = {
 	url	= "http://enet.bespin.org/Downloads.html",
@@ -730,6 +790,12 @@ pkgs["exiv2"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["exo"] = {
+	url	= "https://gitlab.xfce.org/xfce/exo/-/tags",
+	regex	= namedTarGz("exo"),
+	filter	= gnomeStable,
+};
+
 pkgs["expat"] = {
 	url	= "https://github.com/libexpat/libexpat/tags",
 	regex	= "R_([_%d]+).tar.gz",
@@ -737,8 +803,8 @@ pkgs["expat"] = {
 };
 
 pkgs["expect"] = {
-	url	= "https://sourceforge.net/projects/expect",
-	regex	= "expect(%d+[%.%d]+).tar.gz",
+	url	= "https://sourceforge.net/projects/expect/files/Expect/",
+	regex	= "/(%d+%.[%.%d]+)/",
 };
 
 pkgs["extra-cmake-modules"] = {
@@ -937,7 +1003,7 @@ pkgs["fribidi"] = {
 
 pkgs["fswatch"] = {
 	url	= "https://github.com/emcrisostomo/fswatch/tags",
-	regex	= "([.%d]+).tar.gz",
+	regex	= tarGz,
 };
 
 pkgs["fuse3"] = {
@@ -955,6 +1021,12 @@ pkgs["fzf"] = {
 pkgs["fzpac"] = {
 	url	= "https://github.com/sheepla/fzpac/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["garcon"] = {
+	url	= "https://gitlab.xfce.org/xfce/garcon/-/tags",
+	regex	= namedTarGz("garcon"),
+	filter	= gnomeStable,
 };
 
 pkgs["gavl"] = {
@@ -1061,6 +1133,11 @@ pkgs["giflib"] = {
 	regex	= "giflib-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["gigolo"] = {
+	url	= "https://gitlab.xfce.org/apps/gigolo/-/tags",
+	regex	= namedTarGz("gigolo"),
+};
+
 pkgs["git"] = {
 	url	= "https://www.kernel.org/pub/software/scm/git",
 	regex	= "git-(%d+%.%d+%.%d+).tar.gz",
@@ -1069,6 +1146,7 @@ pkgs["git"] = {
 pkgs["gjs"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gjs/-/tags",
 	regex	= namedTarGz("gjs"),
+	filter	= gnomeStable,
 };
 
 pkgs["glad"] = {
@@ -1103,6 +1181,7 @@ pkgs["glib-networking"] = {
 pkgs["glibmm"] = {
 	url	= "https://gitlab.gnome.org/GNOME/glibmm/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 pkgs["glibmm-gtk3"] = {
@@ -1132,6 +1211,11 @@ pkgs["gmp"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["gnome-calculator"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gnome-calculator/-/tags",
+	regex	= namedTarGz("gnome-calculator"),
+};
+
 pkgs["gnome-common"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gnome-common/-/tags",
 	regex	= namedTarGz("gnome-common"),
@@ -1140,6 +1224,11 @@ pkgs["gnome-common"] = {
 pkgs["gnome-keyring"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gnome-keyring/-/tags",
 	regex	= "gnome-keyring-(%d+%.%d+).tar.gz",
+};
+
+pkgs["gnome-maps"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gnome-maps/-/tags",
+	regex	= namedTarGz("gnome-maps"),
 };
 
 pkgs["gnome-sound-recorder"] = {
@@ -1151,7 +1240,12 @@ pkgs["gnome-terminal"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gnome-terminal/-/tags",
 	regex	= namedTarGz("gnome-terminal"),
 	-- 3.9x is a gtk4 preview version
-	filter	= function(v) return tonumber(v[2]) < 90; end,
+	filter	= cAnd(gnomeStable, ignoreHighVersions),
+};
+
+pkgs["gnome-weather"] = {
+	url	= "https://gitlab.gnome.org/GNOME/gnome-weather/-/tags",
+	regex	= namedTarGz("gnome-weather"),
 };
 
 pkgs["gnupg"] = {
@@ -1166,6 +1260,11 @@ pkgs["go"] = {
 };
 
 batchPkgs("go", "go-doc");
+
+pkgs["go-md2man"] = {
+	url	= "https://github.com/cpuguy83/go-md2man/tags",
+	regex	= vPrefixedTarGz,
+};
 
 pkgs["gobject-introspection"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gobject-introspection/-/tags",
@@ -1256,6 +1355,7 @@ pkgs["gsm"] = {
 pkgs["gstreamer"] = {
 	url	= "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/tags",
 	regex	= "gstreamer-(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 batchPkgs("gstreamer", {
@@ -1289,6 +1389,7 @@ pkgs["gtk3"] = {
 pkgs["gtkmm"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gtkmm/-/tags",
 	regex	= namedTarGz("gtkmm"),
+	filter	= gnomeStable,
 };
 
 pkgs["gtkmm3"] = {
@@ -1320,11 +1421,17 @@ pkgs["gtksourceview5"] = {
 	filter	= gnomeStable,
 };
 
+pkgs["gtkwave"] = {
+	url	= "https://gtkwave.sourceforge.net/",
+	regex	= namedTarGz("gtkwave-gtk3"),
+};
+
 pkgs["gvfs"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gvfs/-/tags",
 	regex	= namedTarGz("gvfs"),
-	filter	= gnomeStable
 };
+
+batchPkgs("gvfs", "gvfs-nfs");
 
 pkgs["happy"] = {
 	url	= "https://github.com/haskell/happy/tags",
@@ -1528,6 +1635,11 @@ pkgs["jbig2dec"] = {
 	regex	= "/(%d+%.%d+).tar.gz",
 };
 
+pkgs["jbigkit"] = {
+	url	= "https://www.cl.cam.ac.uk/~mgk25/git/jbigkit/refs/tags/",
+	regex	= "v(%d+%.[%.%d]+)",
+};
+
 pkgs["jdk23-openjdk"] = {
 	url	= "https://github.com/openjdk/jdk23u/tags",
 	regex	= "jdk-(%d+[%.%d]+%+%d+).tar.gz",
@@ -1571,7 +1683,7 @@ pkgs["jxrlib"] = {
 };
 
 pkgs["kbd"] = {
-	url	= "https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git/refs/",
+	url	= "https://web.git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git/refs/",
 	regex	= namedTarGz("kbd"),
 };
 
@@ -2532,6 +2644,11 @@ pkgs["mesa"] = {
 	url	= "https://archive.mesa3d.org/",
 	regex	= "mesa-([.%d]+).tar.xz",
 };
+
+batchPkgs("mesa", {
+			"opencl-clover-mesa", "vulkan-swrast", "vulkan-virtio",
+			"vulkan-intel", "vulkan-radeon", "vulkan-mesa-layers"
+		  });
 
 pkgs["meson"] = {
 	url	= "https://github.com/mesonbuild/meson/tags",
@@ -3832,8 +3949,8 @@ pkgs["python-pytest-xdist"] = {
 };
 
 pkgs["python-pytz"] = {
-	url	= "https://pypi.python.org/pypi/pytz/#history",
-	regex	= "project/pytz/(%d%d%d%d%.%d+)/",
+	url	= "https://github.com/stub42/pytz/tags",
+	regex	= "release_(%d%d%d%d.%d).tar.gz",
 };
 
 pkgs["python-requests"] = {
@@ -3867,8 +3984,8 @@ pkgs["python-setuptools-scm"] = {
 };
 
 pkgs["python-six"] = {
-	url	= "https://pypi.org/project/six",
-	regex	= "six-(%d+%.%d+%.%d+).tar.gz",
+	url	= "https://github.com/benjaminp/six/tags",
+	regex	= tarGz,
 };
 
 pkgs["python-smartypants"] = {
@@ -4007,8 +4124,8 @@ pkgs["python-yaml"] = {
 };
 
 pkgs["qemu-common"] = {
-	url	= "https://download.qemu.org/",
-	regex	= "qemu-(%d+%.%d+%.%d+).tar.xz",
+	url	= "https://gitlab.com/qemu-project/qemu/-/tags",
+	regex	= namedVTarGz("qemu"),
 };
 
 batchPkgs("qemu-common", {
@@ -4106,6 +4223,11 @@ pkgs["rust"] = {
 	regex	= "Rust-(%d+%.%d+%.%d+).html",
 };
 
+pkgs["sane"] = {
+	url	= "https://gitlab.com/sane-project/backends/-/tags",
+	regex	= namedTarGz("backends"),
+};
+
 pkgs["sassc"] = {
 	url	= "https://github.com/sass/sassc/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
@@ -4121,9 +4243,14 @@ pkgs["sdl12-compat"] = {
 	regex	= "release-(%d+%.%d+%.%d+).tar.gz",
 };
 
-pkgs["sdl2"] = {
+pkgs["sdl3"] = {
 	url	= "https://github.com/libsdl-org/SDL/tags",
 	regex	= "/release-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["sdl2-compat"] = {
+	url	= "https://github.com/libsdl-org/sdl2-compat/tags",
+	regex	= namedTarGz("release"),
 };
 
 pkgs["sdl2-image"] = {
@@ -4171,6 +4298,11 @@ pkgs["sdbus-cpp"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["seahorse"] = {
+	url	= "https://gitlab.gnome.org/GNOME/seahorse/-/tags",
+	regex	= namedTarGz("seahorse"),
+};
+
 pkgs["semver"] = {
 	url	= "https://github.com/npm/node-semver/tags",
 	regex	= vPrefixedTarGz,
@@ -4194,6 +4326,11 @@ pkgs["signify"] = {
 pkgs["sing-box"] = {
 	url	= "https://github.com/SagerNet/sing-box",
 	regex	= "v(%d+%.%d+%.%d+)",
+};
+
+pkgs["sip"] = {
+	url	= "https://github.com/Python-SIP/sip/tags",
+	regex	= tarGz,
 };
 
 pkgs["skalibs"] = {
@@ -4227,6 +4364,16 @@ pkgs["smartmontools"] = {
 	postMatch = replacer('_', '.'),
 };
 
+pkgs["snappy"] = {
+	url	= "https://github.com/google/snappy/tags",
+	regex	= tarGz,
+};
+
+pkgs["snowball"] = {
+	url	= "https://github.com/snowballstem/snowball/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["socat"] = {
 	url	= "http://www.dest-unreach.org/socat/download/",
 	regex	= "socat-(%d+%.%d+%.%d+%.%d+).tar.gz",
@@ -4242,9 +4389,16 @@ pkgs["sof-firmware"] = {
 	regex	= "v([.%d]+).tar.gz",
 };
 
+batchPkgs("sof-firmware", "sof-tools");
+
 pkgs["sound-theme-freedesktop"] = {
 	url	= "https://people.freedesktop.org/~mccann/dist/",
 	regex	= "sound-theme-freedesktop-(%d+%.%d+).tar.bz2",
+};
+
+pkgs["soundtouch"] = {
+	url	= "https://codeberg.org/soundtouch/soundtouch/tags",
+	regex	= tarGz,
 };
 
 pkgs["soxr"] = {
@@ -4252,9 +4406,24 @@ pkgs["soxr"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["spatialindex"] = {
+	url	= "https://github.com/libspatialindex/libspatialindex/tags",
+	regex	= tarGz,
+};
+
 pkgs["spdlog"] = {
 	url	= "https://github.com/gabime/spdlog/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["speex"] = {
+	url	= "https://gitlab.xiph.org/xiph/speex/-/tags",
+	regex	= namedTarGz("Speex"),
+};
+
+pkgs["speexdsp"] = {
+	url	= "https://gitlab.xiph.org/xiph/speexdsp/-/tags",
+	regex	= namedTarGz("SpeexDSP"),
 };
 
 pkgs["spice-protocol"] = {
@@ -4301,6 +4470,8 @@ pkgs["suitesparse"] = {
 	url	= "https://github.com/DrTimothyAldenDavis/SuiteSparse/tags",
 	regex	= vPrefixedTarGz,
 };
+
+batchPkgs("suitesparse", "suitesparse-graphblas");
 
 pkgs["supertux"] = {
 	url	= "https://github.com/supertux/supertux/tags",
@@ -4377,6 +4548,8 @@ pkgs["tclap"] = {
 	regex	= "tclap-(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("tclap", "tclap-doc");
+
 pkgs["tdb"] = {
 	url	= "https://samba.org/ftp/tdb/",
 	regex	= "tdb-(%d+%.%d+%.%d+).tar.gz",
@@ -4400,6 +4573,26 @@ pkgs["texinfo"] = {
 pkgs["tftp-hpa"] = {
 	url	= "https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git",
 	regex	= "tftp-hpa-(%d+%.%d+).tar.gz",
+};
+
+pkgs["thunar"] = {
+	url	= "https://gitlab.xfce.org/xfce/thunar/-/tags",
+	regex	= namedTarGz("thunar"),
+};
+
+pkgs["thunar-archive-plugin"] = {
+	url	= "https://gitlab.xfce.org/thunar-plugins/thunar-archive-plugin/-/tags",
+	regex	= namedTarGz("thunar-archive-plugin"),
+};
+
+pkgs["thunar-media-tags-plugin"] = {
+	url	= "https://gitlab.xfce.org/thunar-plugins/thunar-media-tags-plugin/-/tags",
+	regex	= namedTarGz("thunar-media-tags-plugin"),
+};
+
+pkgs["thunar-vcs-plugin"] = {
+	url	= "https://gitlab.xfce.org/thunar-plugins/thunar-vcs-plugin/-/tags",
+	regex	= namedTarGz("thunar-vcs-plugin"),
 };
 
 pkgs["tinc"] = {
@@ -4438,6 +4631,11 @@ pkgs["tomlplusplus"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["tor"] = {
+	url	= "https://dist.torproject.org/",
+	regex	= namedTarGz("tor"),
+};
+
 pkgs["tree"] = {
 	url	= "https://gitlab.com/OldManProgrammer/unix-tree/-/tags",
 	regex	= "unix-tree-(%d+%.%d+%.%d+).tar.gz",
@@ -4453,6 +4651,32 @@ pkgs["ttf-0xproto-nerd"] = {
 	regex	= vPrefixedTarGz,
 };
 
+batchPkgs("ttf-0xproto-nerd", {
+	"otf-aurulent-nerd", "otf-codenewroman-nerd", "otf-comicshanns-nerd",
+	"otf-commit-mono-nerd", "otf-droid-nerd", "otf-firamono-nerd",
+	"otf-geist-mono-nerd", "otf-hasklig-nerd", "otf-hermit-nerd",
+	"otf-monaspace-nerd", "otf-opendyslexic-nerd", "otf-overpass-nerd",
+	"ttf-0xproto-nerd", "ttf-3270-nerd", "ttf-agave-nerd",
+	"ttf-anonymouspro-nerd", "ttf-arimo-nerd", "ttf-bigblueterminal-nerd",
+	"ttf-bitstream-vera-mono-nerd", "ttf-cascadia-code-nerd",
+	"ttf-cascadia-mono-nerd", "ttf-cousine-nerd", "ttf-d2coding-nerd",
+	"ttf-daddytime-mono-nerd", "ttf-dejavu-nerd", "ttf-envycoder-nerd",
+	"ttf-fantasque-nerd", "ttf-firacode-nerd", "ttf-go-nerd",
+	"ttf-gohu-nerd", "ttf-hack-nerd", "ttf-heavydata-nerd",
+	"ttf-iawriter-nerd", "ttf-ibmplex-mono-nerd", "ttf-inconsolata-go-nerd",
+	"ttf-inconsolata-lgc-nerd", "ttf-inconsolata-nerd", "ttf-intone-nerd",
+	"ttf-iosevka-nerd", "ttf-iosevkaterm-nerd", "ttf-iosevkatermslab-nerd",
+	"ttf-jetbrains-mono-nerd", "ttf-lekton-nerd",
+	"ttf-liberation-mono-nerd", "ttf-lilex-nerd", "ttf-martian-mono-nerd",
+	"ttf-meslo-nerd", "ttf-monofur-nerd", "ttf-monoid-nerd",
+	"ttf-mononoki-nerd", "ttf-mplus-nerd", "ttf-noto-nerd",
+	"ttf-profont-nerd", "ttf-proggyclean-nerd", "ttf-recursive-nerd",
+	"ttf-roboto-mono-nerd", "ttf-sharetech-mono-nerd",
+	"ttf-sourcecodepro-nerd", "ttf-space-mono-nerd", "ttf-terminus-nerd",
+	"ttf-tinos-nerd", "ttf-ubuntu-mono-nerd", "ttf-ubuntu-nerd",
+	"ttf-victor-mono-nerd", "ttf-zed-mono-nerd"
+	});
+
 pkgs["ttf-dejavu"] = {
 	url	= "https://github.com/dejavu-fonts/dejavu-fonts/tags",
 	regex	= "version_(%d+_%d+)",
@@ -4462,6 +4686,13 @@ pkgs["ttf-dejavu"] = {
 pkgs["ttf-noto-fonts"] = {
 	url	= "https://github.com/notofonts/notofonts.github.io/tags",
 	regex	= "noto-monthly-release-(%d+%.%d+%.%d+).tar.gz",
+};
+
+batchPkgs("ttf-noto-fonts", "ttf-noto-fonts-extra");
+
+pkgs["ttf-noto-fonts-emoji"] = {
+	url	= "https://github.com/googlefonts/noto-emoji/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["ttf-unifont"] = {
@@ -4479,6 +4710,11 @@ pkgs["turnstile"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["typst"] = {
+	url	= "https://github.com/typst/typst/tags",
+	regex	= vPrefixedTarGz,
+};
+
 pkgs["unibilium"] = {
 	url	= "https://github.com/neovim/unibilium/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -4488,6 +4724,8 @@ pkgs["util-linux"] = {
 	url	= "https://github.com/util-linux/util-linux/tags",
 	regex	= "v(%d+%.[%.%d]+).tar.gz",
 };
+
+batchPkgs("util-linux", "util-linux-libs");
 
 pkgs["utf8cpp"] = {
 	url	= "https://github.com/nemtrif/utfcpp/tags/",
@@ -4542,6 +4780,8 @@ pkgs["vte-common"] = {
 	-- releases with even minor version are stable
 	filter	= function(s) return s[2] % 2 == 0; end,
 };
+
+batchPkgs("vte-common", { "vte3", "vte4" });
 
 pkgs["vulkan-headers"] = {
 	url	= "https://github.com/KhronosGroup/Vulkan-Headers/tags",
@@ -4678,6 +4918,8 @@ pkgs["wlroots0.18"] = {
 	regex	= "(0%.18%.%d+).tar.gz",
 };
 
+batchPkgs("wlroots0.18", "wlroots0.18-devel");
+
 pkgs["wmenu"] = {
 	url	= "https://codeberg.org/adnano/wmenu/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
@@ -4723,6 +4965,11 @@ pkgs["xdg-desktop-portal-gtk"] = {
 	regex	= tarGz,
 };
 
+pkgs["xdg-desktop-portal-lxqt"] = {
+	url	= "https://github.com/lxqt/xdg-desktop-portal-lxqt/tags",
+	regex	= tarGz,
+};
+
 pkgs["xdg-desktop-portal-wlr"] = {
 	url	= "https://github.com/emersion/xdg-desktop-portal-wlr/tags",
 	regex	= vPrefixedTarGz,
@@ -4743,9 +4990,131 @@ pkgs["xdg-utils-cxx"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["xerces-c"] = {
+	url	= "https://xerces.apache.org/xerces-c/download.cgi",
+	regex	= namedTarGz("xerces-c"),
+};
+
+pkgs["xfburn"] = {
+	url	= "https://gitlab.xfce.org/apps/xfburn/-/tags",
+	regex	= namedTarGz("xfburn"),
+};
+
+pkgs["xfce4-appfinder"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-appfinder/-/tags",
+	regex	= namedTarGz("xfce4-appfinder"),
+	filter	= gnomeStable,
+};
+
+pkgs["xfce4-battery-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-battery-plugin/-/tags",
+	regex	= namedTarGz("xfce4-battery-plugin"),
+};
+
+pkgs["xfce4-clipman-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-clipman-plugin/-/tags",
+	regex	= namedTarGz("xfce4-clipman-plugin"),
+};
+
+pkgs["xfce4-cpugraph-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-cpugraph-plugin/-/tags",
+	regex	= namedTarGz("xfce4-cpugraph-plugin"),
+};
+
 pkgs["xfce4-dev-tools"] = {
 	url	= "https://gitlab.xfce.org/xfce/xfce4-dev-tools/-/tags",
 	regex	= "xfce4-dev-tools-(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
+};
+
+pkgs["xfce4-dict"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-dict/-/tags",
+	regex	= namedTarGz("xfce4-dict"),
+};
+
+pkgs["xfce4-diskperf-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-diskperf-plugin/-/tags",
+	regex	= namedTarGz("xfce4-diskperf-plugin"),
+};
+
+pkgs["xfce4-indicator-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-indicator-plugin/-/tags",
+	regex	= namedTarGz("xfce4-indicator-plugin"),
+};
+
+pkgs["xfce4-notifyd"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-notifyd/-/tags",
+	regex	= namedTarGz("xfce4-notifyd"),
+};
+
+pkgs["xfce4-panel"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-panel/-/tags",
+	regex	= namedTarGz("xfce4-panel"),
+	filter	= gnomeStable,
+};
+
+pkgs["xfce4-places-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-places-plugin/-/tags",
+	regex	= namedTarGz("xfce4-places-plugin"),
+};
+
+pkgs["xfce4-pulseaudio-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin/-/tags",
+	regex	= namedTarGz("xfce4-pulseaudio-plugin"),
+};
+
+pkgs["xfce4-screenshooter"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-screenshooter/-/tags",
+	regex	= namedTarGz("xfce4-screenshooter"),
+};
+
+pkgs["xfce4-session"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-session/-/tags",
+	regex	= namedTarGz("xfce4-session"),
+	filter	= gnomeStable,
+};
+
+pkgs["xfce4-settings"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfce4-settings/-/tags",
+	regex	= namedTarGz("xfce4-settings"),
+	filter	= gnomeStable,
+};
+
+pkgs["xfce4-taskmanager"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-taskmanager/-/tags",
+	regex	= namedTarGz("xfce4-taskmanager"),
+};
+
+pkgs["xfce4-terminal"] = {
+	url	= "https://gitlab.xfce.org/apps/xfce4-terminal/-/tags",
+	regex	= namedTarGz("xfce4-terminal"),
+};
+
+pkgs["xfce4-wavelan-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-wavelan-plugin/-/tags",
+	regex	= namedTarGz("xfce4-wavelan-plugin"),
+};
+
+pkgs["xfce4-whiskermenu-plugin"] = {
+	url	= "https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin/-/tags",
+	regex	= namedVTarGz("xfce4-whiskermenu-plugin"),
+};
+
+pkgs["xfconf"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfconf/-/tags",
+	regex	= namedTarGz("xfconf"),
+	filter	= gnomeStable,
+};
+
+pkgs["xfdesktop"] = {
+	url	= "https://gitlab.xfce.org/xfce/xfdesktop/-/tags",
+	regex	= namedTarGz("xfdesktop"),
+	filter	= gnomeStable,
+};
+
+pkgs["xfmpc"] = {
+	url	= "https://gitlab.xfce.org/apps/xfmpc/-/tags",
+	regex	= namedTarGz("xfmpc"),
 };
 
 pkgs["xkeyboard-config"] = {
@@ -4796,6 +5165,12 @@ pkgs["yelp-xsl"] = {
 pkgs["zenity"] = {
 	url	= "https://gitlab.gnome.org/GNOME/zenity/-/tags",
 	regex	= "zenity-(%d+%.%d+%.%d+).tar.gz",
+	filter	= cAnd(gnomeStable, ignoreHighVersions),
+};
+
+pkgs["zita-convolver"] = {
+	url	= "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html",
+	regex	= namedTar("zita-convolver"),
 };
 
 pkgs["zimg"] = {
@@ -4808,6 +5183,8 @@ pkgs["zlib-ng"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("zlib-ng", "zlib-ng-static");
+
 pkgs["zsh"] = {
 	url	= "https://zsh.org/pub/",
 	regex	= "zsh-(%d+%.%d+).tar.xz",
@@ -4819,15 +5196,11 @@ pkgs["zstd"] = {
 };
 
 pkgs["zxing-cpp"] = {
-	url	= "https://github.com/zxing-cpp/zxing-cpp/tags",
+	url	= "https://github.com/nu-book/zxing-cpp/tags",
 	regex	= vPrefixedTarGz,
 };
 
 pkgs["zziplib"] = {
 	url	= "https://github.com/gdraheim/zziplib/tags",
 	regex	= vPrefixedTarGz,
-};
-
-pkgs["empty-one"] = {
-	url	= "https://example.com",
 };
