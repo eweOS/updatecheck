@@ -55,6 +55,16 @@ namedVTar(name)
 end
 
 local function
+namedTarBz2(name)
+  return name .. "-(%d+[%.%d]+).tar.bz2";
+end
+
+local function
+namedTarXz(name)
+  return name .. "-(%d+[%.%d]+).tar.xz";
+end
+
+local function
 batchPkgs(upstreamName, names)
 	local upstream = pkgs[upstreamName];
 
@@ -909,6 +919,8 @@ pkgs["flac"] = {
 	regex	= "flac-([.%d]+).tar.xz",
 };
 
+batchPkgs("flac", "libflac");
+
 pkgs["flashrom"] = {
 	url	= "https://github.com/flashrom/flashrom/tags",
 	regex	= vPrefixedTarGz,
@@ -1094,6 +1106,11 @@ pkgs["gettext-tiny"] = {
 pkgs["gflags"] = {
 	url	= "https://github.com/schuhschuh/gflags/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["ghc"] = {
+	url	= "https://downloads.haskell.org/~ghc/latest/",
+	regex	= "ghc-(%d+[%.%d]+)-src.tar.gz",
 };
 
 pkgs["ghostscript"] = {
@@ -1973,6 +1990,11 @@ pkgs["libgpg-error"] = {
 	regex	= "(%d+%.%d+).tar.gz",
 };
 
+pkgs["libgpiod"] = {
+	url	= "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/refs",
+	regex	= namedTarGz("libgpiod"),
+};
+
 pkgs["libhandy"] = {
 	url	= "https://gitlab.gnome.org/GNOME/libhandy/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -2031,6 +2053,11 @@ pkgs["libisofs"] = {
 pkgs["libjpeg"] = {
 	url	= "https://github.com/libjpeg-turbo/libjpeg-turbo/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["libjxl"] = {
+	url	= "https://github.com/libjxl/libjxl/tags",
+	regex	= vPrefixedTarGz,
 };
 
 pkgs["libksba"] = {
@@ -3060,6 +3087,11 @@ pkgs["papirus-icon-theme"] = {
 };
 
 batchPkgs("papirus-icon-theme", "epapirus-icon-theme");
+
+pkgs["parallel"] = {
+	url	= "https://ftpmirror.gnu.org/parallel/",
+	regex	= namedTarBz2("parallel"),
+};
 
 pkgs["parted"] = {
 	url	= "https://ftp.gnu.org/gnu/parted/",
@@ -4216,6 +4248,11 @@ pkgs["sdl2-compat"] = {
 pkgs["sdl2-image"] = {
 	url	= "https://github.com/libsdl-org/SDL_image/tags",
 	regex	= "release-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["sdl3"] = {
+	url	 = "https://github.com/libsdl-org/SDL/releases",
+	regex	= namedTarGz("SDL3"),
 };
 
 pkgs["seatd"] = {
