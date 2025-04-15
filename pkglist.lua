@@ -257,11 +257,6 @@ pkgs["attr"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
-pkgs["audex"] = {
-	url	= "https://invent.kde.org/multimedia/audex/-/tags",
-	regex	= namedVTarGz("audex"),
-};
-
 pkgs["autoconf"] = {
 	url	= "http://ftp.gnu.org/gnu/autoconf",
 	regex	= "(%d+%.%d+).tar.gz",
@@ -923,6 +918,8 @@ pkgs["flac"] = {
 	url	= "https://github.com/xiph/flac/releases",
 	regex	= "flac-([.%d]+).tar.xz",
 };
+
+batchPkgs("flac", "libflac");
 
 pkgs["flashrom"] = {
 	url	= "https://github.com/flashrom/flashrom/tags",
@@ -1951,11 +1948,6 @@ pkgs["libexif"] = {
 pkgs["libffi"] = {
 	url	= "https://github.com/libffi/libffi/tags",
 	regex	= vPrefixedTarGz,
-};
-
-pkgs["libflac"] = {
-	url	= "https://ftp.osuosl.org/pub/xiph/releases/flac/",
-	regex	= namedTarXz("flac"),
 };
 
 pkgs["libftdi"] = {
