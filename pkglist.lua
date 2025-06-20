@@ -137,7 +137,17 @@ batchPkgs("attica", {
 	"knewstuff", "knotifications", "knotifyconfig", "kpackage",
 	"kparts", "kpty", "kquickcharts", "krunner", "kservice",
 	"kstatusnotifieritem", "ksvg", "ktextwidgets", "kwallet",
-	"kwidgetsaddons", "kwindowsystem", "kxmlgui",
+	"kwidgetsaddons", "kwindowsystem", "kxmlgui", "frameworkintegration",
+});
+
+--[[ Plasma Libraries ]]
+pkgs["breeze"] = {
+	url	= "https://download.kde.org/stable/plasma/",
+	regex	= "href=\"(%d+%.%d+%.%d+)/\"",
+};
+
+batchPkgs("breeze", {
+	"kdecoration", "kwayland", "layer-shell-qt", "libkscreen",
 });
 
 --[[ KDE Applications ]]
@@ -150,6 +160,8 @@ pkgs["audex"] = {
 batchPkgs("audex", {
 	"kdegraphics-mobipocket", "kdenlive", "konversation", "kweather",
 	"kweathercore",
+
+	"libkcddb", "libkexiv2",
 });
 
 pkgs["alex"] = {
@@ -259,6 +271,11 @@ pkgs["atool"] = {
 pkgs["attr"] = {
 	url	= "http://download.savannah.gnu.org/releases/attr/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["atuin"] = {
+	gitrepo	= "https://github.com/atuinsh/atuin.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["autoconf"] = {
@@ -607,6 +624,8 @@ pkgs["cups"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("cups", "libcups");
+
 pkgs["cups-filters"] = {
 	url	= "https://github.com/OpenPrinting/cups-filters/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
@@ -749,6 +768,8 @@ pkgs["dtc"] = {
 	regex	= "dtc-(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("dtc", "libfdt");
+
 pkgs["duktape"] = {
 	url	= "https://duktape.org/download",
 	regex	= "duktape-(%d+.%d+.%d+).tar.xz",
@@ -829,6 +850,11 @@ pkgs["exo"] = {
 	url	= "https://gitlab.xfce.org/xfce/exo/-/tags",
 	regex	= namedTarGz("exo"),
 	filter	= gnomeStable,
+};
+
+pkgs["expac"] = {
+	gitrepo	= "https://github.com/falconindy/expac.git",
+	regex	= numericTag,
 };
 
 pkgs["expat"] = {
@@ -1069,6 +1095,11 @@ pkgs["garcon"] = {
 pkgs["gavl"] = {
 	url	= "https://sourceforge.net/projects/gmerlin/files/gavl/",
 	regex	= "/(%d+%.%d+%.%d+)/",
+};
+
+pkgs["gawk"] = {
+	url	= "https://ftp.gnu.org/gnu/gawk/",
+	regex	= namedTarGz("gawk"),
 };
 
 pkgs["gc"] = {
@@ -1319,7 +1350,9 @@ pkgs["gobject-introspection"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
-batchPkgs("gobject-introspection", "gobject-introspection-runtime");
+batchPkgs("gobject-introspection", {
+	"gobject-introspection-runtime", "libgirepository"
+});
 
 pkgs["googletest"] = {
 	url	= "https://github.com/google/googletest/tags",
@@ -1745,6 +1778,11 @@ pkgs["kbd"] = {
 	regex	= namedTarGz("kbd"),
 };
 
+pkgs["kdiagram"] = {
+	url	= "https://download.kde.org/stable/kdiagram/",
+	regex	= "href=\"(%d+%.%d+%.%d+)/\"",
+};
+
 pkgs["keyutils"] = {
 	url	= "https://people.redhat.com/~dhowells/keyutils/",
 	regex	= "(%d+%.%d+%.%d+).tar.bz2",
@@ -1755,10 +1793,17 @@ pkgs["kirc"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
+pkgs["kirigami-addons"] = {
+	url	= "https://download.kde.org/stable/kirigami-addons/",
+	regex	= namedTar("kirigami-addons"),
+};
+
 pkgs["kmod"] = {
 	url	= "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
 	regex	= namedTarGz("kmod"),
 };
+
+batchPkgs("kmod", "libkmod");
 
 pkgs["krb5"] = {
 	url	= "https://web.mit.edu/kerberos/dist/",
@@ -1859,6 +1904,16 @@ pkgs["libavif"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["libayatana-appindicator"] = {
+	gitrepo	= "https://github.com/AyatanaIndicators/libayatana-appindicator.git",
+	regex	= numericTag,
+};
+
+pkgs["libayatana-indicator"] = {
+	gitrepo	= "https://github.com/AyatanaIndicators/libayatana-indicator.git",
+	regex	= numericTag,
+};
+
 pkgs["libbpf"] = {
 	url	= "https://github.com/libbpf/libbpf/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -1932,6 +1987,18 @@ pkgs["libcupsfilters"] = {
 pkgs["libdaemon"] = {
 	url	= "https://dev.alpinelinux.org/archive/libdaemon",
 	regex	= "(%d+%.%d+).tar.gz",
+};
+
+pkgs["libdbusmenu-glib"] = {
+	url	= "https://launchpad.net/libdbusmenu",
+	regex	= namedTarGz("libdbusmenu"),
+};
+
+batchPkgs("libdbusmenu-glib", "libdbusmenu-gtk3");
+
+pkgs["libdbusmenu-lxqt"] = {
+	gitrepo	= "https://github.com/lxqt/libdbusmenu-lxqt.git",
+	regex	= numericTag,
 };
 
 pkgs["libde265"] = {
@@ -2018,9 +2085,28 @@ pkgs["libffi"] = {
 	regex	= vPrefixedTarGz,
 };
 
+batchPkgs("libffi", "libffi-static");
+
 pkgs["libftdi"] = {
 	url	= "https://www.intra2net.com/en/developer/libftdi/download.php",
 	regex	= "libftdi1-(%d+%.%d+).tar.bz2",
+};
+
+pkgs["libfm"] = {
+	gitrepo	= "https://github.com/lxde/libfm.git",
+	regex	= numericTag,
+};
+
+batchPkgs("libfm", { "libfm-extra", "libfm-gtk3" });
+
+pkgs["libfm-qt"] = {
+	gitrepo	= "https://github.com/lxqt/libfm-qt.git",
+	regex	= numericTag,
+};
+
+pkgs["libfreexl"] = {
+	url	= "https://www.gaia-gis.it/gaia-sins/freexl-sources/",
+	regex	= namedTarGz("freexl"),
 };
 
 pkgs["libgcrypt"] = {
@@ -2062,6 +2148,15 @@ pkgs["libgpiod"] = {
 	url	= "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/refs",
 	regex	= namedTarGz("libgpiod"),
 };
+
+pkgs["libgweather"] = {
+	gitrepo	= "https://gitlab.gnome.org/GNOME/libgweather.git",
+	regex	= numericTag,
+	postMatch = replacer('_', '.'),
+	filter	= function(v) return gnomeStable(v) and v[1] ~= "40" end,
+};
+
+batchPkgs("libgweather", "libgweather-docs");
 
 pkgs["libhandy"] = {
 	url	= "https://gitlab.gnome.org/GNOME/libhandy/-/tags",
@@ -2143,9 +2238,19 @@ pkgs["libliftoff"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["liblqr"] = {
+	gitrepo	= "https://github.com/carlobaldassi/liblqr.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["libltdl"] = {
 	url	= "https://ftp.gnu.org/gnu/libtool/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["liblxqt"] = {
+	gitrepo	= "https://github.com/lxqt/liblxqt.git",
+	regex	= numericTag,
 };
 
 pkgs["libmad"] = {
@@ -2176,6 +2281,11 @@ pkgs["libmicrohttpd"] = {
 pkgs["libmpack"] = {
 	url	= "https://github.com/libmpack/libmpack/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["libmpc"] = {
+	url	= "https://ftp.gnu.org/gnu/mpc/",
+	regex	= namedTarGz("mpc"),
 };
 
 pkgs["libmng"] = {
@@ -2634,6 +2744,8 @@ pkgs["lua51-luv"] = {
 	postMatch = replacer('-', '.'),
 };
 
+batchPkgs("lua51-luv", "libluv");
+
 pkgs["lua51-mpack"] = {
 	url	= "https://github.com/libmpack/libmpack-lua/tags",
 	regex	= tarGz,
@@ -2927,6 +3039,10 @@ pkgs["networkmanager"] = {
 	regex	= tar,
 };
 
+batchPkgs("networkmanager", {
+	"libnm", "nm-cloud-setup", "networkmanager-docs",
+});
+
 pkgs["nftables"] = {
 	url	= "https://netfilter.org/projects/nftables/files/",
 	regex	= namedTar("nftables"),
@@ -3079,6 +3195,8 @@ pkgs["openldap"] = {
 	regex	= "(%d+%.%d+%.%d+).tgz",
 };
 
+batchPkgs("openldap", "libldap");
+
 pkgs["openpmix"] = {
 	url	= "https://github.com/openpmix/openpmix/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -3128,6 +3246,8 @@ pkgs["pacman"] = {
 	url	= "https://gitlab.archlinux.org/pacman/pacman/-/tags",
 	regex	= "v(%d+%.[%.%d]+).tar.gz",
 };
+
+batchPkgs("pacman", "libalpm");
 
 pkgs["pam"] = {
 	url	= "https://github.com/linux-pam/linux-pam/tags",
@@ -4275,7 +4395,7 @@ pkgs["ripgrep"] = {
 
 pkgs["rollmeow"] = {
 	gitrepo	= "https://github.com/eweOS/rollmeow.git",
-	regex	= "tags/(%d+%.%d+%.%d+)",
+	regex	= vPrefixedTag,
 };
 
 pkgs["rrdtool"] = {
@@ -4696,6 +4816,11 @@ pkgs["tinc"] = {
 	regex	= "tinc-(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["tinymist"] = {
+	gitrepo	= "https://github.com/Myriad-Dreamin/tinymist.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["tinyxml2"] = {
 	url	= "https://github.com/leethomason/tinyxml2/tags",
 	regex	= tarGz,
@@ -4779,12 +4904,34 @@ pkgs["ttf-dejavu"] = {
 	postMatch = replacer('_', '.'),
 };
 
+pkgs["ttf-inter"] = {
+	gitrepo	= "https://github.com/rsms/inter.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("ttf-inter", "ttf-inter-variable");
+
+pkgs["ttf-nerd-fonts-symbols"] = {
+	gitrepo	= "https://github.com/ryanoasis/nerd-fonts.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("ttf-nerd-fonts-symbols",
+	  { "ttf-nerd-fonts-symbols-mono", "ttf-nerd-fonts-symbols-common" });
+
 pkgs["ttf-noto-fonts"] = {
 	url	= "https://github.com/notofonts/notofonts.github.io/tags",
 	regex	= "noto-monthly-release-(%d+%.%d+%.%d+).tar.gz",
 };
 
 batchPkgs("ttf-noto-fonts", "ttf-noto-fonts-extra");
+
+pkgs["ttf-roboto"] = {
+	gitrepo	= "https://github.com/googlefonts/roboto-3-classic.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("ttf-roboto", "ttf-roboto-variable");
 
 pkgs["ttf-noto-fonts-emoji"] = {
 	url	= "https://github.com/googlefonts/noto-emoji/tags",
@@ -5018,6 +5165,13 @@ pkgs["wlr-randr"] = {
 	url	= "https://git.sr.ht/~emersion/wlr-randr/refs",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
+
+pkgs["wlroots0.19"] = {
+	gitrepo	= "https://gitlab.freedesktop.org/wlroots/wlroots.git",
+	regex	= numericTag,
+};
+
+batchPkgs("wlroots0.19", "wlroots0.19-devel");
 
 pkgs["wmenu"] = {
 	url	= "https://codeberg.org/adnano/wmenu/tags",
