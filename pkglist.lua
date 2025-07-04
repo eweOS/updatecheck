@@ -69,6 +69,11 @@ local vPrefixedTag = "tags/v([%d%.]+)$";
 local numericTag = "tags/([%d%.]+)$";
 
 local function
+namedTag(name)
+	return "tags/" .. name .. "-([%d%.]+)$";
+end
+
+local function
 batchPkgs(upstreamName, names)
 	local upstream = pkgs[upstreamName];
 
@@ -138,6 +143,7 @@ batchPkgs("attica", {
 	"kparts", "kpty", "kquickcharts", "krunner", "kservice",
 	"kstatusnotifieritem", "ksvg", "ktextwidgets", "kwallet",
 	"kwidgetsaddons", "kwindowsystem", "kxmlgui", "frameworkintegration",
+	"kded", "kdesu", "kdnssd", "kunitconversion", "kuserfeedback",
 });
 
 --[[ Plasma Libraries ]]
@@ -147,7 +153,7 @@ pkgs["breeze"] = {
 };
 
 batchPkgs("breeze", {
-	"kdecoration", "kwayland", "layer-shell-qt", "libkscreen",
+	"kdecoration", "kwayland", "layer-shell-qt", "libkscreen", "libplasma",
 });
 
 --[[ KDE Applications ]]
@@ -1210,6 +1216,7 @@ pkgs["gimp"] = {
 	gitrepo	= "https://gitlab.gnome.org/GNOME/gimp.git",
 	regex	= "tags/GIMP_(%d_[%d_]+)$",
 	postMatch = replacer('_', '.');
+	filter	= gnomeStable,
 };
 
 pkgs["git"] = {
@@ -1446,7 +1453,7 @@ pkgs["gstreamer"] = {
 
 batchPkgs("gstreamer", {
 	"gst-editing-services", "gst-libav", "gst-plugin-gtk",
-	"gst-plugin-pipewire", "gst-plugin-qml6", "gst-plugin-qsv",
+	"gst-plugin-qml6", "gst-plugin-qsv",
 	"gst-plugin-va", "gst-plugins-bad", "gst-plugins-base",
 	"gst-plugins-good", "gst-python", "gst-rtsp-server",
 	"gstreamer-devel", "gstreamer-vaapi"
@@ -1914,6 +1921,11 @@ pkgs["libayatana-indicator"] = {
 	regex	= numericTag,
 };
 
+pkgs["libb2"] = {
+	gitrepo	= "https://github.com/BLAKE2/libb2.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["libbpf"] = {
 	url	= "https://github.com/libbpf/libbpf/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -2025,6 +2037,11 @@ pkgs["libdisplay-info"] = {
 	url	= "https://gitlab.freedesktop.org/emersion/libdisplay-info/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
+
+pkgs["libdmtx"] = {
+	gitrepo	= "https://github.com/dmtx/libdmtx",
+	regex	= vPrefixedTag,
+}
 
 pkgs["libdrm"] = {
 	url	= "https://dri.freedesktop.org/libdrm/",
@@ -2323,10 +2340,14 @@ pkgs["libnma-common"] = {
 	regex	= namedTarGz("libnma"),
 };
 
+batchPkgs("libnma-common", { "libnma-gtk3", "libnma-gtk4" });
+
 pkgs["libnotify"] = {
 	url	= "https://gitlab.gnome.org/GNOME/libnotify/-/tags",
 	regex	= namedTarGz("libnotify"),
 };
+
+batchPkgs("libnotify", "libnotify-docs");
 
 pkgs["libnfnetlink"] = {
 	url	= "https://www.netfilter.org/projects/libnfnetlink/files/",
@@ -2352,6 +2373,11 @@ pkgs["libnl"] = {
 	url	= "https://github.com/thom311/libnl/tags",
 	regex	= "libnl([_%d]+).tar.gz",
 	postMatch = replacer('_', '.'),
+};
+
+pkgs["libnsl"] = {
+	gitrepo	= "https://github.com/thkukuk/libnsl.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["libogg"] = {
@@ -2403,9 +2429,21 @@ pkgs["libppd"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["libprocps"] = {
+	gitrepo	= "https://gitlab.com/procps-ng/procps.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["libproxy"] = {
 	url	= "https://github.com/libproxy/libproxy/tags",
 	regex	= tarGz,
+};
+
+batchPkgs("libproxy", "libproxy-docs");
+
+pkgs["libpsl"] = {
+	gitrepo	= "https://github.com/rockdaboot/libpsl.git",
+	regex	= numericTag,
 };
 
 pkgs["libpulse"] = {
@@ -3125,6 +3163,13 @@ pkgs["nudoku"] = {
 	regex	= "([.%d]+).tar.gz",
 };
 
+pkgs["numactl"] = {
+	gitrepo	= "https://github.com/numactl/numactl",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("numactl", "libnuma");
+
 pkgs["nvtop"] = {
 	url	= "https://github.com/Syllo/nvtop/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
@@ -3241,6 +3286,8 @@ pkgs["p11-kit"] = {
 	url	= "https://github.com/p11-glue/p11-kit/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("p11-kit", "libp11-kit");
 
 pkgs["pacman"] = {
 	url	= "https://gitlab.archlinux.org/pacman/pacman/-/tags",
@@ -3467,8 +3514,8 @@ pkgs["perl-mime-base32"] = {
 };
 
 pkgs["perl-module-build-tiny"] = {
-	url	= "https://metacpan.org/pod/Module::Build::Tiny",
-	regex	= "(%d+%.%d+).tar.gz",
+	url	= "https://metacpan.org/dist/Module-Build-Tiny/releases.rss",
+	regex	= "Module-Build-Tiny-(%d.%d+)</link>",
 };
 
 pkgs["perl-net-ssleay"] = {
@@ -3502,8 +3549,8 @@ pkgs["perl-test-exception"] = {
 };
 
 pkgs["perl-test-fatal"] = {
-	url	= "https://metacpan.org/pod/Test::Fatal",
-	regex	= "(%d+%.%d+).tar.gz",
+	url	= "https://metacpan.org/dist/Test-Fatal/releases.rss",
+	regex	= "Test-Fatal-(%d.%d+)</link>",
 };
 
 pkgs["perl-test-most"] = {
@@ -3512,8 +3559,8 @@ pkgs["perl-test-most"] = {
 };
 
 pkgs["perl-test-needs"] = {
-	url	= "https://metacpan.org/pod/Test::Needs",
-	regex	= "(%d+%.%d+).tar.gz",
+	url	= "https://metacpan.org/dist/Test-Needs/releases.rss",
+	regex	= "Test-Needs-(%d.%d+)</link>",
 };
 
 pkgs["perl-test-simple"] = {
@@ -3537,13 +3584,13 @@ pkgs["perl-text-diff"] = {
 };
 
 pkgs["perl-timedate"] = {
-	url	= "https://metacpan.org/pod/TimeDate",
-	regex	= "(%d+%.%d+).tar.gz",
+	url	= "https://metacpan.org/dist/TimeDate/releases.rss",
+	regex	= "TimeDate-(%d.%d+)</link>",
 };
 
 pkgs["perl-try-tiny"] = {
-	url	= "https://metacpan.org/pod/Try::Tiny",
-	regex	= "(%d+%.%d+).tar.gz",
+	url	= "https://metacpan.org/dist/Try-Tiny/releases.rss",
+	regex	= "Try-Tiny-(%d.%d+)</link>",
 };
 
 pkgs["perl-uri"] = {
@@ -3600,6 +3647,8 @@ pkgs["pipewire"] = {
 	url	= "https://gitlab.freedesktop.org/pipewire/pipewire/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("pipewire", { "libpipewire", "gst-plugin-pipewire" });
 
 pkgs["pixman"] = {
 	url	= "https://xorg.freedesktop.org/releases/individual/lib/",
