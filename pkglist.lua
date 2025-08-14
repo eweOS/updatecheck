@@ -123,6 +123,7 @@ batchPkgs("adwaita-icon-theme", { "adwaita-cursors" });
 pkgs["adw-gtk-theme"] = {
 	url	= "https://github.com/lassekongo83/adw-gtk3/tags",
 	regex	= vPrefixedTarGz,
+	note	= "dart-scss is required for higher version",
 };
 
 --[[ KDE Framework ]]
@@ -1974,6 +1975,7 @@ pkgs["libcdio-paranoia"] = {
 pkgs["libclc"] = {
 	url	= "https://github.com/llvm/llvm-project/tags",
 	regex	= "llvmorg-([.%d]+).tar.gz",
+	note = "follow llvm version",
 };
 
 pkgs["libcpuid"] = {
@@ -4923,6 +4925,7 @@ pkgs["spice-protocol"] = {
 pkgs["spirv-headers"] = {
 	url	= "https://github.com/KhronosGroup/SPIRV-Headers/tags",
 	regex	= "sdk-(%d+%.%d+%.%d+%.%d+).tar.gz",
+	note = "follow vulkan sdk version",
 };
 
 pkgs["spirv-llvm-translator"] = {
@@ -4933,6 +4936,7 @@ pkgs["spirv-llvm-translator"] = {
 pkgs["spirv-tools"] = {
 	url	= "https://github.com/KhronosGroup/SPIRV-Tools/tags",
 	regex	= "v(%d%d%d%d%.%d+).tar.gz",
+	note = "follow vulkan sdk version",
 };
 
 pkgs["sqlite"] = {
@@ -5312,21 +5316,25 @@ batchPkgs("vte-common", { "vte3", "vte4" });
 pkgs["vulkan-headers"] = {
 	url	= "https://github.com/KhronosGroup/Vulkan-Headers/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+	note = "follow vulkan sdk version",
 };
 
 pkgs["vulkan-icd-loader"] = {
 	url	= "https://github.com/KhronosGroup/Vulkan-Loader/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+	note = "follow vulkan sdk version",
 };
 
 pkgs["vulkan-tools"] = {
 	url	= "https://github.com/KhronosGroup/Vulkan-Tools/tags",
 	regex	= vPrefixedTarGz,
+	note = "follow vulkan sdk version",
 };
 
 pkgs["vulkan-volk"] = {
 	url	= "https://github.com/zeux/volk/tags",
 	regex	= tarGz,
+	note = "follow vulkan sdk version",
 };
 
 pkgs["warzone2100"] = {
