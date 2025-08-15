@@ -145,6 +145,8 @@ batchPkgs("attica", {
 	"kstatusnotifieritem", "ksvg", "ktextwidgets", "kwallet",
 	"kwidgetsaddons", "kwindowsystem", "kxmlgui", "frameworkintegration",
 	"kded", "kdesu", "kdnssd", "kunitconversion", "kuserfeedback",
+	"networkmanager-qt", "solid", "sonnet", "syntax-highlighting",
+	"threadweaver", "prison",
 });
 
 --[[ Plasma Libraries ]]
