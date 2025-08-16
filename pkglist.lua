@@ -168,7 +168,7 @@ pkgs["audex"] = {
 
 batchPkgs("audex", {
 	"kdegraphics-mobipocket", "kdenlive", "konversation", "kweather",
-	"kweathercore",
+	"kweathercore", "okular",
 
 	"libkcddb", "libkexiv2",
 });
