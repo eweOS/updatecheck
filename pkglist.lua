@@ -146,7 +146,7 @@ batchPkgs("attica", {
 	"kwidgetsaddons", "kwindowsystem", "kxmlgui", "frameworkintegration",
 	"kded", "kdesu", "kdnssd", "kunitconversion", "kuserfeedback",
 	"networkmanager-qt", "solid", "sonnet", "syntax-highlighting",
-	"threadweaver", "prison",
+	"threadweaver", "prison", "extra-cmake-modules",
 });
 
 --[[ Plasma Libraries ]]
@@ -875,11 +875,6 @@ pkgs["expat"] = {
 pkgs["expect"] = {
 	url	= "https://sourceforge.net/projects/expect/files/Expect/",
 	regex	= "/(%d+%.[%.%d]+)/",
-};
-
-pkgs["extra-cmake-modules"] = {
-	url	= "https://download.kde.org/stable/frameworks/",
-	regex	= "(%d+%.%d+)/",
 };
 
 pkgs["fake-alpine-release"] = {
