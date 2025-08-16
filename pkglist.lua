@@ -1744,7 +1744,7 @@ pkgs["jbigkit"] = {
 pkgs["jdk23-openjdk"] = {
 	url	= "https://github.com/openjdk/jdk23u/tags",
 	regex	= "jdk-(%d+[%.%d]+%+%d+).tar.gz",
-	postMatch = replacer('%+', 'u'),
+	postMatch = replacer('%+', '.u'),
 };
 
 batchPkgs("jdk23-openjdk", {
