@@ -4616,11 +4616,21 @@ pkgs["qpdf"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+--[[ Qt6 ]]
 pkgs["qt6-base"] = {
-	url	= "https://download.qt.io/official_releases/qt/",
-	regex	= "(%d+%.%d+)/",
-	postMatch = function(s) return s .. ".0"; end,
+	gitrepo	= "https://github.com/qt/qtbase.git",
+	regex	= "tags/v(6.[%d%.]+)$",
 };
+
+batchPkgs("qt6-base", {
+	"qt6-3d", "qt6-5compat", "qt6-charts", "qt6-connectivity",
+	"qt6-declarative", "qt6-imageformats", "qt6-languageserver",
+	"qt6-location", "qt6-multimedia", "qt6-multimedia-ffmpeg",
+	"qt6-multimedia-gstreamer", "qt6-networkauth", "qt6-positioning",
+	"qt6-quick3d", "qt6-quicktimeline", "qt6-remoteobjects", "qt6-sensors",
+	"qt6-serialport", "qt6-shadertools", "qt6-speech", "qt6-svg",
+	"qt6-tools", "qt6-wayland", "qt6-webchannel", "qt6-websockets",
+});
 
 pkgs["ragel"] = {
 	url	= "https://github.com/adrian-thurston/ragel/tags",
