@@ -146,7 +146,7 @@ batchPkgs("attica", {
 	"kwidgetsaddons", "kwindowsystem", "kxmlgui", "frameworkintegration",
 	"kded", "kdesu", "kdnssd", "kunitconversion", "kuserfeedback",
 	"networkmanager-qt", "solid", "sonnet", "syntax-highlighting",
-	"threadweaver", "prison", "extra-cmake-modules",
+	"threadweaver", "prison", "extra-cmake-modules", "purpose",
 });
 
 --[[ Plasma Libraries ]]
