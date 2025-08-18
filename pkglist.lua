@@ -3056,7 +3056,7 @@ pkgs["lxqt-build-tools"] = {
 };
 
 pkgs["lxqt-config"] = {
-	gitrepo = "https://github.com/lxqt/lxqt-build-tools.git",
+	gitrepo = "https://github.com/lxqt/lxqt-config.git",
 	regex	= numericTag,
 };
 
