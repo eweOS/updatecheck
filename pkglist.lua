@@ -4183,6 +4183,11 @@ pkgs["python-imagesize"] = {
 	regex	= tarGz,
 };
 
+pkgs["python-immutables"] = {
+	gitrepo	= "https://github.com/MagicStack/immutables.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["python-inflect"] = {
 	url	= "https://github.com/jaraco/inflect/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -4198,9 +4203,29 @@ pkgs["python-installer"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-iso8601"] = {
+	url	= "https://pypi.org/project/iso8601/",
+	regex	= namedTarGz("iso8601"),
+};
+
+pkgs["python-isodate"] = {
+	gitrepo	 = "https://github.com/gweis/isodate.git",
+	regex	= numericTag,
+};
+
+pkgs["python-isoduration"] = {
+	gitrepo	= "https://github.com/bolsote/isoduration.git",
+	regex	= numericTag,
+};
+
 pkgs["python-jaraco.classes"] = {
 	url	= "https://github.com/jaraco/jaraco.classes/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["python-jaraco.collections"] = {
+	gitrepo	= "https://github.com/jaraco/jaraco.collections.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-jaraco.context"] = {
@@ -4221,6 +4246,16 @@ pkgs["python-jaraco.text"] = {
 pkgs["python-jinja"] = {
 	url	= "https://github.com/pallets/jinja/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["python-jsonschema"] = {
+	gitrepo	= "https://github.com/python-jsonschema/jsonschema.git",
+	regex	= vPrefixedTag,
+};
+
+pkgs["python-jsonschema-specifications"] = {
+	gitrepo	= "https://github.com/python-jsonschema/jsonschema-specifications.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-license-expression"] = {
@@ -4274,6 +4309,16 @@ pkgs["python-ordered-set"] = {
 	regex	= "release/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-lark-parser"] = {
+	gitrepo	= "https://github.com/lark-parser/lark.git",
+	regex	= numericTag,
+};
+
+pkgs["python-outcome"] = {
+	gitrepo	= "https://github.com/python-trio/outcome.git",
+	regex	= "tags/v([%d%.%w]+)$",
+};
+
 pkgs["python-packaging"] = {
 	url	= "https://github.com/pypa/packaging/tags",
 	regex	= "/(%d+%.%d+).tar.gz",
@@ -4287,6 +4332,21 @@ pkgs["python-pathspec"] = {
 pkgs["python-pbr"] = {
 	gitrepo	= "https://opendev.org/openstack/pbr.git",
 	regex	= "tags/(%d+%.%d+%.%d+)",
+};
+
+pkgs["python-pdm-backend"] = {
+	gitrepo	= "https://github.com/pdm-project/pdm-backend.git",
+	regex	= numericTag,
+};
+
+pkgs["python-pexpect"] = {
+	gitrepo	= "https://github.com/pexpect/pexpect.git",
+	regex	= numericTag,
+};
+
+pkgs["python-pip"] = {
+	gitrepo	= "https://github.com/pypa/pip.git",
+	regex	= numericTag,
 };
 
 pkgs["python-pkgconfig"] = {
@@ -4304,6 +4364,11 @@ pkgs["python-pluggy"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["python-poetry-core"] = {
+	gitrepo	= "https://github.com/python-poetry/poetry-core.git",
+	regex	= numericTag,
+};
+
 pkgs["python-portend"] = {
 	url	= "https://github.com/jaraco/portend/tags",
 	regex	= vPrefixedTarGz,
@@ -4317,6 +4382,11 @@ pkgs["python-pretend"] = {
 pkgs["python-psutil"] = {
 	url	= "https://github.com/giampaolo/psutil/tags",
 	regex	= "release-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["python-ptyprocess"] = {
+	gitrepo	= "https://github.com/pexpect/ptyprocess.git",
+	regex	= numericTag,
 };
 
 pkgs["python-py-cpuinfo"] = {
@@ -4354,9 +4424,24 @@ pkgs["python-pyparsing"] = {
 	regex	= tarGz,
 };
 
+pkgs["python-pyqt6"] = {
+	url	= "https://pypi.org/project/PyQt6/",
+	regex	= namedTar("pyqt6"),
+};
+
+pkgs["python-pyqt6-sip"] = {
+	url	= "https://pypi.org/project/PyQt6-sip/",
+	regex	= namedTar("pyqt6_sip"),
+};
+
 pkgs["python-pysocks"] = {
 	url	= "https://github.com/Anorov/PySocks/tags",
 	regex	= tarGz,
+};
+
+pkgs["python-pystemmer"] = {
+	gitrepo	= "https://github.com/snowballstem/pystemmer.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-pytest"] = {
@@ -4372,6 +4457,11 @@ pkgs["python-pytest-asyncio"] = {
 pkgs["python-pytest-benchmark"] = {
 	url	= "https://github.com/ionelmc/pytest-benchmark/tags",
 	regex	= vPrefixedTarGz,
+};
+
+pkgs["python-pytest-cov"] = {
+	gitrepo	= "https://github.com/pytest-dev/pytest-cov.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-pytest-enabler"] = {
@@ -4394,6 +4484,11 @@ pkgs["python-pytest-pacman"] = {
 	regex	= "v([.%d]+).tar.gz",
 };
 
+pkgs["python-pytest-subtests"] = {
+	gitrepo	= "https://github.com/pytest-dev/pytest-subtests.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["python-pytest-timeout"] = {
 	url	= "https://github.com/pytest-dev/pytest-timeout/tags",
 	regex	= tarGz,
@@ -4407,6 +4502,21 @@ pkgs["python-pytest-xdist"] = {
 pkgs["python-pytz"] = {
 	url	= "https://github.com/stub42/pytz/tags",
 	regex	= "release_(%d%d%d%d.%d).tar.gz",
+};
+
+pkgs["python-pyxdg"] = {
+	gitrepo	= "https://gitlab.freedesktop.org/xdg/pyxdg.git",
+	regex	= "tags/rel-([%.%d]+)$",
+};
+
+pkgs["python-referencing"] = {
+	gitrepo	= "https://github.com/python-jsonschema/referencing.git",
+	regex	= vPrefixedTag,
+};
+
+pkgs["python-regex"] = {
+	gitrepo	= "https://github.com/mrabarnett/mrab-regex.git",
+	regex	= numericTag,
 };
 
 pkgs["python-requests"] = {
@@ -4503,6 +4613,11 @@ pkgs["python-sphinx-alabaster-theme"] = {
 	gitrepo	= "https://github.com/sphinx-doc/alabaster.git",
 	regex	= numericTag,
 }
+
+pkgs["python-sphinxcontrib-applehelp"] = {
+	gitrepo	= "https://github.com/sphinx-doc/sphinxcontrib-applehelp.git",
+	regex	= numericTag,
+};
 
 pkgs["python-sphinxcontrib-devhelp"] = {
 	gitrepo	= "https://github.com/sphinx-doc/sphinxcontrib-devhelp.git",
