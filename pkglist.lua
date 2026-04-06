@@ -87,6 +87,11 @@ batchPkgs(upstreamName, names)
 	end
 end
 
+pkgs["7zip"] = {
+	url	= "https://www.7-zip.org/download.html",
+	regex	= "Download 7-Zip (%d+.%d+)",
+};
+
 pkgs["a52dec"] = {
 	gitrepo	= "https://git.adelielinux.org/community/a52dec.git",
 	regex	= vPrefixedTag,
@@ -134,20 +139,20 @@ pkgs["attica"] = {
 };
 
 batchPkgs("attica", {
-	"breeze-icons", "karchive", "kauth", "kbookmarks", "kcmutils",
-	"kcodecs", "kcolorscheme", "kcompletion", "kconfig",
+	"baloo", "breeze-icons", "extra-cmake-modules",
+	"frameworkintegration", "karchive", "kauth", "kbookmarks",
+	"kcmutils", "kcodecs", "kcolorscheme", "kcompletion", "kconfig",
 	"kconfigwidgets", "kcoreaddons", "kcrash", "kdbusaddons",
-	"kdeclarative", "kdoctools", "kfilemetadata", "kglobalaccel",
-	"kguiaddons", "kholidays", "ki18n", "kiconthemes", "kidletime",
-	"kio", "kirigami", "kitemmodels", "kitemviews", "kjobwidgets",
-	"knewstuff", "knotifications", "knotifyconfig", "kpackage",
-	"kparts", "kpty", "kquickcharts", "krunner", "kservice",
-	"kstatusnotifieritem", "ksvg", "ktextwidgets", "kwallet",
-	"kwidgetsaddons", "kwindowsystem", "kxmlgui", "frameworkintegration",
-	"kded", "kdesu", "kdnssd", "kunitconversion", "kuserfeedback",
-	"networkmanager-qt", "solid", "sonnet", "syntax-highlighting",
-	"threadweaver", "prison", "extra-cmake-modules", "purpose",
-	"syndication",
+	"kdeclarative", "kded", "kdesu", "kdnssd", "kdoctools",
+	"kfilemetadata", "kglobalaccel", "kguiaddons", "kholidays", "ki18n",
+	"kiconthemes", "kidletime", "kio", "kirigami", "kitemmodels",
+	"kitemviews", "kjobwidgets", "knewstuff", "knotifications",
+	"knotifyconfig", "kpackage", "kparts", "kpty", "kquickcharts",
+	"krunner", "kservice", "kstatusnotifieritem", "ksvg", "ktexteditor",
+	"ktextwidgets", "kunitconversion", "kuserfeedback", "kwallet",
+	"kwidgetsaddons", "kwindowsystem", "kxmlgui", "modemmanager-qt",
+	"networkmanager-qt", "prison", "purpose", "qqc2-desktop-style",
+	"solid", "sonnet", "syndication", "syntax-highlighting", "threadweaver",
 });
 
 --[[ Plasma Libraries ]]
@@ -157,8 +162,12 @@ pkgs["breeze"] = {
 };
 
 batchPkgs("breeze", {
-	"kdecoration", "kwayland", "layer-shell-qt", "libkscreen", "libplasma",
-	"systemsettings", "qqc2-breeze-style", "qqc2-desktop-style",
+	"discover", "kactivitymanagerd", "kde-cli-tools", "kdecoration",
+	"kinfocenter", "kmenuedit", "knighttime", "kpipewire", "kscreen",
+	"kwayland", "layer-shell-qt", "libkscreen", "libksysguard",
+	"libplasma", "ocean-sound-theme", "plasma-activities",
+	"plasma-activities-stats", "plasma5support", "qqc2-breeze-style",
+	"systemsettings",
 });
 
 --[[ KDE Applications ]]
@@ -169,10 +178,9 @@ pkgs["audex"] = {
 };
 
 batchPkgs("audex", {
-	"kdegraphics-mobipocket", "kdenlive", "konversation", "kweather",
-	"kweathercore", "okular",
-
-	"libkcddb", "libkexiv2",
+	"baloo-widgets", "kdegraphics-mobipocket", "kdenlive", "konsole",
+	"konversation", "kweather", "kweathercore", "libkcddb", "libkexiv2",
+	"okular",
 });
 
 pkgs["alex"] = {
@@ -360,6 +368,11 @@ pkgs["bird"] = {
 	regex	= "bird-([%.%d]+).tar.gz",
 };
 
+pkgs["bird2"] = {
+	url	= "https://bird.network.cz/download/",
+	regex	= "LATEST-IS-(2.[%d.]+)",
+};
+
 pkgs["bison"] = {
 	url	= "http://ftp.gnu.org/gnu/bison",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -407,7 +420,14 @@ pkgs["bpftool"] = {
 };
 
 -- linux-tools
-batchPkgs("bpftool", "tmon");
+batchPkgs("bpftool", {
+	"intel-speed-select",
+	"kcpuid",
+	"perf",
+	"tmon",
+	"turbostat",
+	"x86_energy_perf_policy",
+});
 
 pkgs["brightnessctl"] = {
 	url	= "https://github.com/Hummer12007/brightnessctl/tags",
@@ -446,6 +466,11 @@ pkgs["c-ares"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["cabal"] = {
+	url	= "https://downloads.haskell.org/~cabal/",
+	regex	= "cabal-install-(%d+.[%d.]+)/",
+};
+
 pkgs["cabextract"] = {
 	url	= "https://github.com/kyz/libmspack/tags",
 	regex	= vPrefixedTarGz,
@@ -474,10 +499,17 @@ pkgs["cairomm"] = {
 	filter	= gnomeStable,
 };
 
+pkgs["cairomm-gtk3"] = {
+	gitrepo	= "https://gitlab.freedesktop.org/cairo/cairomm.git",
+	regex	= "tags/(1%.14%.%d+)$",
+};
+
 pkgs["capstone"] = {
 	url	= "https://github.com/capstone-engine/capstone/tags",
 	regex	= "/(%d+%.%d%.%d+).tar.gz",
 };
+
+batchPkgs("capstone", "python-capstone");
 
 pkgs["cargo-about"] = {
 	url	= "https://github.com/EmbarkStudios/cargo-about/tags",
@@ -492,6 +524,11 @@ pkgs["cargo-insta"] = {
 pkgs["cargo-c"] = {
 	url	= "https://github.com/lu-zero/cargo-c/tags",
 	regex	= vPrefixedTarGz,
+};
+
+pkgs["cataclysm-dda"] = {
+	gitrepo	= "https://github.com/CleverRaven/Cataclysm-DDA.git",
+	regex	= "tags/(0.[A-Z])$",
 };
 
 pkgs["catatonit"] = {
@@ -532,6 +569,11 @@ pkgs["cfiles"] = {
 	regex	= "v([.%d]+).tar.gz",
 };
 
+pkgs["cgal"] = {
+	gitrepo	= "https://github.com/CGAL/cgal.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["chayang"] = {
 	url	= "https://git.sr.ht/~emersion/chayang/refs",
 	regex	= vPrefixedTarGz,
@@ -542,6 +584,11 @@ pkgs["check"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["chez-scheme"] = {
+	gitrepo	= "https://github.com/cisco/ChezScheme.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["chrpath"] = {
 	url	= "http://ftp.debian.org/debian/pool/main/c/chrpath/",
 	regex	= "chrpath_([.%d]+).orig.tar.gz",
@@ -550,6 +597,11 @@ pkgs["chrpath"] = {
 pkgs["cjson"] = {
 	url	= "https://github.com/DaveGamble/cJSON/tags",
 	regex	= vPrefixedTarGz,
+};
+
+pkgs["clipper2"] = {
+	gitrepo	= "https://github.com/AngusJohnson/Clipper2.git",
+	regex	= "tags/Clipper2_([%d%.]+)$",
 };
 
 pkgs["cmake"] = {
@@ -571,6 +623,13 @@ pkgs["cmocka"] = {
 	url	= "https://git.cryptomilk.org/projects/cmocka.git/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
+
+pkgs["coin"] = {
+	gitrepo	= "https://github.com/coin3d/coin.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("coin", "coin-doc");
 
 pkgs["composefs"] = {
 	url	= "https://github.com/containers/composefs/tags",
@@ -656,6 +715,8 @@ pkgs["curl"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("curl", "ca-certs");
+
 pkgs["cxxopts"] = {
 	url	= "https://github.com/jarro2783/cxxopts/tags",
 	regex	= vPrefixedTarGz,
@@ -734,6 +795,11 @@ pkgs["dinit"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["dinit-services"] = {
+	gitrepo	= "https://github.com/eweOS/dinit-services.git",
+	regex	= numericTag,
+};
+
 pkgs["directx-headers"] = {
 	gitrepo	= "https://github.com/microsoft/DirectX-Headers.git",
 	regex	= vPrefixedTag,
@@ -751,6 +817,11 @@ pkgs["discount"] = {
 pkgs["dmidecode"] = {
 	url	= "https://sources.archlinux.org/other/dmidecode/",
 	regex	= "dmidecode-(%d+%.%d+).tar.xz",
+};
+
+pkgs["docbook-xsl"] = {
+	gitrepo	= "https://github.com/docbook/xslt10-stylesheets.git",
+	regex	= "tags/release/([%d%.]+)$",
 };
 
 pkgs["doctest"] = {
@@ -772,6 +843,19 @@ pkgs["dosfstools"] = {
 	url	= "https://github.com/dosfstools/dosfstools/tags",
 	regex	= "v(%d+%.[%.%d]+).tar.gz",
 };
+
+pkgs["double-conversion"] = {
+	gitrepo	= "https://github.com/google/double-conversion.git",
+	regex	= vPrefixedTag,
+};
+
+pkgs["doxygen"] = {
+	gitrepo	= "https://github.com/doxygen/doxygen.git",
+	regex	= "tags/Release_([%d_]+)$",
+	postMatch = replacer('_', '.'),
+};
+
+batchPkgs("doxygen", "doxywizard");
 
 pkgs["draco"] = {
 	url	= "https://github.com/google/draco/tags",
@@ -808,6 +892,11 @@ pkgs["e2fsprogs"] = {
 pkgs["ebook-tools"] = {
 	url	= "https://sourceforge.net/projects/ebook-tools/files/ebook-tools/",
 	regex	= "/(%d+%.%d+%.%d+)/",
+};
+
+pkgs["editorconfig-core-c"] = {
+	gitrepo	= "https://github.com/editorconfig/editorconfig-core-c.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["efibootmgr"] = {
@@ -908,6 +997,11 @@ pkgs["fast_float"] = {
 pkgs["fastfetch"] = {
 	url	= "https://github.com/fastfetch-cli/fastfetch/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["fbterm"] = {
+	gitrepo	= "https://github.com/izmntuk/fbterm.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["fcft"] = {
@@ -1064,6 +1158,17 @@ pkgs["fractal"] = {
 	regex	= "fractal-([%.%d]+).tar.gz",
 };
 
+pkgs["freeciv-data"] = {
+	url	= "https://files.freeciv.org/stable/",
+	regex	= "freeciv-(%d+.[%d.]+).tar.xz",
+};
+
+batchPkgs("freeciv-data", {
+	"freeciv-server", "freeciv-gtk3", "freeciv-gtk4", "freeciv-qt",
+	"freeciv-sdl2", "freeciv-stub", "freeciv-mp-gtk3", "freeciv-mp-gtk4",
+	"freeciv-mp-qt", "freeciv-mp-cli", "freeciv-tools", "libfreeciv",
+});
+
 pkgs["freetype2"] = {
 	url	= "https://download.savannah.gnu.org/releases/freetype/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -1099,6 +1204,11 @@ pkgs["fzf"] = {
 pkgs["fzpac"] = {
 	url	= "https://github.com/sheepla/fzpac/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["gamemode"] = {
+	gitrepo	= "https://github.com/FeralInteractive/gamemode.git",
+	regex	= numericTag,
 };
 
 pkgs["garcon"] = {
@@ -1152,6 +1262,8 @@ pkgs["gdal"] = {
 	url	= "https://download.osgeo.org/gdal",
 	regex	= "(%d+%.%d+%.%d+)/",
 };
+
+batchPkgs("gdal", "python-gdal");
 
 pkgs["gdbm"] = {
 	url	= "https://ftp.gnu.org/gnu/gdbm",
@@ -1255,6 +1367,11 @@ pkgs["glaze"] = {
 	regex	= vPrefixedTag,
 };
 
+pkgs["glew"] = {
+	gitrepo	= "https://github.com/nigels-com/glew.git",
+	regex	= "tags/glew-([%d.]+)$",
+};
+
 pkgs["glfw"] = {
 	url	= "https://github.com/glfw/glfw/tags",
 	regex	= "/(%d+%.[%.%d]+).tar.gz",
@@ -1287,6 +1404,11 @@ pkgs["glibmm-gtk3"] = {
 pkgs["glm"] = {
 	url	= "https://github.com/g-truc/glm/tags",
 	regex	= "([.%w]+).tar.gz",
+};
+
+pkgs["glmark2"] = {
+	gitrepo	= "https://github.com/glmark2/glmark2.git",
+	regex	= numericTag,
 };
 
 pkgs["glslang"] = {
@@ -1347,6 +1469,11 @@ pkgs["gnupg"] = {
 	url	= "https://gnupg.org/ftp/gcrypt/gnupg",
 	regex	= "gnupg-(%d+%.%d+%.%d+).tar.bz2",
 	filter	= gnomeStable,
+};
+
+pkgs["gnuplot"] = {
+	url	= "https://sourceforge.net/projects/gnuplot/",
+	regex	= "/(%d+%.%d+%.%d+)/",
 };
 
 pkgs["go"] = {
@@ -1555,6 +1682,11 @@ pkgs["havoc"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["hdf5"] = {
+	url	= "https://github.com/HDFGroup/hdf5.git",
+	regex	= numericTag,
+};
+
 pkgs["hdparm"] = {
 	url	= "https://sourceforge.net/projects/hdparm/files/hdparm/",
 	regex	= namedTarGz("hdparm"),
@@ -1615,6 +1747,8 @@ pkgs["hyfetch"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("hyfetch", "neowofetch");
+
 pkgs["hyprcursor"] = {
 	url	= "https://github.com/hyprwm/hyprcursor/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -1655,6 +1789,11 @@ pkgs["hyprwayland-scanner"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["hyprwire"] = {
+	gitrepo	= "https://github.com/hyprwm/hyprwire.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["i2c-tools"] = {
 	url	= "https://mirrors.edge.kernel.org/pub/software/utils/i2c-tools",
 	regex	= namedTarGz("i2c-tools"),
@@ -1674,6 +1813,11 @@ pkgs["idump"] = {
 pkgs["ifupdown-ng"] = {
 	url	= "https://github.com/ifupdown-ng/ifupdown-ng/tags",
 	regex	= "ifupdown-ng-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["ii"] = {
+	url	= "https://dl.suckless.org/tools/",
+	regex	= numericTarGz,
 };
 
 pkgs["imagemagick"] = {
@@ -1727,6 +1871,12 @@ pkgs["itstool"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["iverilog"] = {
+	gitrepo	= "https://github.com/steveicarus/iverilog.git",
+	regex	= "tags/v([%d_]+)$",
+	postMatch = replacer('_', '.'),
+};
+
 pkgs["jansson"] = {
 	url	= "https://github.com/akheron/jansson/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -1756,6 +1906,11 @@ pkgs["jdk23-openjdk"] = {
 batchPkgs("jdk23-openjdk", {
 	"jre23-openjdk", "openjdk23-src", "openjdk23-doc"
 });
+
+pkgs["jimtcl"] = {
+	gitrepo	= "https://github.com/msteveb/jimtcl.git",
+	regex	= numericTag,
+};
 
 pkgs["jq"] = {
 	url	= "https://github.com/stedolan/jq/tags",
@@ -1799,9 +1954,30 @@ pkgs["kdiagram"] = {
 	regex	= "href=\"(%d+%.%d+%.%d+)/\"",
 };
 
+pkgs["kexec-tools"] = {
+	gitrepo	= "https://github.com/horms/kexec-tools.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["keyutils"] = {
 	url	= "https://people.redhat.com/~dhowells/keyutils/",
 	regex	= "(%d+%.%d+%.%d+).tar.bz2",
+};
+
+pkgs["kicad"] = {
+	gitrepo	= "https://gitlab.com/kicad/code/kicad.git",
+	regex	= numericTag,
+	filter	= ignoreHighVersions,
+};
+
+pkgs["kicad-library"] = {
+	gitrepo	= "https://gitlab.com/kicad/libraries/kicad-symbols.git",
+	regex	= numericTag,
+};
+
+pkgs["kicad-library-3d"] = {
+	gitrepo	= "https://gitlab.com/kicad/libraries/kicad-packages3D.git",
+	regex	= numericTag,
 };
 
 pkgs["kirc"] = {
@@ -1871,6 +2047,11 @@ pkgs["lensfun"] = {
 	regex	= vPrefixedTarGz,
 	-- 0.3.95? What???
 	filter	= function(v) return not v[3] or tonumber(v[3]) < 90; end,
+};
+
+pkgs["lib3mf"] = {
+	gitrepo	= "https://github.com/3MFConsortium/lib3mf.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["libadwaita"] = {
@@ -2141,6 +2322,11 @@ pkgs["libfreexl"] = {
 	regex	= namedTarGz("freexl"),
 };
 
+pkgs["libfyaml"] = {
+	gitrepo	= "https://github.com/pantoniou/libfyaml.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["libgcrypt"] = {
 	url	= "https://gnupg.org/ftp/gcrypt/libgcrypt/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -2179,6 +2365,13 @@ pkgs["libgpg-error"] = {
 pkgs["libgpiod"] = {
 	url	= "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/refs",
 	regex	= namedTarGz("libgpiod"),
+};
+
+batchPkgs("libgpiod", "python-gpiod");
+
+pkgs["libgudev"] = {
+	gitrepo	= "https://github.com/GNOME/libgudev.git",
+	regex	= numericTag,
 };
 
 pkgs["libgweather"] = {
@@ -2243,6 +2436,11 @@ pkgs["libisoburn"] = {
 pkgs["libisofs"] = {
 	url	= "https://files.libburnia-project.org/releases",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["libjaylink"] = {
+	gitrepo	= "https://gitlab.zapb.de/libjaylink/libjaylink.git",
+	regex	= numericTag,
 };
 
 pkgs["libjpeg"] = {
@@ -2395,6 +2593,11 @@ pkgs["libnsl"] = {
 	regex	= vPrefixedTag,
 };
 
+pkgs["libnvme"] = {
+	gitrepo	= "https://github.com/linux-nvme/libnvme.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["libogg"] = {
 	url	= "https://downloads.xiph.org/releases/ogg",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -2418,6 +2621,11 @@ pkgs["libpcap"] = {
 pkgs["libpciaccess"] = {
 	url	= "https://xorg.freedesktop.org/releases/individual/lib/",
 	regex	= "libpciaccess-(%d+%.%d+%.%d+).tar.xz",
+};
+
+pkgs["libpfm"] = {
+	url	= "https://sourceforge.net/projects/perfmon2/files/libpfm4/",
+	regex	= "libpfm-(%d+.%d+.%d+).tar.gz",
 };
 
 pkgs["libplacebo"] = {
@@ -2616,6 +2824,11 @@ pkgs["libspiro"] = {
 	regex	= "/(%d%d%d%d%d%d%d%d).tar.gz",
 };
 
+pkgs["libspnav"] = {
+	gitrepo	= "https://github.com/FreeSpacenav/libspnav.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["libspng"] = {
 	url	= "https://github.com/randy408/libspng/tags",
 	regex	= vPrefixedTarGz,
@@ -2677,6 +2890,16 @@ pkgs["libtommath"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["libtraceevent"] = {
+	gitrepo	= "https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git",
+	regex	= "tags/libtraceevent-([%d.]+)$",
+};
+
+pkgs["libuargp"] = {
+	gitrepo	= "https://github.com/eweOS/libuargp.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["libucontext"] = {
 	url	= "https://github.com/kaniini/libucontext/tags",
 	regex	= "(%d+%.[%.%d]+).tar.gz",
@@ -2695,6 +2918,11 @@ pkgs["libuninameslist"] = {
 pkgs["libunistring"] = {
 	url	= "https://ftp.gnu.org/gnu/libunistring/",
 	regex	= "libunistring-(%d+%.%d+).tar.gz",
+};
+
+pkgs["liburcu"] = {
+	url	= "https://lttng.org/files/urcu/",
+	regex	= "userspace-rcu-(%d+.%d+.%d+).tar.bz2",
 };
 
 pkgs["libusb"] = {
@@ -2770,6 +2998,13 @@ pkgs["libxcrypt"] = {
 };
 
 batchPkgs("libxcrypt", "libxcrypt-compat");
+
+pkgs["libxcurcommon"] = {
+	gitrepo	= "https://github.com/eweOS/xcurcommon.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("libxcurcommon", "libxcurcommon-compat");
 
 pkgs["libxfce4ui"] = {
 	gitrepo	= "https://gitlab.xfce.org/xfce/libxfce4ui.git",
@@ -2867,15 +3102,20 @@ pkgs["llvm"] = {
 	regex	= "llvmorg-([.%d]+).tar.gz",
 };
 
-batchPkgs("llvm", {
-	"llvm-libs", "llvm-lto", "lldb", "openmp", "lld", "clang", "flang",
-	"mlir", "wasi-llvm-libs", "llvm-devel", "llvm-tool", "clang-tools",
+batchPkgs("llvm", { "clang", "clang-tools", "flang", "lld", "lldb",
+	"llvm-devel", "llvm-libs", "llvm-lto", "llvm-tools", "mlir", "openmp",
+	"wasi-llvm-libs",
 });
 
 pkgs["lm_sensors"] = {
 	gitrepo	= "https://github.com/hramrach/lm-sensors.git",
 	regex	= "tags/V(%d+-%d+-%d+)$",
 	postMatch = replacer('-', '.'),
+};
+
+pkgs["lmdb"] = {
+	gitrepo	= "https://git.openldap.org/openldap/openldap.git",
+	regex	= "tags/LMDB_([%d.]+)$",
 };
 
 pkgs["lua51"] = {
@@ -2898,15 +3138,21 @@ pkgs["lua51-curl"] = {
 	regex	= vPrefixedTarGz,
 };
 
+batchPkgs("lua51-curl", "lua54-curl");
+
 pkgs["lua51-cjson"] = {
 	url	= "https://github.com/openresty/lua-cjson/tags",
 	regex	= "/(%d+%.%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("lua51-cjson", "lua54-cjson");
+
 pkgs["lua51-lpeg"] = {
 	url	= "http://www.inf.puc-rio.br/~roberto/lpeg",
 	regex	= "lpeg-(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("lua51-lpeg", "lua54-lpeg");
 
 pkgs["lua51-luv"] = {
 	url	= "https://github.com/luvit/luv/tags",
@@ -2914,12 +3160,24 @@ pkgs["lua51-luv"] = {
 	postMatch = replacer('-', '.'),
 };
 
-batchPkgs("lua51-luv", "libluv");
+batchPkgs("lua51-luv", {
+	"libluv",
+	"lua54-luv",
+});
+
+pkgs["lua51-lyaml"] = {
+	gitrepo	= "https://github.com/gvvaughan/lyaml.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("lua51-lyaml", "lua54-lyaml");
 
 pkgs["lua51-mpack"] = {
 	url	= "https://github.com/libmpack/libmpack-lua/tags",
 	regex	= tarGz,
 };
+
+batchPkgs("lua51-mpack", "lua54-mpack");
 
 pkgs["lua54"] = {
 	url	= "https://www.lua.org/ftp/",
@@ -2935,6 +3193,8 @@ pkgs["luarocks54"] = {
 	url	= "https://luarocks.github.io/luarocks/releases/",
 	regex	= "luarocks-(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("luarocks54", "luarocks51");
 
 pkgs["luajit"] = {
 	gitrepo	= "https://github.com/OpenResty/luajit2.git",
@@ -2977,19 +3237,50 @@ pkgs["mallard-ducktype"] = {
 	regex	= tarGz,
 };
 
+pkgs["man-pages"] = {
+	gitrepo	= "https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git",
+	regex	= "tags/man-pages-([%d.]+)$",
+};
+
 pkgs["mandoc"] = {
 	url	= "https://mandoc.bsd.lv/snapshots/",
 	regex	= "mandoc-(%d+%.%d+%.%d+).tar.gz",
 };
+
+batchPkgs("mandoc", { "mandoc-apropos", "mandoc-soelim" });
+
+pkgs["maturin"] = {
+	gitrepo	= "https://github.com/PyO3/maturin.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("maturin", "python-maturin");
 
 pkgs["md4c"] = {
 	url	= "https://github.com/mity/md4c/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["med"] = {
+	gitrepo	= "https://github.com/chennes/med.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("med", "med-doc");
+
+pkgs["menu-cache"] = {
+	gitrepo	= "https://github.com/lxde/menu-cache.git",
+	regex	= numericTag,
+};
+
 pkgs["mercurial"] = {
 	url	= "https://www.mercurial-scm.org/release/",
 	regex	= "mercurial-(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["merkaartor"] = {
+	gitrepo	= "https://github.com/openstreetmap/merkaartor.git",
+	regex	= numericTag,
 };
 
 pkgs["mesa"] = {
@@ -2998,10 +3289,16 @@ pkgs["mesa"] = {
 };
 
 batchPkgs("mesa", {
-			"vulkan-swrast", "vulkan-virtio", "vulkan-intel",
-			"vulkan-radeon", "vulkan-mesa-layers",
-			"vulkan-gfxstream",
-		  });
+	"opencl-mesa", "vulkan-dzn", "vulkan-gfxstream", "vulkan-intel",
+	"vulkan-mesa-layers", "vulkan-radeon", "vulkan-swrast", "vulkan-virtio",
+});
+
+pkgs["mesa-demos"] = {
+	gitrepo	= "https://gitlab.freedesktop.org/mesa/demos.git",
+	regex	= "tags/mesa-demos-([%d.]+)$",
+};
+
+batchPkgs("mesa-demos", "mesa-utils");
 
 pkgs["meson"] = {
 	url	= "https://github.com/mesonbuild/meson/tags",
@@ -3016,6 +3313,11 @@ pkgs["meson-python"] = {
 pkgs["mg"] = {
 	url	= "https://github.com/hboetes/mg/tags",
 	regex	= "(%d+).tar.gz",
+};
+
+pkgs["micro"] = {
+	gitrepo	= "https://github.com/zyedidia/micro.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["mimalloc"] = {
@@ -3035,6 +3337,8 @@ pkgs["lvm2"] = {
 	regex	= "tags/v(%d+_%d+_%d+)$",
 	postMatch = replacer('_', '.'),
 };
+
+batchPkgs("lvm2", "device-mapper");
 
 pkgs["lxc"] = {
 	url	= "https://linuxcontainers.org/downloads/lxc/",
@@ -3126,6 +3430,11 @@ pkgs["minicom"] = {
 	regex	= namedTarGz("minicom"),
 };
 
+pkgs["minimodem"] = {
+	url	= "http://www.whence.com/minimodem/",
+	regex	= namedTarGz("minimodem"),
+};
+
 pkgs["minisign"] = {
 	url	= "https://github.com/jedisct1/minisign/tags",
 	regex	= "([.%d]+).tar.gz",
@@ -3150,6 +3459,13 @@ pkgs["mobile-broadband-provider-info"] = {
 	url	= "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info/-/tags",
 	regex	= namedTarGz("mobile-broadband-provider-info"),
 };
+
+pkgs["modemmanager"] = {
+	gitrepo	= "https://gitlab.freedesktop.org/mobile-broadband/ModemManager.git",
+	regex	= numericTag,
+};
+
+batchPkgs("modemmanager", { "libmm-glib", "modemmanager-docs" });
 
 pkgs["mold"] = {
 	url	= "https://github.com/rui314/mold/tags",
@@ -3216,14 +3532,28 @@ pkgs["mtr"] = {
 	regex	= "v([.%d]+).tar.gz",
 };
 
+batchPkgs("mtr", "mtr-gtk");
+
+pkgs["muparser"] = {
+	gitrepo	= "https://github.com/beltoforion/muparser.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["musl"] = {
 	url	= "https://musl.libc.org/",
 	regex	= "musl-(%d+%.%d+%.%d+).tar.gz",
 };
 
+batchPkgs("musl", "musl-static");
+
 pkgs["musl-fts"] = {
 	url	= "https://github.com/void-linux/musl-fts/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["musl-locales"] = {
+	gitrepo	= "https://git.adelielinux.org/adelie/musl-locales.git",
+	regex	= numericTag,
 };
 
 pkgs["musl-obstack"] = {
@@ -3267,6 +3597,11 @@ pkgs["ncmpc"] = {
 	regex	= namedTar("ncmpc"),
 };
 
+pkgs["ncnn"] = {
+	gitrepo	= "https://github.com/Tencent/ncnn.git",
+	regex	= numericTag,
+};
+
 pkgs["ncurses"] = {
 	url	= "http://ftp.gnu.org/gnu/ncurses/",
 	regex	= "(%d+%.%d+).tar.gz",
@@ -3285,6 +3620,11 @@ pkgs["neon"] = {
 pkgs["neovim"] = {
 	url	= "https://github.com/neovim/neovim/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["netavark"] = {
+	gitrepo	= "https://github.com/containers/netavark.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["netease-cloud-music-gtk"] = {
@@ -3308,6 +3648,8 @@ pkgs["network-manager-applet"] = {
 	filter	= gnomeStable,
 };
 
+batchPkgs("network-manager-applet", "nm-connection-editor");
+
 pkgs["networkmanager"] = {
 	url	= "https://github.com/NetworkManager/NetworkManager/tags",
 	regex	= tar,
@@ -3316,6 +3658,11 @@ pkgs["networkmanager"] = {
 batchPkgs("networkmanager", {
 	"libnm", "nm-cloud-setup", "networkmanager-docs",
 });
+
+pkgs["nextpnr"] = {
+	gitrepo	= "https://github.com/YosysHQ/nextpnr.git",
+	regex	= "tags/nextpnr-([%d.]+)$",
+};
 
 pkgs["nftables"] = {
 	url	= "https://netfilter.org/projects/nftables/files/",
@@ -3368,6 +3715,11 @@ pkgs["nodejs-nopt"] = {
 	regex	= vPrefixedTar,
 };
 
+pkgs["npm"] = {
+	gitrepo	= "https://github.com/npm/cli.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["npth"] = {
 	url	= "https://gnupg.org/ftp/gcrypt/npth/",
 	regex	= "(%d+%.%d+).tar.bz2",
@@ -3389,6 +3741,8 @@ pkgs["nss"] = {
 	regex	= "NSS_([_%d]+)_RTM.tar.gz",
 	postMatch = replacer('_', '.'),
 };
+
+batchPkgs("nss", "ca-certificates-mozilla");
 
 pkgs["ntbtls"] = {
 	url	= "https://www.gnupg.org/ftp/gcrypt/ntbtls/",
@@ -3427,14 +3781,30 @@ pkgs["oksh"] = {
 	regex	= "(%d+%.[%.%d]+).tar.gz",
 };
 
+pkgs["onetbb"] = {
+	gitrepo	= "https://github.com/uxlfoundation/oneTBB.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["oniguruma"] = {
 	url	= "https://github.com/kkos/oniguruma/tags",
 	regex	= "v([.%d]+).tar.gz",
 };
 
+pkgs["openai-codex"] = {
+	gitrepo	= "https://github.com/openai/codex.git",
+	regex	= "tags/rust-v([%d%.]+)$",
+};
+
 pkgs["openal-soft"] = {
 	url	= "https://github.com/kcat/openal-soft/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["opencascade"] = {
+	gitrepo	= "https://github.com/Open-Cascade-SAS/OCCT.git",
+	regex	= "tags/V([%d_]+)$",
+	postMatch = replacer('_', '.'),
 };
 
 pkgs["opencc"] = {
@@ -3447,19 +3817,33 @@ pkgs["opencl-headers"] = {
 	regex	= vPrefixedTar,
 };
 
+pkgs["opencsg"] = {
+	url	= "https://www.opencsg.org/",
+	regex	= "OpenCSG-(%d+.%d+.%d+).tar.gz",
+};
+
 pkgs["opencv"] = {
 	url	= "https://github.com/opencv/opencv/tags",
 	regex	= tar,
 };
+
+batchPkgs("opencv", { "opencv-samples", "python-opencv" });
 
 pkgs["opendoas"] = {
 	url	= "https://github.com/Duncaen/OpenDoas/tags",
 	regex	= "v([.%d]+).tar.gz",
 };
 
+batchPkgs("opendoas", "opendoas-pam");
+
 pkgs["openexr"] = {
 	url	= "https://github.com/AcademySoftwareFoundation/openexr/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["openfpgaloader"] = {
+	gitrepo	= "https://github.com/trabucayre/openFPGALoader.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["openh264"] = {
@@ -3472,6 +3856,11 @@ pkgs["openjpeg2"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["openjph"] = {
+	gitrepo	= "https://github.com/aous72/OpenJPH.git",
+	regex	= numericTag,
+};
+
 pkgs["openldap"] = {
 	url	= "https://www.openldap.org/software/download/OpenLDAP/openldap-release/",
 	regex	= "(%d+%.%d+%.%d+).tgz",
@@ -3479,9 +3868,19 @@ pkgs["openldap"] = {
 
 batchPkgs("openldap", "libldap");
 
+pkgs["openocd"] = {
+	gitrepo	= "https://github.com/openocd-org/openocd.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["openpmix"] = {
 	url	= "https://github.com/openpmix/openpmix/tags",
 	regex	= "v([.%d]+).tar.gz",
+};
+
+pkgs["openssh"] = {
+	url	= "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/",
+	regex	= "openssh-(%d+.%d+p%d+).tar.gz",
 };
 
 pkgs["openssl"] = {
@@ -3509,9 +3908,19 @@ pkgs["optipng"] = {
 	regex	= "optipng-(%d+%.%d+%.%d+)/",
 };
 
+pkgs["orage"] = {
+	gitrepo	= "https://gitlab.xfce.org/apps/orage.git",
+	regex	= namedTag("orage"),
+};
+
 pkgs["ostree"] = {
 	url	= "https://github.com/ostreedev/ostree/tags",
 	regex	= "v(%d%d%d%d.[%d]+).tar.gz",
+};
+
+pkgs["otf-urw-base35"] = {
+	url	= "https://github.com/ArtifexSoftware/urw-base35-fonts.git",
+	regex	= "tags/(%d%d%d%d%d%d%d%d)$",
 };
 
 pkgs["p11-kit"] = {
@@ -3527,6 +3936,16 @@ pkgs["pacman"] = {
 };
 
 batchPkgs("pacman", { "libalpm", "repo-tools"});
+
+pkgs["pacman-contrib"] = {
+	gitrepo	= "https://gitlab.archlinux.org/pacman/pacman-contrib.git",
+	regex	= vPrefixedTag,
+};
+
+pkgs["pahole"] = {
+	gitrepo	= "https://github.com/acmel/dwarves.git",
+	regex	= vPrefixedTag,
+};
 
 pkgs["pam"] = {
 	url	= "https://github.com/linux-pam/linux-pam/tags",
@@ -3546,6 +3965,11 @@ pkgs["pango"] = {
 pkgs["pangomm"] = {
 	url	= "https://gitlab.gnome.org/GNOME/pangomm/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["pangomm-gtk3"] = {
+	gitrepo	= "https://github.com/GNOME/pangomm.git",
+	regex	= "tags/(2.46.%d+)$",
 };
 
 pkgs["papirus-icon-theme"] = {
@@ -3578,15 +4002,32 @@ pkgs["pavucontrol"] = {
 	regex	= namedVTar("pavucontrol"),
 };
 
+pkgs["pavucontrol-qt"] = {
+	gitrepo	= "https://github.com/lxqt/pavucontrol-qt.git",
+	regex	= numericTag,
+};
+
+pkgs["pawprint"] = {
+	gitrepo	= "https://github.com/eweOS/pawprint.git",
+	regex	= vPrefixedTag,
+};
+
 pkgs["pciutils"] = {
 	url	= "https://www.kernel.org/pub/software/utils/pciutils/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["pcmanfm-qt"] = {
+	gitrepo	= "https://github.com/lxqt/pcmanfm-qt.git",
+	regex	= numericTag,
 };
 
 pkgs["pcre2"] = {
 	url	= "https://github.com/PhilipHazel/pcre2/tags",
 	regex	= "(%d+%.%d+).tar.gz",
 };
+
+batchPkgs("pcre2", "pcre2-static");
 
 pkgs["perl"] = {
 	url	= "https://www.cpan.org/src/",
@@ -3626,6 +4067,11 @@ pkgs["perl-clone"] = {
 pkgs["perl-cpan-requirements-dynamic"] = {
 	url	= "https://cpan.metacpan.org/authors/id/L/LE/LEONT/",
 	regex	= namedTar("CPAN-Requirements-Dynamic"),
+};
+
+pkgs["perl-crypt-urandom"] = {
+	url	= "https://cpan.metacpan.org/authors/id/D/DD/DDICK/",
+	regex	= "Crypt-URandom-(%d+.%d+).tar.gz",
 };
 
 pkgs["perl-devel-stacktrace"] = {
@@ -3905,10 +4351,24 @@ pkgs["plymouth"] = {
 	regex	= "plymouth-(%d%d%.%d+%.%d+).tar.xz",
 };
 
+pkgs["podman"] = {
+	gitrepo	= "https://github.com/containers/podman.git",
+	regex	= vPrefixedTag,
+};
+
+batchPkgs("podman", "podman-docker");
+
+pkgs["podofo"] = {
+	gitrepo	= "https://github.com/podofo/podofo.git",
+	regex	= numericTag,
+};
+
 pkgs["poppler"] = {
 	url	= "https://poppler.freedesktop.org/",
 	regex	= namedTar("poppler"),
 };
+
+batchPkgs("poppler", { "poppler-glib", "poppler-qt6" });
 
 pkgs["poppler-data"] = {
 	url	= "https://poppler.freedesktop.org/",
@@ -3928,6 +4388,11 @@ pkgs["potrace"] = {
 pkgs["prismlauncher"] = {
 	url	= "https://github.com/PrismLauncher/PrismLauncher/tags",
 	regex	= tar,
+};
+
+pkgs["prjtrellis"] = {
+	gitrepo	= "https://github.com/YosysHQ/prjtrellis.git",
+	regex	= numericTag,
 };
 
 pkgs["proj"] = {
@@ -3960,6 +4425,18 @@ pkgs["pyalpm"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
+pkgs["pyqt-builder"] = {
+	gitrepo	= "https://github.com/Python-PyQt/PyQt-builder.git",
+	regex	= numericTag,
+};
+
+pkgs["pyside6"] = {
+	url	= "https://download.qt.io/official_releases/QtForPython/pyside6/",
+	regex	= "PySide6-(%d+.%d+.%d+)-src/",
+};
+
+batchPkgs("pyside6", { "pyside6-tools", "shiboken6" });
+
 pkgs["python"] = {
 	url	= "https://github.com/python/cpython/tags",
 	regex	= vPrefixedTar,
@@ -3975,6 +4452,16 @@ pkgs["python-appdirs"] = {
 pkgs["python-aiounittest"] = {
 	url	= "https://github.com/kwarunek/aiounittest/tags",
 	regex	= tarGz,
+};
+
+pkgs["python-arrow"] = {
+	gitrepo	= "https://github.com/arrow-py/arrow.git",
+	regex	= numericTag,
+};
+
+pkgs["python-atomicwrites"] = {
+	gitrepo	= "https://github.com/untitaker/python-atomicwrites.git",
+	regex	= numericTag,
 };
 
 pkgs["python-attrs"] = {
@@ -4057,9 +4544,24 @@ pkgs["python-charset-normalizer"] = {
 	regex	= tarGz,
 };
 
+pkgs["python-coverage"] = {
+	gitrepo	= "https://github.com/nedbat/coveragepy.git",
+	regex	= numericTag,
+};
+
+pkgs["python-cryptography"] = {
+	gitrepo	= "https://github.com/pyca/cryptography.git",
+	regex	= numericTag,
+};
+
 pkgs["python-dateutil"] = {
 	url	= "https://github.com/dateutil/dateutil/tags",
 	regex	= tarGz,
+};
+
+pkgs["python-dbus"] = {
+	gitrepo	= "https://gitlab.freedesktop.org/dbus/dbus-python.git",
+	regex	= namedTag("dbus-python"),
 };
 
 pkgs["python-dbusmock"] = {
@@ -4075,6 +4577,16 @@ pkgs["python-ddt"] = {
 pkgs["python-decorator"] = {
 	url	= "https://github.com/micheles/decorator/tags",
 	regex	= tarGz,
+};
+
+pkgs["python-defusedxml"] = {
+	gitrepo	= "https://github.com/tiran/defusedxml.git",
+	regex	= vPrefixedTag,
+};
+
+pkgs["python-distro"] = {
+	gitrepo	= "https://github.com/python-distro/distro.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-docutils"] = {
@@ -4116,6 +4628,11 @@ pkgs["python-flit-core"] = {
 pkgs["python-fonttools"] = {
 	url	= "https://github.com/fonttools/fonttools/tags",
 	regex	= tarGz,
+};
+
+pkgs["python-fqdn"] = {
+	gitrepo	= "https://github.com/ypcrts/fqdn.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-freezegun"] = {
@@ -4246,6 +4763,11 @@ pkgs["python-jaraco.text"] = {
 pkgs["python-jinja"] = {
 	url	= "https://github.com/pallets/jinja/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["python-jsonpointer"] = {
+	gitrepo	= "https://github.com/stefankoegl/python-json-pointer.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-jsonschema"] = {
@@ -4533,6 +5055,11 @@ pkgs["python-rfc3987"] = {
 	gitrepo	= "https://codeberg.org/atufi/rfc3987.git",
 	regex	= vPrefixedTag,
 }
+
+pkgs["python-roman-numerals-py"] = {
+	gitrepo	= "https://github.com/AA-Turner/roman-numerals.git",
+	regex	= vPrefixedTag,
+};
 
 pkgs["python-rpds-py"] = {
 	gitrepo	= "https://github.com/crate-py/rpds.git",
@@ -4827,6 +5354,11 @@ pkgs["qgis"] = {
 	regex	= namedTar("qgis"),
 };
 
+pkgs["qhull"] = {
+	url	= "http://www.qhull.org/download/",
+	regex	= "qhull-(%d+.%d+)-src-%d+.%d+.%d+.tgz",
+};
+
 pkgs["qpdf"] = {
 	url	= "https://github.com/qpdf/qpdf/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -4844,14 +5376,56 @@ pkgs["qt6-base"] = {
 };
 
 batchPkgs("qt6-base", {
-	"qt6-3d", "qt6-5compat", "qt6-charts", "qt6-connectivity",
-	"qt6-declarative", "qt6-imageformats", "qt6-languageserver",
-	"qt6-location", "qt6-multimedia", "qt6-multimedia-ffmpeg",
-	"qt6-multimedia-gstreamer", "qt6-networkauth", "qt6-positioning",
-	"qt6-quick3d", "qt6-quicktimeline", "qt6-remoteobjects", "qt6-sensors",
-	"qt6-serialport", "qt6-shadertools", "qt6-speech", "qt6-svg",
-	"qt6-tools", "qt6-wayland", "qt6-webchannel", "qt6-websockets",
+	"qt6-3d",
+	"qt6-3d-devel",
+	"qt6-5compat",
+	"qt6-5compat-devel",
+	"qt6-base-devel",
+	"qt6-charts",
+	"qt6-charts-devel",
+	"qt6-connectivity",
+	"qt6-connectivity-devel",
+	"qt6-declarative",
+	"qt6-declarative-devel",
+	"qt6-imageformats",
+	"qt6-languageserver",
+	"qt6-languageserver-devel",
+	"qt6-location",
+	"qt6-location-devel",
+	"qt6-multimedia",
+	"qt6-multimedia-devel",
+	"qt6-multimedia-ffmpeg",
+	"qt6-multimedia-gstreamer",
+	"qt6-networkauth",
+	"qt6-networkauth-devel",
+	"qt6-positioning",
+	"qt6-positioning-devel",
+	"qt6-quick3d",
+	"qt6-quick3d-devel",
+	"qt6-quicktimeline",
+	"qt6-quicktimeline-devel",
+	"qt6-remoteobjects",
+	"qt6-remoteobjects-devel",
+	"qt6-sensors",
+	"qt6-sensors-devel",
+	"qt6-serialport",
+	"qt6-serialport-devel",
+	"qt6-shadertools",
+	"qt6-shadertools-devel",
+	"qt6-speech",
+	"qt6-speech-devel",
+	"qt6-svg",
+	"qt6-svg-devel",
+	"qt6-tools",
+	"qt6-tools-devel",
 	"qt6-virtualkeyboard",
+	"qt6-virtualkeyboard-devel",
+	"qt6-wayland",
+	"qt6-wayland-devel",
+	"qt6-webchannel",
+	"qt6-webchannel-devel",
+	"qt6-websockets",
+	"qt6-websockets-devel",
 });
 
 pkgs["qscintilla-qt6"] = {
@@ -4891,6 +5465,11 @@ batchPkgs("qwt", "qwt-docs");
 pkgs["racket"] = {
 	url	= "https://mirror.racket-lang.org/installers/",
 	regex	= "\"([%d%.]+)/\"",
+};
+
+pkgs["radeontop"] = {
+	gitrepo	= "https://github.com/clbr/radeontop.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["ragel"] = {
@@ -4957,6 +5536,11 @@ pkgs["rrdtool"] = {
 pkgs["rsync"] = {
 	url	= "https://github.com/WayneD/rsync/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
+};
+
+pkgs["ruby"] = {
+	gitrepo	= "https://github.com/ruby-git/ruby-git.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["rust"] = {
@@ -5309,6 +5893,11 @@ pkgs["taglib"] = {
 	regex	= vPrefixedTarGz,
 };
 
+pkgs["tcc"] = {
+	url	= "https://download.savannah.nongnu.org/releases/tinycc/",
+	regex	= "tcc-(%d+.%d+.%d+).tar.bz2",
+};
+
 pkgs["tcl"] = {
 	url	= "https://sourceforge.net/projects/tcl/files/Tcl/",
 	regex	= "/(%d+%.[%.%d]+)/",
@@ -5345,6 +5934,28 @@ pkgs["texinfo"] = {
 	url	= "https://ftp.gnu.org/pub/gnu/texinfo/",
 	regex	= "texinfo-([.%d]+).tar.xz",
 };
+
+pkgs["texlive-bin"] = {
+	url	= "https://texlive.info/historic/systems/texlive/" .. os.date("!%Y") .. "/",
+	regex	= "texlive-(%d%d%d%d%d%d%d%d)-source.tar.xz",
+};
+
+batchPkgs("texlive-bin", {
+	"libsynctex", "texlive-basic", "texlive-bibtexextra", "texlive-binextra",
+	"texlive-context", "texlive-doc", "texlive-fontsextra",
+	"texlive-fontsrecommended", "texlive-fontutils", "texlive-formatsextra",
+	"texlive-games", "texlive-humanities", "texlive-langarabic",
+	"texlive-langchinese", "texlive-langcjk", "texlive-langcyrillic",
+	"texlive-langczechslovak", "texlive-langenglish",
+	"texlive-langeuropean", "texlive-langfrench", "texlive-langgerman",
+	"texlive-langgreek", "texlive-langitalian", "texlive-langjapanese",
+	"texlive-langkorean", "texlive-langother", "texlive-langpolish",
+	"texlive-langportuguese", "texlive-langspanish", "texlive-latex",
+	"texlive-latexextra", "texlive-latexrecommended", "texlive-luatex",
+	"texlive-mathscience", "texlive-meta", "texlive-metapost",
+	"texlive-music", "texlive-pictures", "texlive-plaingeneric",
+	"texlive-pstricks", "texlive-publishers", "texlive-xetex",
+});
 
 pkgs["tftp-hpa"] = {
 	url	= "https://git.kernel.org/pub/scm/network/tftp/tftp-hpa.git",
@@ -5469,6 +6080,8 @@ pkgs["ttf-fira-code"] = {
 	regex	= numericTag,
 };
 
+batchPkgs("ttf-fira-code", "ttf-fira-code-variable");
+
 pkgs["ttf-inter"] = {
 	gitrepo	= "https://github.com/rsms/inter.git",
 	regex	= vPrefixedTag,
@@ -5521,6 +6134,8 @@ pkgs["ttf-unifont"] = {
 	regex	= "unifont-(%d+%.%d+%.%d+)/",
 };
 
+batchPkgs("ttf-unifont", "otf-unifont");
+
 pkgs["tty2socket"] = {
 	url	= "https://github.com/eweOS/tty2socket/tags",
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
@@ -5553,6 +6168,11 @@ pkgs["util-linux"] = {
 
 batchPkgs("util-linux", "util-linux-libs");
 
+pkgs["unifdef"] = {
+	url	= "https://dotat.at/prog/unifdef/",
+	regex	= "unifdef-(%d+.%d+).tar.gz",
+};
+
 pkgs["utf8cpp"] = {
 	url	= "https://github.com/nemtrif/utfcpp/tags/",
 	regex	= vPrefixedTarGz,
@@ -5578,6 +6198,16 @@ pkgs["valgrind"] = {
 pkgs["vapoursynth"] = {
 	url	= "https://github.com/vapoursynth/vapoursynth/tags",
 	regex	= "(R%d+).tar.gz",
+};
+
+pkgs["verdict"] = {
+	gitrepo	= "https://github.com/sandialabs/verdict.git",
+	regex	= numericTag,
+};
+
+pkgs["vid.stab"] = {
+	gitrepo	= "https://github.com/georgmartius/vid.stab.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["verilator"] = {
@@ -5633,6 +6263,12 @@ pkgs["vulkan-volk"] = {
 	note = "follow vulkan sdk version",
 };
 
+pkgs["w3m"] = {
+	gitrepo	= "https://github.com/tats/w3m.git",
+	regex	= "tags/v([%w%.+]+)$",
+	postMatch = replacer('+git', '_'),
+};
+
 pkgs["warzone2100"] = {
 	url	= "https://github.com/Warzone2100/warzone2100/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
@@ -5682,6 +6318,15 @@ pkgs["wdisplays"] = {
 	url	= "https://github.com/artizirk/wdisplays/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
+
+pkgs["webkit2gtk-4.1"] = {
+	url	= "https://webkitgtk.org/releases/",
+	regex	= "webkitgtk-(%d+.%d+.%d+).tar.xz",
+};
+
+batchPkgs("webkit2gtk-4.1", {
+	"webkit2gtk-4.1-docs", "webkit2gtk-6.0", "webkit2gtk-6.0-docs",
+});
 
 pkgs["wesnoth"] = {
 	gitrepo	= "https://github.com/wesnoth/wesnoth.git",
