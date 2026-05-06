@@ -108,9 +108,8 @@ pkgs["acl"] = {
 };
 
 pkgs["acpica"] = {
-	url	= "https://github.com/acpica/acpica/tags",
-	regex	= "R(%d+_%d+_%d+).tar.gz",
-	postMatch = replacer('_', ''),
+	gitrepo	= "https://github.com/acpica/acpica.git",
+	regex	= numericTag,
 };
 
 pkgs["ada-url"] = {
@@ -194,8 +193,8 @@ pkgs["alsa-lib"] = {
 };
 
 pkgs["alsa-utils"] = {
-	url	= "https://www.alsa-project.org/wiki/Main_Page",
-	regex	= "alsa-utils-(%d+%.%d+%.%d+).tar.bz2",
+	gitrepo	= "https://github.com/alsa-project/alsa-utils.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["aml"] = {
@@ -266,9 +265,8 @@ pkgs["astyle"] = {
 };
 
 pkgs["at-spi2-core"] = {
-	url	= "https://gitlab.gnome.org/GNOME/at-spi2-core/-/tags",
-	regex	= "AT_SPI2_CORE_([_%d]+)",
-	postMatch = replacer('_', '.'),
+	gitrepo	= "https://gitlab.gnome.org/GNOME/at-spi2-core.git",
+	regex	= numericTag,
 };
 
 pkgs["atkmm"] = {
@@ -956,8 +954,8 @@ pkgs["exiv2"] = {
 };
 
 pkgs["exo"] = {
-	url	= "https://gitlab.xfce.org/xfce/exo/-/tags",
-	regex	= namedTarGz("exo"),
+	gitrepo	= "https://gitlab.xfce.org/xfce/exo.git",
+	regex	= namedTag("exo"),
 	filter	= gnomeStable,
 };
 
@@ -1212,8 +1210,8 @@ pkgs["gamemode"] = {
 };
 
 pkgs["garcon"] = {
-	url	= "https://gitlab.xfce.org/xfce/garcon/-/tags",
-	regex	= namedTarGz("garcon"),
+	gitrepo	= "https://gitlab.xfce.org/xfce/garcon.git",
+	regex	= namedTag("garcon"),
 	filter	= gnomeStable,
 };
 
@@ -1312,8 +1310,8 @@ pkgs["ghc"] = {
 };
 
 pkgs["ghostscript"] = {
-	url	= "https://github.com/ArtifexSoftware/ghostpdl-downloads/tags",
-	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+	url	= "https://www.ghostscript.com/releases/index.html",
+	regex	= "Ghostscript (%d+%.%d+%.%d+) ",
 };
 
 batchPkgs("ghostscript", { "ghostpcl", "ghostxps" });
@@ -1329,8 +1327,8 @@ pkgs["giflib"] = {
 };
 
 pkgs["gigolo"] = {
-	url	= "https://gitlab.xfce.org/apps/gigolo/-/tags",
-	regex	= namedTarGz("gigolo"),
+	gitrepo	= "https://gitlab.xfce.org/apps/gigolo.git",
+	regex	= namedTag("gigolo"),
 };
 
 pkgs["gimp"] = {
@@ -1472,8 +1470,8 @@ pkgs["gnupg"] = {
 };
 
 pkgs["gnuplot"] = {
-	url	= "https://sourceforge.net/projects/gnuplot/",
-	regex	= "/(%d+%.%d+%.%d+)/",
+	url	= "http://www.gnuplot.info/",
+	regex	= "Release (%d+%.[%.%d]+)",
 };
 
 pkgs["go"] = {
@@ -1592,7 +1590,7 @@ batchPkgs("gstreamer", {
 	"gst-plugin-qml6", "gst-plugin-qsv",
 	"gst-plugin-va", "gst-plugins-bad", "gst-plugins-base",
 	"gst-plugins-good", "gst-python", "gst-rtsp-server",
-	"gstreamer-devel", "gstreamer-vaapi"
+	"gstreamer-devel",
 	});
 
 pkgs["gtk-doc"] = {
@@ -1683,7 +1681,7 @@ pkgs["havoc"] = {
 };
 
 pkgs["hdf5"] = {
-	url	= "https://github.com/HDFGroup/hdf5.git",
+	gitrepo	= "https://github.com/HDFGroup/hdf5.git",
 	regex	= numericTag,
 };
 
@@ -1915,11 +1913,6 @@ pkgs["jimtcl"] = {
 pkgs["jq"] = {
 	url	= "https://github.com/stedolan/jq/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
-};
-
-pkgs["js128"] = {
-	url	= "https://archive.mozilla.org/pub/firefox/releases/",
-	regex	= "(128%.%d+%.%d+)esr/",
 };
 
 pkgs["json-c"] = {
