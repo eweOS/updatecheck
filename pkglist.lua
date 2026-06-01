@@ -6394,12 +6394,12 @@ pkgs["wlr-randr"] = {
 	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
-pkgs["wlroots0.19"] = {
+pkgs["wlroots0.20"] = {
 	gitrepo	= "https://gitlab.freedesktop.org/wlroots/wlroots.git",
 	regex	= numericTag,
 };
 
-batchPkgs("wlroots0.19", "wlroots0.19-devel");
+batchPkgs("wlroots0.20", "wlroots0.20-devel");
 
 pkgs["wmenu"] = {
 	url	= "https://codeberg.org/adnano/wmenu/tags",
