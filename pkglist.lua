@@ -1656,6 +1656,7 @@ pkgs["gtkwave"] = {
 pkgs["gvfs"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gvfs/-/tags",
 	regex	= namedTarGz("gvfs"),
+	filter	= gnomeStable,
 };
 
 batchPkgs("gvfs", "gvfs-nfs");
@@ -2798,6 +2799,7 @@ pkgs["libsodium"] = {
 pkgs["libsoup3"] = {
 	url	= "https://gitlab.gnome.org/GNOME/libsoup/-/tags",
 	regex	= namedTarGz("libsoup"),
+	filter	= gnomeStable,
 };
 
 batchPkgs("libsoup3", "libsoup3-docs");
@@ -3062,7 +3064,7 @@ pkgs["licenses"] = {
 };
 
 pkgs["linux"] = {
-	url	= "https://kernel.org/pub/linux/kernel/v6.x",
+	url	= "https://kernel.org/pub/linux/kernel/v7.x",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
@@ -3904,6 +3906,7 @@ pkgs["optipng"] = {
 pkgs["orage"] = {
 	gitrepo	= "https://gitlab.xfce.org/apps/orage.git",
 	regex	= namedTag("orage"),
+	filter	= gnomeStable,
 };
 
 pkgs["ostree"] = {
@@ -6324,6 +6327,7 @@ batchPkgs("webkit2gtk-4.1", {
 pkgs["wesnoth"] = {
 	gitrepo	= "https://github.com/wesnoth/wesnoth.git",
 	regex	= numericTag,
+	filter	= gnomeStable,
 };
 
 pkgs["weston"] = {
@@ -6450,6 +6454,7 @@ pkgs["xdg-dbus-proxy"] = {
 pkgs["xdg-desktop-portal"] = {
 	url	= "https://github.com/flatpak/xdg-desktop-portal/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 pkgs["xdg-desktop-portal-gtk"] = {
