@@ -362,13 +362,13 @@ pkgs["binwalk"] = {
 };
 
 pkgs["bird"] = {
-	url	= "http://bird.network.cz/download",
-	regex	= "bird-([%.%d]+).tar.gz",
+	gitrepo	= "https://gitlab.nic.cz/labs/bird.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["bird2"] = {
-	url	= "https://bird.network.cz/download/",
-	regex	= "LATEST-IS-(2.[%d.]+)",
+	gitrepo	= "https://gitlab.nic.cz/labs/bird.git",
+	regex	= "v(2%.%d+%.%d+)$",
 };
 
 pkgs["bison"] = {
@@ -413,7 +413,7 @@ pkgs["bottom"] = {
 };
 
 pkgs["bpftool"] = {
-	url	= "https://cdn.kernel.org/pub/linux/kernel/v6.x/",
+	url	= "https://cdn.kernel.org/pub/linux/kernel/v7.x/",
 	regex	= namedTar("linux"),
 };
 
@@ -833,8 +833,8 @@ pkgs["door-knocker"] = {
 };
 
 pkgs["dos2unix"] = {
-	url	= "https://waterlan.home.xs4all.nl/dos2unix.html",
-	regex	= "dos2unix-(%d+%.[%.%d]+).tar.gz",
+	url	= "https://dos2unix.sourceforge.io/",
+	regex	= namedTarGz("dos2unix"),
 };
 
 pkgs["dosfstools"] = {
@@ -1102,6 +1102,7 @@ pkgs["flashrom"] = {
 pkgs["flatpak"] = {
 	url	= "https://github.com/flatpak/flatpak/tags",
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
+	filter	= gnomeStable,
 };
 
 batchPkgs("flatpak", "flatpak-docs");
@@ -1231,8 +1232,8 @@ pkgs["gc"] = {
 };
 
 pkgs["gcompat"] = {
-	url	= "https://git.adelielinux.org/adelie/gcompat/-/tags",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	gitrepo	= "https://git.adelielinux.org/adelie/gcompat.git",
+	regex	= numericTag,
 };
 
 pkgs["gcr-3"] = {
@@ -1313,8 +1314,6 @@ pkgs["ghostscript"] = {
 	url	= "https://www.ghostscript.com/releases/index.html",
 	regex	= "Ghostscript (%d+%.%d+%.%d+) ",
 };
-
-batchPkgs("ghostscript", { "ghostpcl", "ghostxps" });
 
 pkgs["gi-docgen"] = {
 	url	= "https://gitlab.gnome.org/GNOME/gi-docgen/-/tags",
@@ -1799,9 +1798,8 @@ pkgs["i2c-tools"] = {
 };
 
 pkgs["icu"] = {
-	url	= "https://github.com/unicode-org/icu/releases/latest",
-	regex	= "release-([-%d]+)",
-	postMatch = replacer('-', '.'),
+	gitrepo	= "https://github.com/unicode-org/icu.git",
+	regex	= "tags/release-(%d+%.[%d%.]+)$",
 };
 
 pkgs["idump"] = {
@@ -1820,8 +1818,8 @@ pkgs["ii"] = {
 };
 
 pkgs["imagemagick"] = {
-	url	= "https://imagemagick.org/archive/",
-	regex	= "ImageMagick-(%d+%.%d+%.%d+-%d+).tar.gz",
+	gitrepo	= "https://github.com/ImageMagick/ImageMagick.git",
+	regex	= "(%d+%.%d+.%d+-%d+)$",
 	postMatch = replacer('-', '.'),
 };
 
@@ -1895,16 +1893,6 @@ pkgs["jbigkit"] = {
 	url	= "https://www.cl.cam.ac.uk/~mgk25/jbigkit/",
 	regex	= namedTar("jbigkit"),
 };
-
-pkgs["jdk23-openjdk"] = {
-	url	= "https://github.com/openjdk/jdk23u/tags",
-	regex	= "jdk-(%d+[%.%d]+%+%d+).tar.gz",
-	postMatch = replacer('%+', '.u'),
-};
-
-batchPkgs("jdk23-openjdk", {
-	"jre23-openjdk", "openjdk23-src", "openjdk23-doc"
-});
 
 pkgs["jimtcl"] = {
 	gitrepo	= "https://github.com/msteveb/jimtcl.git",
@@ -2049,20 +2037,20 @@ pkgs["lib3mf"] = {
 };
 
 pkgs["libadwaita"] = {
-	url	= "https://gitlab.gnome.org/GNOME/libadwaita/-/tags",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	gitrepo	= "https://gitlab.gnome.org/GNOME/libadwaita.git",
+	regex	= numericTag,
 };
 
 batchPkgs("libadwaita", { "libadwaita-demos", "libadwaita-docs" });
 
 pkgs["libaec"] = {
-	url	= "https://gitlab.dkrz.de/k202009/libaec/-/tags",
-	regex	= namedVTarGz("libaec"),
+	gitrepo	= "https://gitlab.dkrz.de/dkrz-sw/libaec",
+	regex	= vPrefixedTag,
 };
 
 pkgs["libaio"] = {
-	url	= "https://pagure.io/libaio/releases",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	url	= "https://releases.pagure.org/libaio/",
+	regex	= namedTarGz("libaio"),
 };
 
 pkgs["libao"] = {
@@ -2493,7 +2481,7 @@ pkgs["libmd"] = {
 };
 
 pkgs["libmnl"] = {
-	url	= "https://www.netfilter.org/projects/libmnl/files/",
+	url	= "https://www.netfilter.org/pub/libmnl/",
 	regex	= "libmnl-(%d+%.%d+%.%d+).tar.bz2",
 };
 
@@ -2557,7 +2545,7 @@ pkgs["libnotify"] = {
 batchPkgs("libnotify", "libnotify-docs");
 
 pkgs["libnfnetlink"] = {
-	url	= "https://www.netfilter.org/projects/libnfnetlink/files/",
+	url	= "https://www.netfilter.org/pub/libnfnetlink/",
 	regex	= "libnfnetlink-(%d+%.%d+%.%d+).tar.bz2",
 };
 
@@ -2567,7 +2555,7 @@ pkgs["libnfs"] = {
 };
 
 pkgs["libnftnl"] = {
-	url	= "https://netfilter.org/projects/libnftnl/files/",
+	url	= "https://www.netfilter.org/pub/libnftnl/",
 	regex	= "libnftnl-(%d+%.%d+%.%d+).tar.xz",
 };
 
@@ -2623,8 +2611,8 @@ pkgs["libpfm"] = {
 };
 
 pkgs["libplacebo"] = {
-	url	= "https://code.videolan.org/videolan/libplacebo/-/tags",
-	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	gitrepo	= "https://code.videolan.org/videolan/libplacebo.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["libpng"] = {
@@ -2713,6 +2701,7 @@ pkgs["librevenge"] = {
 pkgs["librsvg"] = {
 	url	= "https://gitlab.gnome.org/GNOME/librsvg/-/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
+	filter	= ignoreHighVersions,
 };
 
 batchPkgs("librsvg", "librsvg-docs");
@@ -3029,8 +3018,6 @@ pkgs["libxml2"] = {
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
-batchPkgs("libxml2", "libxml2-docs");
-
 pkgs["libxmlb"] = {
 	url	= "https://github.com/hughsie/libxmlb/tags",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
@@ -3217,9 +3204,8 @@ pkgs["m4"] = {
 };
 
 pkgs["mailcap"] = {
-	url	= "https://pagure.io/mailcap/releases",
-	regex	= "r([-%d]+).tar.gz",
-	postMatch = replacer('-', '.'),
+	url	= "https://releases.pagure.org/mailcap/",
+	regex	= namedTar("mailcap"),
 };
 
 pkgs["make"] = {
@@ -3660,7 +3646,7 @@ pkgs["nextpnr"] = {
 };
 
 pkgs["nftables"] = {
-	url	= "https://netfilter.org/projects/nftables/files/",
+	url	= "https://netfilter.org/pub/nftables/",
 	regex	= namedTar("nftables"),
 };
 
@@ -3915,7 +3901,7 @@ pkgs["ostree"] = {
 };
 
 pkgs["otf-urw-base35"] = {
-	url	= "https://github.com/ArtifexSoftware/urw-base35-fonts.git",
+	gitrepo	= "https://github.com/ArtifexSoftware/urw-base35-fonts.git",
 	regex	= "tags/(%d%d%d%d%d%d%d%d)$",
 };
 
@@ -4682,8 +4668,8 @@ pkgs["python-httplib2"] = {
 };
 
 pkgs["python-hypothesis"] = {
-	url	= "https://github.com/HypothesisWorks/hypothesis/tags",
-	regex	= "hypothesis-python-(%d+%.%d+%.%d+).tar.gz",
+	gitrepo	= "https://github.com/HypothesisWorks/hypothesis.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["python-idna"] = {
@@ -4717,8 +4703,8 @@ pkgs["python-installer"] = {
 };
 
 pkgs["python-iso8601"] = {
-	url	= "https://pypi.org/project/iso8601/",
-	regex	= namedTarGz("iso8601"),
+	gitrepo	= "https://github.com/micktwomey/pyiso8601.git",
+	regex	= numericTag,
 };
 
 pkgs["python-isodate"] = {
@@ -4942,16 +4928,6 @@ pkgs["python-pyparsing"] = {
 	regex	= tarGz,
 };
 
-pkgs["python-pyqt6"] = {
-	url	= "https://pypi.org/project/PyQt6/",
-	regex	= namedTar("pyqt6"),
-};
-
-pkgs["python-pyqt6-sip"] = {
-	url	= "https://pypi.org/project/PyQt6-sip/",
-	regex	= namedTar("pyqt6_sip"),
-};
-
 pkgs["python-pysocks"] = {
 	url	= "https://github.com/Anorov/PySocks/tags",
 	regex	= tarGz,
@@ -5000,11 +4976,6 @@ pkgs["python-pytest-mock"] = {
 pkgs["python-pytest-pacman"] = {
 	url	= "https://gitlab.archlinux.org/archlinux/pytest-pacman/-/tags",
 	regex	= "v([.%d]+).tar.gz",
-};
-
-pkgs["python-pytest-subtests"] = {
-	gitrepo	= "https://github.com/pytest-dev/pytest-subtests.git",
-	regex	= vPrefixedTag,
 };
 
 pkgs["python-pytest-timeout"] = {
@@ -5264,7 +5235,7 @@ pkgs["python-uri-template"] = {
 
 pkgs["python-urllib3"] = {
 	url	= "https://github.com/urllib3/urllib3/tags",
-	regex	= "(1%.%d+%.%d+).tar.gz",
+	regex	= "(%d%.[%d%.]+).tar.gz",
 };
 
 pkgs["python-validate-pyproject"] = {
@@ -5484,8 +5455,8 @@ pkgs["rapidjson"] = {
 };
 
 pkgs["rav1e"] = {
-	url	= "https://github.com/xiph/rav1e",
-	regex	= "xiph/rav1e/releases/tag/v(%d+%.[%.%d]+)",
+	gitrepo	= "https://github.com/xiph/rav1e.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["rdfind"] = {
@@ -5668,8 +5639,8 @@ pkgs["simdutf"] = {
 };
 
 pkgs["sing-box"] = {
-	url	= "https://github.com/SagerNet/sing-box",
-	regex	= "v(%d+%.%d+%.%d+)",
+	gitrepo	= "https://github.com/SagerNet/sing-box.git",
+	regex	= vPrefixedTag,
 };
 
 pkgs["sip"] = {
@@ -6659,11 +6630,6 @@ pkgs["yaml-cpp"] = {
 	regex	= "/(%d+%.%d+%.%d+).tar.gz",
 };
 
-pkgs["yasm"] = {
-	url	= "https://www.tortall.net/projects/yasm/releases/",
-	regex	= "yasm-(%d+%.%d+%.%d+).tar.gz",
-};
-
 pkgs["yelp-tools"] = {
 	url	= "https://gitlab.gnome.org/GNOME/yelp-tools/-/tags",
 	regex	= "yelp-tools-(%d+%.[%.%d+]).tar.gz",
@@ -6722,7 +6688,7 @@ batchPkgs("zlib-ng", "zlib-ng-static");
 
 pkgs["zsh"] = {
 	url	= "https://zsh.org/pub/",
-	regex	= "zsh-(%d+%.%d+).tar.xz",
+	regex	= "zsh-(%d+%.[%d%.]+).tar.xz",
 };
 
 pkgs["zstd"] = {
