@@ -260,7 +260,7 @@ pkgs["aspell"] = {
 };
 
 pkgs["astyle"] = {
-	url	= "https://sourceforge.net/projects/astyle",
+	url	= "https://gitlab.com/saalen/astyle/-/tags",
 	regex	= "astyle-(%d%.[%.%d]+).tar.bz2",
 };
 
@@ -281,12 +281,12 @@ pkgs["atkmm-gtk3"] = {
 };
 
 pkgs["atool"] = {
-	url	= "http://download.savannah.gnu.org/releases/atool/",
+	url	= "https://download.savannah.gnu.org/releases/atool/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["attr"] = {
-	url	= "http://download.savannah.gnu.org/releases/attr/",
+	url	= "https://download.savannah.gnu.org/releases/attr/",
 	regex	= "(%d+%.%d+%.%d+).tar.gz",
 };
 
@@ -973,11 +973,6 @@ pkgs["expat"] = {
 pkgs["expect"] = {
 	url	= "https://sourceforge.net/projects/expect/files/Expect/",
 	regex	= "/(%d+%.[%.%d]+)/",
-};
-
-pkgs["fake-alpine-release"] = {
-	url	= "https://git.alpinelinux.org/aports/plain/main/alpine-base/APKBUILD",
-	regex	= "pkgver=([.%d]+)",
 };
 
 pkgs["fakeroot"] = {
@@ -2044,13 +2039,13 @@ pkgs["libadwaita"] = {
 batchPkgs("libadwaita", { "libadwaita-demos", "libadwaita-docs" });
 
 pkgs["libaec"] = {
-	gitrepo	= "https://gitlab.dkrz.de/dkrz-sw/libaec",
-	regex	= vPrefixedTag,
+	url	= "https://github.com/Deutsches-Klimarechenzentrum/libaec/tags",
+	regex	= "releases/tag/v([%d%.]+)\"",
 };
 
 pkgs["libaio"] = {
-	url	= "https://releases.pagure.org/libaio/",
-	regex	= namedTarGz("libaio"),
+	url	= "https://releases.pagure.org/libaio/releases",
+	regex	= "libaio-([%d%.]+)",
 };
 
 pkgs["libao"] = {
@@ -2154,11 +2149,6 @@ pkgs["libcpuid"] = {
 	regex	= vPrefixedTarGz,
 };
 
-pkgs["libcrc32c"] = {
-	url	= "https://github.com/google/crc32c/tags",
-	regex	= "/(%d+%.%d+%.%d+).tar.gz",
-};
-
 pkgs["libcrossguid"] = {
 	url	= "https://github.com/graeme-hill/crossguid/tags",
 	regex	= "v([.%d]+).tar.gz",
@@ -2227,8 +2217,8 @@ pkgs["libdrm"] = {
 };
 
 pkgs["libdvdread"] = {
-	url	= "https://code.videolan.org/videolan/libdvdread/-/tags",
-	regex	= namedTarGz("libdvdread"),
+	url	= "https://download.videolan.org/pub/videolan/libdvdread/",
+	regex	= "href=\"([%d][%d%.]*)/\"",
 };
 
 pkgs["libebur128"] = {
@@ -2526,8 +2516,11 @@ pkgs["libndp"] = {
 };
 
 pkgs["libnewt"] = {
-	url	= "https://releases.pagure.org/newt/",
-	regex	= namedTarGz("newt"),
+	url	= "https://releases.pagure.org/newt/releases",
+	regex	= "r([%d]+-[%d]+-[%d]+)",
+	postMatch	= function(v)
+		return (v:gsub("%-", "."));
+	end,
 };
 
 pkgs["libnma-common"] = {
@@ -2611,8 +2604,8 @@ pkgs["libpfm"] = {
 };
 
 pkgs["libplacebo"] = {
-	gitrepo	= "https://code.videolan.org/videolan/libplacebo.git",
-	regex	= vPrefixedTag,
+	url	= "https://github.com/haasn/libplacebo/tags",
+	regex	= "releases/tag/v([%d%.]+)\"",
 };
 
 pkgs["libpng"] = {
@@ -3204,8 +3197,11 @@ pkgs["m4"] = {
 };
 
 pkgs["mailcap"] = {
-	url	= "https://releases.pagure.org/mailcap/",
-	regex	= namedTar("mailcap"),
+	url	= "https://releases.pagure.org/mailcap/releases",
+	regex	= "r([%d]+-[%d]+-[%d]+)",
+	postMatch	= function(v)
+		return (v:gsub("%-", "."));
+	end,
 };
 
 pkgs["make"] = {
@@ -4477,8 +4473,8 @@ pkgs["python-beaker"] = {
 };
 
 pkgs["python-beautifulsoup4"] = {
-	url	= "https://git.launchpad.net/beautifulsoup/tree/CHANGELOG",
-	regex	= "%s(%d+%.%d+%.%d+)%s",
+	url	= "https://pypi.org/project/beautifulsoup4/",
+	regex	= "beautifulsoup4%s+([%d%.]+)",
 };
 
 pkgs["python-boolean.py"] = {
@@ -5229,8 +5225,8 @@ pkgs["python-ufolib2"] = {
 };
 
 pkgs["python-uri-template"] = {
-	gitrepo	= "https://gitlab.linss.com/open-source/python/uri-template.git",
-	regex	= vPrefixedTag,
+	url	= "https://pypi.org/project/uri-template/",
+	regex	= "uri-template%s+([%d%.]+)",
 };
 
 pkgs["python-urllib3"] = {
@@ -5838,11 +5834,6 @@ pkgs["swayimg"] = {
 pkgs["swig"] = {
 	url	= "https://sourceforge.net/projects/swig/files/swig/",
 	regex	= "swig-(%d+%.%d+%.%d+)/",
-};
-
-pkgs["swww"] = {
-	url	= "https://github.com/Horus645/swww/tags",
-	regex	= "v(%d+%.%d+%.%d+).tar.gz",
 };
 
 pkgs["symlinks"] = {
@@ -6601,8 +6592,8 @@ pkgs["xkeyboard-config"] = {
 };
 
 pkgs["xmlto"] = {
-	url	= "https://releases.pagure.org/xmlto/",
-	regex	= "xmlto-(%d+%.%d+%.%d+).tar.bz2",
+	url	= "https://releases.pagure.org/xmlto/releases",
+	regex	= "<strong>([%d%.]+)</strong>",
 };
 
 pkgs["xxhash"] = {
